@@ -1,0 +1,75 @@
+{
+  "officials": [
+    {
+      "id": "notion",
+      "name": "Notion",
+      "kind": "notion",
+      "token_env": "NOTION_TOKEN",
+      "description": "Create entries / pages in Notion databases",
+      "tools": [
+        {
+          "tool_name": "notion_create_entry",
+          "description": "Create a page entry in Notion (uses NOTION_PARENT_PAGE or a database_id)",
+          "params": [
+            { "name": "title", "type": "str", "default": null },
+            { "name": "database_id", "type": "str", "default": "" },
+            { "name": "content", "type": "str", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gsheet",
+      "name": "Google Sheets",
+      "kind": "gsheet",
+      "token_env": "GOOGLE_OAUTH_TOKEN",
+      "description": "Append rows to Google Sheets spreadsheets",
+      "tools": [
+        {
+          "tool_name": "sheets_append_row",
+          "description": "Append a row (JSON array of values) to a Google Sheet",
+          "params": [
+            { "name": "spreadsheet_id", "type": "str", "default": null },
+            { "name": "sheet_range", "type": "str", "default": "Sheet1!A1" },
+            { "name": "values_json", "type": "str", "default": "[]" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "kind": "github",
+      "token_env": "GITHUB_TOKEN",
+      "description": "Create issues on GitHub repositories",
+      "tools": [
+        {
+          "tool_name": "github_create_issue",
+          "description": "Create an issue on a GitHub repo (owner/name)",
+          "params": [
+            { "name": "repo", "type": "str", "default": null },
+            { "name": "title", "type": "str", "default": null },
+            { "name": "body", "type": "str", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "kind": "slack",
+      "token_env": "SLACK_TOKEN",
+      "description": "Post messages to Slack channels",
+      "tools": [
+        {
+          "tool_name": "slack_post_message",
+          "description": "Post a message to a Slack channel (#general or channel id)",
+          "params": [
+            { "name": "channel", "type": "str", "default": null },
+            { "name": "text", "type": "str", "default": "" }
+          ]
+        }
+      ]
+    }
+  ]
+}

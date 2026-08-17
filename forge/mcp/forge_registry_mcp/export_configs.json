@@ -1,0 +1,169 @@
+{
+  "claude_code": {
+    "platform_id": "claude_code",
+    "platform": "Claude Code",
+    "is_cli": true,
+    "command": "claude mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py",
+    "config_file": "claude_desktop_config.json",
+    "config_path": "%APPDATA%/Claude/claude_desktop_config.json",
+    "config": {
+      "mcpServers": {
+        "forge-registry": {
+          "command": "python",
+          "args": [
+            "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"
+          ],
+          "env": {
+            "NOTION_TOKEN": "<your_notion_token>",
+            "NOTION_DATABASE_ID": "<optional_notion_database_id>",
+            "GMAIL_USER": "<your_gmail_address>",
+            "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+            "GMAIL_TO": "<where_to_send_alerts>",
+            "FORGE_HEADLESS": "0"
+          }
+        }
+      }
+    },
+    "instructions": "Run `claude mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py` in your terminal."
+  },
+  "cursor": {
+    "platform_id": "cursor",
+    "platform": "Cursor",
+    "is_cli": false,
+    "command": null,
+    "config_file": ".cursor/mcp.json",
+    "config_path": ".cursor/mcp.json",
+    "config": {
+      "mcpServers": {
+        "forge-registry": {
+          "command": "python",
+          "args": [
+            "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"
+          ],
+          "env": {
+            "NOTION_TOKEN": "<your_notion_token>",
+            "NOTION_DATABASE_ID": "<optional_notion_database_id>",
+            "GMAIL_USER": "<your_gmail_address>",
+            "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+            "GMAIL_TO": "<where_to_send_alerts>",
+            "FORGE_HEADLESS": "0"
+          }
+        }
+      }
+    },
+    "instructions": "Copy this JSON config into your project's .cursor/mcp.json and reload Cursor."
+  },
+  "zcode": {
+    "platform_id": "zcode",
+    "platform": "Z Code (Zed)",
+    "is_cli": false,
+    "command": null,
+    "config_file": "settings.json",
+    "config_path": "~/.config/zed/settings.json (context_servers)",
+    "config": {
+      "context_servers": {
+        "forge-registry": {
+          "command": {
+            "path": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "NOTION_DATABASE_ID": "<optional_notion_database_id>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GMAIL_TO": "<where_to_send_alerts>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      }
+    },
+    "instructions": "Add this JSON snippet to settings.json under `context_servers` in Zed."
+  },
+  "opencode": {
+    "platform_id": "opencode",
+    "platform": "OpenCode",
+    "is_cli": true,
+    "command": "opencode mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py",
+    "config_file": "opencode_mcp.json",
+    "config_path": "opencode_mcp.json",
+    "config": {
+      "mcp": {
+        "servers": {
+          "forge-registry": {
+            "type": "stdio",
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "NOTION_DATABASE_ID": "<optional_notion_database_id>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GMAIL_TO": "<where_to_send_alerts>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      }
+    },
+    "instructions": "Run `opencode mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py` in your terminal."
+  },
+  "antigravity": {
+    "platform_id": "antigravity",
+    "platform": "Antigravity",
+    "is_cli": false,
+    "command": null,
+    "config_file": "mcp.json",
+    "config_path": "~/.config/antigravity/mcp.json",
+    "config": {
+      "mcpServers": {
+        "forge-registry": {
+          "command": "python",
+          "args": [
+            "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"
+          ],
+          "env": {
+            "NOTION_TOKEN": "<your_notion_token>",
+            "NOTION_DATABASE_ID": "<optional_notion_database_id>",
+            "GMAIL_USER": "<your_gmail_address>",
+            "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+            "GMAIL_TO": "<where_to_send_alerts>",
+            "FORGE_HEADLESS": "0"
+          }
+        }
+      }
+    },
+    "instructions": "Add this configuration into ~/.config/antigravity/mcp.json or Antigravity MCP settings."
+  },
+  "codex": {
+    "platform_id": "codex",
+    "platform": "Codex",
+    "is_cli": true,
+    "command": "codex mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py",
+    "config_file": "codex_mcp.json",
+    "config_path": "codex_mcp.json",
+    "config": {
+      "mcpServers": {
+        "forge-registry": {
+          "command": "python",
+          "args": [
+            "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"
+          ],
+          "env": {
+            "NOTION_TOKEN": "<your_notion_token>",
+            "NOTION_DATABASE_ID": "<optional_notion_database_id>",
+            "GMAIL_USER": "<your_gmail_address>",
+            "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+            "GMAIL_TO": "<where_to_send_alerts>",
+            "FORGE_HEADLESS": "0"
+          }
+        }
+      }
+    },
+    "instructions": "Run `codex mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py` in your terminal."
+  }
+}

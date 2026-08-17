@@ -1,0 +1,159 @@
+[
+  {
+    "id": "forge_20260817_191203_625511",
+    "timestamp": "2026-08-17T19:12:03",
+    "goal": "Find Web3 hackathons on Unstop with prize >50000, mail me and log to Notion",
+    "mcp_name": "unified-forge",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "unstop_search",
+      "unstop_filter_hackathons",
+      "notion_create_entry"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "unstop_filter_hackathons",
+        "source": "Custom unstop.com Forged",
+        "params": {
+          "query": "Web3",
+          "prize_min": 50000
+        },
+        "parallel": false
+      },
+      "t2": {
+        "tool": "gmail_notify_and_log",
+        "source": "Core Gmail",
+        "parallel": true,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t1"
+        ]
+      }
+    },
+    "skill_content": "---\nname: unified-forge\ndescription: Find Web3 hackathons on Unstop with prize >50000, mail me and log to Notion\nversion: 1.0.0\nmcp: unified-forge\n---\n\n# Skill: Find Web3 hackathons on Unstop with prize >50000, mail me and log to Notion\n\n## Overview\nThis skill executes: Find Web3 hackathons on Unstop with prize >50000, mail me and log to Notion\nUses MCP Server: unified-forge with 10 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- unstop_search\n- unstop_filter_hackathons\n- notion_create_entry\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"unstop_filter_hackathons\",\n    \"source\": \"Custom unstop.com Forged\",\n    \"params\": {\n      \"query\": \"Web3\",\n      \"prize_min\": 50000\n    },\n    \"parallel\": false\n  },\n  \"t2\": {\n    \"tool\": \"gmail_notify_and_log\",\n    \"source\": \"Core Gmail\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t1\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `unified-forge` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from unified-forge) in parallel\n   - CALL `gmail_notify_and_log` (from unified-forge) in parallel\n3. Return summary\n\nDo not re-discover tools — use unified-forge tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Find Web3 hackathons on Unstop with prize >50000, mail me and log to Notion\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260817_191203_625511/unified-mcp-forge_20260817_191203_625511.zip"
+  },
+  {
+    "id": "forge_20260817_190134_555214",
+    "timestamp": "2026-08-17T19:01:34",
+    "goal": "Check 8GB RAM discount >20% on Amazon, mail me and log to Notion",
+    "mcp_name": "unified-forge",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "notion_create_entry"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_monitor_ram_discount",
+        "source": "Core Amazon",
+        "params": {
+          "query": "8GB RAM",
+          "discount_threshold": 20
+        },
+        "parallel": true
+      },
+      "t2": {
+        "tool": "gmail_notify_and_log",
+        "source": "Core Gmail",
+        "parallel": true,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t1"
+        ]
+      }
+    },
+    "skill_content": "---\nname: unified-forge\ndescription: Check 8GB RAM discount >20% on Amazon, mail me and log to Notion\nversion: 1.0.0\nmcp: unified-forge\n---\n\n# Skill: Check 8GB RAM discount >20% on Amazon, mail me and log to Notion\n\n## Overview\nThis skill executes: Check 8GB RAM discount >20% on Amazon, mail me and log to Notion\nUses MCP Server: unified-forge with 8 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- notion_create_entry\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_monitor_ram_discount\",\n    \"source\": \"Core Amazon\",\n    \"params\": {\n      \"query\": \"8GB RAM\",\n      \"discount_threshold\": 20\n    },\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"gmail_notify_and_log\",\n    \"source\": \"Core Gmail\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t1\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `unified-forge` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from unified-forge) in parallel\n   - CALL `gmail_notify_and_log` (from unified-forge) in parallel\n3. Return summary\n\nDo not re-discover tools — use unified-forge tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Check 8GB RAM discount >20% on Amazon, mail me and log to Notion\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260817_190134_555214/unified-mcp-forge_20260817_190134_555214.zip"
+  },
+  {
+    "id": "forge_20260817_184452_040876",
+    "timestamp": "2026-08-17T18:44:52",
+    "goal": "Find hackathons and log events",
+    "mcp_name": "unified-forge",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py",
+    "tools": [
+      "devpost_search_hackathons",
+      "mlh_get_events"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "devpost_search_hackathons",
+        "source": "Custom Devpost Forged"
+      }
+    },
+    "skill_content": "---\nname: unified-forge\ndescription: Find hackathons and log events\nversion: 1.0.0\nmcp: unified-forge\n---\n\n# Skill: Find hackathons and log events\n\n## Overview\nThis skill executes: Find hackathons and log events\nUses MCP Server: unified-forge with 2 tools\n\n## MCP Tools (from server.py)\n- devpost_search_hackathons\n- mlh_get_events\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"devpost_search_hackathons\",\n    \"source\": \"Custom Devpost Forged\"\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `unified-forge` installed. Follow this exact sequence:\n\n1. CALL mcp tool `devpost_search_hackathons` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from unified-forge) in parallel\n   - CALL `notion_create_database_entry` (from unified-forge) in parallel\n3. Return summary\n\nDo not re-discover tools — use unified-forge tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Find hackathons and log events\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260817_184452_040876/unified-mcp-forge_20260817_184452_040876.zip"
+  },
+  {
+    "id": "forge_20260817_184451_979888",
+    "timestamp": "2026-08-17T18:44:51",
+    "goal": "Check RAM discount >20% mail and Notion",
+    "mcp_name": "unified-forge",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_monitor_ram_discount",
+        "source": "Core Amazon",
+        "params": {
+          "discount_threshold": 20
+        },
+        "parallel": true
+      },
+      "t2": {
+        "tool": "gmail_notify_and_log",
+        "source": "Core Gmail",
+        "parallel": true,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t1"
+        ]
+      }
+    },
+    "skill_content": "---\nname: unified-forge\ndescription: Check RAM discount >20% mail and Notion\nversion: 1.0.0\nmcp: unified-forge\n---\n\n# Skill: Check RAM discount >20% mail and Notion\n\n## Overview\nThis skill executes: Check RAM discount >20% mail and Notion\nUses MCP Server: unified-forge with 7 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_monitor_ram_discount\",\n    \"source\": \"Core Amazon\",\n    \"params\": {\n      \"discount_threshold\": 20\n    },\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"gmail_notify_and_log\",\n    \"source\": \"Core Gmail\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t1\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `unified-forge` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from unified-forge) in parallel\n   - CALL `gmail_notify_and_log` (from unified-forge) in parallel\n3. Return summary\n\nDo not re-discover tools — use unified-forge tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Check RAM discount >20% mail and Notion\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260817_184451_979888/unified-mcp-forge_20260817_184451_979888.zip"
+  }
+]
