@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Optional
 
 from jinja2 import Environment, FileSystemLoader
@@ -404,8 +405,14 @@ def render_unified_server(
     site_tools: list[list[dict]],
     officials: list[dict],
     dag: Optional[dict] = None,
+    server_name: Optional[str] = None,
+    out_dir: Optional[Any] = None,
 ) -> tuple[str, list[dict], str]:
-    """Render mcp_registry/servers/unified-mcp/server.py.
+    """Render a unified FastMCP server.py.
+
+    By default writes to mcp_registry/servers/unified-mcp/server.py. When
+    ``server_name``/``out_dir`` are provided (Factory mode), writes to the
+    per-MCP directory so every forge gets its own isolated server + SKILL.md.
 
     officials: flattened entries from registry.resolve_officials(), each with
     tool_name/description/params/name/kind/token_env.
@@ -414,6 +421,10 @@ def render_unified_server(
     """
     ensure_dirs()
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    active_name = server_name or SERVER_NAME
+    target_dir = Path(out_dir) if out_dir else UNIFIED_SERVER_DIR
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target_path = target_dir / "server.py"
 
     def build(llm_tools_allowed: bool) -> str:
         custom_sites = []
@@ -455,7 +466,7 @@ def render_unified_server(
         ]
 
         context = {
-            "server_name": SERVER_NAME,
+            "server_name": active_name,
             "generated_at": generated_at,
             "goal": goal or "(no goal given)",
             "site_labels": ", ".join(s["label"] for s in custom_sites) or "none",
@@ -474,13 +485,13 @@ def render_unified_server(
 
     source, manifest = build(llm_tools_allowed=True)
     try:
-        compile(source, str(UNIFIED_SERVER_PY), "exec")
+        compile(source, str(target_path), "exec")
     except SyntaxError:
         source, manifest = build(llm_tools_allowed=False)
-        compile(source, str(UNIFIED_SERVER_PY), "exec")  # must compile — deterministic is trusted
+        compile(source, str(target_path), "exec")  # must compile — deterministic is trusted
 
-    UNIFIED_SERVER_PY.write_text(source, "utf-8")
-    return source, manifest, str(UNIFIED_SERVER_PY)
+    target_path.write_text(source, "utf-8")
+    return source, manifest, str(target_path)
 
 
 def render_single_site_server(goal: str, site_log: dict, tools: list[dict]) -> tuple[str, str]:

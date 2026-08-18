@@ -96,7 +96,7 @@ def record_history_entry(
     hist_skill_file.write_text(skill_content, "utf-8")
 
     hist_zip_file = target_hist_dir / f"unified-mcp-{hid}.zip"
-    if Path(zip_path).exists():
+    if zip_path and Path(zip_path).is_file():
         shutil.copy2(zip_path, hist_zip_file)
 
     entry: dict[str, Any] = {

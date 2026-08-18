@@ -16,9 +16,11 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-from backend.config import DIST_DIR, SERVER_NAME, UNIFIED_SERVER_DIR, VERSION, ensure_dirs
+from backend.config import DIST_DIR, ROOT, SERVER_NAME, UNIFIED_SERVER_DIR, VERSION, ensure_dirs
 from forge.exporter import default_env_block, generate_all_export_configs, generate_export_scripts
 from forge.skills.single_skill_generator import generate_single_skill
+
+ROOT_FORGE_DIR = ROOT
 
 ZIP_REQUIREMENTS = "fastmcp>=2.3.0\nplaywright>=1.48.0\nhttpx>=0.27.0\n"
 
@@ -79,12 +81,20 @@ def build_zip(
     dag: dict[str, Any] | None = None,
     goal: str = "",
     out_zip: Path | None = None,
+    server_name: str | None = None,
+    skill_dir: Path | None = None,
+    include_universal_config: bool = True,
 ) -> tuple[Path, dict, dict, str, str, dict]:
-    """Create dist/unified-mcp.zip with single SKILL.md, export_configs.json, and export scripts.
+    """Create dist/<name>.zip with single SKILL.md, export_configs.json, and export scripts.
+
+    When ``server_name``/``skill_dir`` are provided (Factory mode), the single
+    root SKILL.md is also written into the per-MCP directory. The universal
+    forge.mcp.json is embedded in the archive when present.
 
     Returns (zip_path, claude_snippet, cursor_snippet, readme, skill_content, export_configs).
     """
     ensure_dirs()
+    active_name = server_name or SERVER_NAME
     out_zip = out_zip or (DIST_DIR / "unified-mcp.zip")
     server_clean_path = str(server_abs_path).replace("\\", "/")
 
@@ -108,14 +118,15 @@ def build_zip(
     env_block.setdefault("GMAIL_TO", "<where_to_send_alerts>")
     env_block.setdefault("FORGE_HEADLESS", "0")
 
-    # 1. Single SKILL.md
-    skill_content = generate_single_skill(goal, manifest, dag, SERVER_NAME)
-    skill_file_dest = UNIFIED_SERVER_DIR / "SKILL.md"
+    # 1. Single SKILL.md (written next to the server so each MCP dir is self-contained)
+    skill_content = generate_single_skill(goal, manifest, dag, active_name)
+    skill_file_dest = (skill_dir or UNIFIED_SERVER_DIR) / "SKILL.md"
+    skill_file_dest.parent.mkdir(parents=True, exist_ok=True)
     skill_file_dest.write_text(skill_content, "utf-8")
 
     # 2. 6-Way Export Configs and Scripts
-    export_configs = generate_all_export_configs(SERVER_NAME, server_clean_path, env_block)
-    bat_script, sh_script = generate_export_scripts(SERVER_NAME, server_clean_path)
+    export_configs = generate_all_export_configs(active_name, server_clean_path, env_block)
+    bat_script, sh_script = generate_export_scripts(active_name, server_clean_path)
 
     claude_snippet = export_configs["claude_code"]["config"]
     cursor_snippet = export_configs["cursor"]["config"]
@@ -131,7 +142,7 @@ def build_zip(
         or "- None selected — this server is pure browser automation, no tokens needed."
     )
     readme = README_TEMPLATE.format(
-        server_name=SERVER_NAME,
+        server_name=active_name,
         n_sites=n_sites,
         n_officials=n_officials,
         tools_line=f"{len(core)} core + {len(forged)} forged + {len(official)} official = {len(manifest)} tools total.",
@@ -145,6 +156,13 @@ def build_zip(
 
     export_json_str = json.dumps(export_configs, indent=2, ensure_ascii=False)
 
+    # Universal config (forge.mcp.json) embedded so any machine can 1-click connect
+    universal_config_bytes = b""
+    if include_universal_config:
+        universal_cfg = ROOT_FORGE_DIR / "forge.mcp.json"
+        if universal_cfg.exists():
+            universal_config_bytes = universal_cfg.read_bytes()
+
     with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED) as zf:
         # Root level files (single SKILL.md, no subfolders for 6 platforms)
         zf.writestr("server.py", server_py)
@@ -154,6 +172,8 @@ def build_zip(
         zf.writestr("export.bat", bat_script)
         zf.writestr("export.sh", sh_script)
         zf.writestr("README.md", readme)
+        if universal_config_bytes:
+            zf.writestr("forge.mcp.json", universal_config_bytes)
         # Also include unified-mcp/ folder prefix for archive tools
         zf.writestr("unified-mcp/server.py", server_py)
         zf.writestr("unified-mcp/SKILL.md", skill_content)
@@ -162,5 +182,7 @@ def build_zip(
         zf.writestr("unified-mcp/export.bat", bat_script)
         zf.writestr("unified-mcp/export.sh", sh_script)
         zf.writestr("unified-mcp/README.md", readme)
+        if universal_config_bytes:
+            zf.writestr("unified-mcp/forge.mcp.json", universal_config_bytes)
 
     return out_zip, claude_snippet, cursor_snippet, readme, skill_content, export_configs

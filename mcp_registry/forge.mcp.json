@@ -1,0 +1,299 @@
+{
+  "mcpServers": {
+    "forge-aurum-hub": {
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+      ],
+      "env": {},
+      "description": "Super-Hub 1 entry replaces 50+ — auto-updates — give once",
+      "type": "aurum_gold",
+      "badge": "#C6A96B",
+      "auto_update": true,
+      "watch_path": "D:/Aditya/Forge/mcp_registry/servers",
+      "hot_reload": "0.1s",
+      "version": "1.0.1",
+      "hash": "f6cdbd0a07f2",
+      "aurum_verified": true
+    }
+  },
+  "aurum_auto_update": {
+    "enabled": true,
+    "watch_paths": [
+      "mcp_registry/servers",
+      "forge/mcp",
+      "marketplace.json"
+    ],
+    "reload_interval": "0.1s",
+    "ide_auto_sync": true,
+    "ide_targets": [
+      "antigravity",
+      "claude_code",
+      "cursor",
+      "windsurf",
+      "opencode",
+      "codex",
+      "z_code",
+      "all"
+    ],
+    "last_scan": "2026-08-18T15:22:11+00:00",
+    "total_servers": 16,
+    "total_tools": 70
+  },
+  "discovered_servers": {
+    "aurum-github-mcp": {
+      "name": "aurum-github-mcp",
+      "path": "mcp_registry/servers/aurum-github-mcp/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/aurum-github-mcp/server.py",
+      "tools": 4,
+      "tool_names": [
+        "aurum_health_check",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "9876aededfd2",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1786982267": {
+      "name": "chain-1786982267",
+      "path": "mcp_registry/servers/chain-1786982267/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1786982267/server.py",
+      "tools": 4,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_notion",
+        "stage_2_ram_tracker",
+        "run_chain"
+      ],
+      "hash": "835f1713573f",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1786982268": {
+      "name": "chain-1786982268",
+      "path": "mcp_registry/servers/chain-1786982268/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1786982268/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_chain_1786982267",
+        "run_chain"
+      ],
+      "hash": "00a395248c71",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1787050183": {
+      "name": "chain-1787050183",
+      "path": "mcp_registry/servers/chain-1787050183/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787050183/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_research",
+        "run_chain"
+      ],
+      "hash": "ed75a012f6c8",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1787051194": {
+      "name": "chain-1787051194",
+      "path": "mcp_registry/servers/chain-1787051194/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787051194/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_chain_1786982267",
+        "run_chain"
+      ],
+      "hash": "095d794124c4",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1787054329": {
+      "name": "chain-1787054329",
+      "path": "mcp_registry/servers/chain-1787054329/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787054329/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_research_v2",
+        "run_chain"
+      ],
+      "hash": "a93ba2e72020",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_content": {
+      "name": "chain_content",
+      "path": "mcp_registry/servers/chain_content/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain_content/server.py",
+      "tools": 6,
+      "tool_names": [
+        "get_chain_metadata",
+        "youtube_extract_transcript",
+        "browser_enrich_references",
+        "notion_create_content_brief",
+        "slack_post_announcement",
+        "run_content_chain"
+      ],
+      "hash": "337871d2ad9c",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_dev_workflow": {
+      "name": "chain_dev_workflow",
+      "path": "mcp_registry/servers/chain_dev_workflow/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain_dev_workflow/server.py",
+      "tools": 6,
+      "tool_names": [
+        "get_chain_metadata",
+        "github_watch_prs",
+        "filesystem_scan_diffs",
+        "slack_notify_dev_channel",
+        "notion_update_changelog",
+        "run_dev_workflow_chain"
+      ],
+      "hash": "53d4ef5fe000",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_ops": {
+      "name": "chain_ops",
+      "path": "mcp_registry/servers/chain_ops/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain_ops/server.py",
+      "tools": 6,
+      "tool_names": [
+        "get_chain_metadata",
+        "filesystem_watch_folder",
+        "sheets_append_metrics",
+        "notion_sync_ops_dashboard",
+        "gmail_send_ops_report",
+        "run_ops_chain"
+      ],
+      "hash": "6fd74c541881",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_research": {
+      "name": "chain_research",
+      "path": "mcp_registry/servers/chain_research/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain_research/server.py",
+      "tools": 6,
+      "tool_names": [
+        "get_chain_metadata",
+        "github_research_repo",
+        "browser_crawl_docs",
+        "notion_publish_research_doc",
+        "gmail_dispatch_summary",
+        "run_research_chain"
+      ],
+      "hash": "9bea09e6986f",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_sales_outreach": {
+      "name": "chain_sales_outreach",
+      "path": "mcp_registry/servers/chain_sales_outreach/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain_sales_outreach/server.py",
+      "tools": 6,
+      "tool_names": [
+        "get_chain_metadata",
+        "browser_extract_leads",
+        "sheets_record_prospect",
+        "gmail_send_personalized_outreach",
+        "notion_create_crm_entry",
+        "run_sales_outreach_chain"
+      ],
+      "hash": "7da533dbead0",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "imported_mcp": {
+      "name": "imported_mcp",
+      "path": "mcp_registry/servers/imported_mcp/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/imported_mcp/server.py",
+      "tools": 2,
+      "tool_names": [
+        "execute_workflow_step",
+        "fetch_results"
+      ],
+      "hash": "277d78680316",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "ram_tracker": {
+      "name": "ram_tracker",
+      "path": "mcp_registry/servers/ram_tracker/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/ram_tracker/server.py",
+      "tools": 7,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price"
+      ],
+      "hash": "6cbb58069d92",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "reverse_synthesized_mcp": {
+      "name": "reverse_synthesized_mcp",
+      "path": "mcp_registry/servers/reverse_synthesized_mcp/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/reverse_synthesized_mcp/server.py",
+      "tools": 1,
+      "tool_names": [
+        "test_tool"
+      ],
+      "hash": "8bdc4ea5cceb",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "test_auto_update": {
+      "name": "test_auto_update",
+      "path": "mcp_registry/servers/test_auto_update/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/test_auto_update/server.py",
+      "tools": 3,
+      "tool_names": [
+        "auto_update_inspect_telemetry",
+        "auto_update_sync_payload",
+        "auto_update_verify_gold_badge"
+      ],
+      "hash": "b0ffb5f42fe0",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "unified-mcp": {
+      "name": "unified-mcp",
+      "path": "mcp_registry/servers/unified-mcp/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py",
+      "tools": 7,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price"
+      ],
+      "hash": "5eed698963a8",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    }
+  },
+  "super_hub_summary": {
+    "give_once": true,
+    "auto_updates": "All future forged MCPs appear automatically without re-inject",
+    "total_servers": 16,
+    "total_tools": 70,
+    "ide_entry": "1 entry stays 1 entry, tools auto-grow 70",
+    "version": "1.0.1"
+  }
+}

@@ -25,8 +25,10 @@ TEMPLATES_DIR = Path(__file__).resolve().parent / "forge" / "templates"
 LLM_CACHE_JSON = LOGS_DIR / "llm_cache.json"
 LLM_DIAG_JSONL = LOGS_DIR / "llm_diagnostics.jsonl"
 
-VERSION = "1.0.0"
+VERSION = "2.0.0"
 SERVER_NAME = "unified-forge"
+FORGE_MCP_JSON = ROOT / "forge.mcp.json"
+MARKETPLACE_JSON = MCP_REGISTRY_DIR / "marketplace.json"
 
 
 def ensure_dirs() -> None:

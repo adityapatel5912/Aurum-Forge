@@ -1,0 +1,221 @@
+{
+  "version": "3.0.0",
+  "name": "FORGE-AURUM SUPER-HUB Universal Configuration",
+  "badge": "AURUM GOLD (#C6A96B)",
+  "description": "One-click executable connection config for Antigravity, Z Code, Claude Code, Cursor, Windsurf, OpenCode, and Codex",
+  "active_mcp": {
+    "name": "forge-aurum-hub",
+    "server_path": "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+    "command": "python",
+    "args": [
+      "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+    ],
+    "env": {
+      "NOTION_TOKEN": "<your_notion_token>",
+      "GMAIL_USER": "<your_gmail_address>",
+      "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+      "GITHUB_TOKEN": "<your_github_token>",
+      "SLACK_BOT_TOKEN": "<your_slack_token>",
+      "FORGE_HEADLESS": "0"
+    }
+  },
+  "servers": {
+    "forge_aurum_hub": {
+      "name": "forge-aurum-hub",
+      "description": "FORGE-AURUM Super-Hub (50-in-1 Aggregator MCP operating all custom sites, official APIs, and chains)",
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+      ]
+    },
+    "forge_factory": {
+      "name": "forge-factory",
+      "description": "Operating System Factory MCP — forges, hot-loads, benchmarks, and heals MCPs inside your IDE",
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+      ]
+    },
+    "unified_forge": {
+      "name": "unified-forge",
+      "description": "Active Unified MCP server operating all custom websites and official APIs",
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py"
+      ]
+    }
+  },
+  "ides": {
+    "antigravity": {
+      "ide_name": "Google Antigravity",
+      "config_path": "C:/Users/Admin/.antigravity/mcp.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "1. Open Antigravity Settings -> MCP. | 2. Paste the JSON snippet into mcpServers. | 3. The Forge Factory MCP connects in <1s.",
+      "is_cli": false
+    },
+    "z_code": {
+      "ide_name": "Z Code / Zed",
+      "config_path": "C:/Users/Admin/.zcode/mcp.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "1. Open Z Code / Zed settings.json. | 2. Add this snippet inside experimental.mcpServers or mcpServers. | 3. Save and use immediately.",
+      "is_cli": false
+    },
+    "claude_code": {
+      "ide_name": "Claude Code",
+      "config_path": "C:/Users/Admin/.claude.json",
+      "format": "cli_or_json",
+      "cli_command": "claude mcp add forge-aurum-hub -- python D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Run in your terminal: claude mcp add forge-aurum-hub -- python D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+      "is_cli": true
+    },
+    "claude_desktop": {
+      "ide_name": "Claude Desktop",
+      "config_path": "C:/Users/Admin/AppData/Roaming/Claude/claude_desktop_config.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Paste snippet into C:/Users/Admin/AppData/Roaming/Claude/claude_desktop_config.json and restart Claude Desktop.",
+      "is_cli": false
+    },
+    "cursor": {
+      "ide_name": "Cursor",
+      "config_path": "D:/Aditya/Forge/.cursor/mcp.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Paste snippet into .cursor/mcp.json in workspace or global Cursor settings.",
+      "is_cli": false
+    },
+    "windsurf": {
+      "ide_name": "Windsurf (Codeium)",
+      "config_path": "C:/Users/Admin/.codeium/windsurf/mcp_config.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Open Windsurf Settings -> MCP Servers -> Paste snippet.",
+      "is_cli": false
+    },
+    "opencode": {
+      "ide_name": "OpenCode",
+      "config_path": "C:/Users/Admin/.opencode/mcp.json",
+      "format": "cli",
+      "cli_command": "opencode mcp add forge-aurum-hub -- python D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+      "how_to_connect": "Run in your terminal: opencode mcp add forge-aurum-hub -- python D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+      "is_cli": true
+    },
+    "codex": {
+      "ide_name": "Codex",
+      "config_path": "C:/Users/Admin/.codex/mcp.json",
+      "format": "cli",
+      "cli_command": "codex mcp add forge-aurum-hub -- python D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+      "how_to_connect": "Run in your terminal: codex mcp add forge-aurum-hub -- python D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py",
+      "is_cli": true
+    }
+  },
+  "export_scripts": {
+    "windows": "export.bat",
+    "unix": "export.sh"
+  }
+}

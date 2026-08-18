@@ -1,20 +1,129 @@
-# secrets
+﻿# ==============================================================================
+# SECRETS & ENVIRONMENT VARIABLES (STRICT BLOCK)
+# ==============================================================================
 .env
+.env.*
+!.env.example
+*.env
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+.credentials/
+*.secret
+*.secrets
 
-# python
+# Private Keys, Certificates & Tokens
+*.pem
+*.key
+*.p12
+*.pfx
+*.pkcs12
+*.crt
+*.cert
+*token.json
+token.json
+oauth_token.json
+
+# Cloud & Service Account JSON Credentials
+*service_account*.json
+*service-account*.json
+*credentials*.json
+*client_secret*.json
+google-services.json
+gcp_credentials.json
+
+# SSH & Crypto
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# ==============================================================================
+# PYTHON & ENVIRONMENT ARTIFACTS
+# ==============================================================================
 __pycache__/
+*.py[cod]
+*$py.class
 *.pyc
+*.pyd
+*.pyo
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
 .venv/
 venv/
+ENV/
+env/
+env.bak/
+venv.bak/
 
-# node / frontend build
+# ==============================================================================
+# NODE & FRONTEND ARTIFACTS
+# ==============================================================================
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 frontend/dist/
+frontend/build/
+.playwright-mcp/
+.playwright/
 
-# forge artifacts (regenerate anytime)
+# ==============================================================================
+# FORGE ARTIFACTS & DYNAMIC CACHES (REGENERATED ON-DEMAND)
+# ==============================================================================
 logs/*.json
 logs/*.jsonl
 logs/*.log
-dist/
+logs/*.sqlite
+mcp_registry/temp/
+mcp_registry/packages/
+mcp_registry/time_travel/
 mcp_registry/servers/
+mcp_registry/history/
 mcp_registry/registry.json
+mcp_registry/marketplace.json
+
+# Scratch & QA Verification Scripts
+test_qa_*.py
+scratch_*.py
+*.scratch
+
+# ==============================================================================
+# OS & IDE SYSTEM FILES
+# ==============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# IDE config files (Personal developer environments)
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+.vscode/*.log

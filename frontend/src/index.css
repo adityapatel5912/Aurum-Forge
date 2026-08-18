@@ -3,21 +3,131 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: dark;
+}
+
+[data-theme="white"] {
   color-scheme: light;
 }
 
+/* Base Theme Styling */
 body {
-  @apply bg-cream text-navy font-body antialiased;
-  background-image:
-    radial-gradient(1200px 500px at 85% -10%, rgba(198, 169, 107, 0.14), transparent 60%),
-    radial-gradient(900px 420px at -10% 30%, rgba(10, 25, 49, 0.05), transparent 55%);
+  @apply antialiased font-body;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Cream / Dark Mode (Default) */
+[data-theme="cream"], :root:not([data-theme="white"]) {
+  background-color: #050C1A;
+  color: #FFFBF0;
+}
+
+/* =========================================================================
+   WHITE THEME DYNAMIC TRANSFORMATIONS
+   Switches background to pure #FFFFFF / #F8FAFC, text to crisp Navy #0A1931,
+   while strictly preserving all 70 Gold #C6A96B accents and badges!
+   ========================================================================= */
+[data-theme="white"] {
+  background-color: #FFFFFF !important;
+  color: #0A1931 !important;
+}
+
+[data-theme="white"] body {
+  background-color: #FFFFFF !important;
+  color: #0A1931 !important;
+}
+
+/* Container Backgrounds */
+[data-theme="white"] .bg-\[\#050C1A\],
+[data-theme="white"] .bg-\[\#081326\],
+[data-theme="white"] .bg-\[\#060F1E\],
+[data-theme="white"] .bg-\[\#07101E\],
+[data-theme="white"] .bg-\[\#0A1931\],
+[data-theme="white"] .bg-navy,
+[data-theme="white"] .bg-navy\/95,
+[data-theme="white"] .bg-navy\/90,
+[data-theme="white"] .bg-navy\/80,
+[data-theme="white"] .bg-navy\/70,
+[data-theme="white"] .bg-navy\/60,
+[data-theme="white"] .bg-navy\/50,
+[data-theme="white"] .bg-navy\/40 {
+  background-color: #FFFFFF !important;
+}
+
+[data-theme="white"] .bg-\[\#0c182c\],
+[data-theme="white"] .bg-\[\#0f1f3a\],
+[data-theme="white"] .bg-\[\#122340\],
+[data-theme="white"] .bg-\[\#112240\],
+[data-theme="white"] .bg-navy-light\/60,
+[data-theme="white"] .bg-navy-light\/80,
+[data-theme="white"] .bg-navy-light {
+  background-color: #F8FAFC !important;
+}
+
+/* Text Overrides */
+[data-theme="white"] .text-cream {
+  color: #0A1931 !important;
+}
+
+[data-theme="white"] .text-cream\/90,
+[data-theme="white"] .text-cream\/80 {
+  color: #1E293B !important;
+}
+
+[data-theme="white"] .text-cream\/70,
+[data-theme="white"] .text-cream\/60,
+[data-theme="white"] .text-cream\/50 {
+  color: #475569 !important;
+}
+
+[data-theme="white"] .text-cream\/40,
+[data-theme="white"] .text-cream\/30 {
+  color: #64748B !important;
+}
+
+/* Border Overrides */
+[data-theme="white"] .border-gold\/20,
+[data-theme="white"] .border-gold\/30,
+[data-theme="white"] .border-gold\/40 {
+  border-color: rgba(198, 169, 107, 0.45) !important;
+}
+
+[data-theme="white"] .border-white\/10,
+[data-theme="white"] .border-white\/20 {
+  border-color: rgba(10, 25, 49, 0.15) !important;
+}
+
+/* Inputs & Modals */
+[data-theme="white"] input,
+[data-theme="white"] textarea,
+[data-theme="white"] select {
+  background-color: #FFFFFF !important;
+  color: #0A1931 !important;
+  border-color: rgba(198, 169, 107, 0.5) !important;
+}
+
+[data-theme="white"] .shadow-card {
+  box-shadow: 0 4px 20px -2px rgba(10, 25, 49, 0.08), 0 2px 6px -1px rgba(10, 25, 49, 0.04) !important;
+}
+
+/* Gold Accents & Badges Strictly Preserved Across All 70 Elements */
+.text-gold, [data-theme="white"] .text-gold {
+  color: #C6A96B !important;
+}
+
+.bg-gold, [data-theme="white"] .bg-gold {
+  background-color: #C6A96B !important;
+}
+
+.border-gold, [data-theme="white"] .border-gold {
+  border-color: #C6A96B !important;
 }
 
 ::selection {
   @apply bg-gold-soft text-navy;
 }
 
-/* thin cream-friendly scrollbars */
+/* Thin Scrollbars */
 *::-webkit-scrollbar {
   width: 9px;
   height: 9px;

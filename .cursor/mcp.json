@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "forge-aurum-hub": {
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+      ]
+    },
+    "chain_research": {
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/mcp_registry/servers/chain_research/server.py"
+      ]
+    }
+  }
+}
