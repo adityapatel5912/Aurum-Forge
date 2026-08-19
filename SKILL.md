@@ -72,7 +72,8 @@ compatible_ides:
     "tool": "notion_create_crm_entry",
     "source": "Notion MCP",
     "category": "output",
-    "color": "#8B5CF6",
+    "color": "#C6A96B",
+    "gold_pulse": true,
     "deps": [
       "T3_gmail_outreach"
     ],

@@ -63,6 +63,7 @@ def commit_version(
     dag: Optional[Dict[str, Any]] = None,
     tools: Optional[List[Any]] = None,
     aurum_proof: Optional[Dict[str, Any]] = None,
+    hash_override: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Create a new version commit in the Time-Travel ledger."""
     ensure_time_travel_dirs()
@@ -71,7 +72,7 @@ def commit_version(
 
     version_number = f"1.0.{len(history)}"
     timestamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    content_hash = hashlib.sha256(f"{server_py}\n{skill_content}".encode("utf-8")).hexdigest()[:12]
+    content_hash = hash_override or hashlib.sha256(f"{server_py}\n{skill_content}".encode("utf-8")).hexdigest()[:12]
 
     commit_entry: Dict[str, Any] = {
         "version_id": f"{target_id}@{version_number}",

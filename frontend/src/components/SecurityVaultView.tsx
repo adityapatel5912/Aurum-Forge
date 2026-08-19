@@ -132,14 +132,27 @@ export default function SecurityVaultView() {
                   </>
                 ) : (
                   <>
-                    <ShieldAlert className="h-4 w-4 text-red-400" />
-                    <span className="text-red-400">Publish Blocked</span>
+                    <ShieldAlert className="h-4 w-4 text-red-400 animate-pulse" />
+                    <span className="text-red-400 font-black">Publish Blocked (400 Forbidden)</span>
                   </>
                 )}
               </div>
               <span className="text-[10px] text-cream/50">AST Compilation Verified</span>
             </div>
           </div>
+
+          {/* Red Alert Banner if Blocked */}
+          {!report.can_publish && (
+            <div className="flex items-center gap-2.5 rounded-lg border-2 border-red-500 bg-red-950/60 p-3 text-xs font-bold text-red-200 shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse">
+              <ShieldAlert className="h-5 w-5 shrink-0 text-red-400" />
+              <div>
+                <div>PUBLISH BLOCKED: Hardcoded Secrets or Unsafe AST Locators Detected</div>
+                <div className="text-[10px] font-normal text-red-300">
+                  Aurum Security Gate forbids shipping un-sanitized credentials to Marketplace (100% Zero-Secret policy).
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Audit Checks Checklist */}
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">

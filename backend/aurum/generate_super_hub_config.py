@@ -193,8 +193,16 @@ def generate_super_hub_config_data(
     return config_data
 
 
+HUB_ENTRY_KEYS = {"forge_aurum_hub", "forge-aurum-hub", "aurum_hub", "forge-hub", "aurum-super-hub"}
+
+
 def auto_sync_ide_configs(server_script_path: str) -> List[str]:
-    """Auto-sync IDE config files to ensure exactly 1 entry 'forge-aurum-hub' with '/' paths."""
+    """Auto-sync IDE config files: exactly ONE 'forge-aurum-hub' entry with '/' paths.
+
+    Non-destructive: unrelated user MCP entries are preserved. Only (a) stale
+    hub-name variants and (b) entries pointing into mcp_registry/servers or /mcp/
+    (redundant with the give-once hub) are collapsed into the single hub entry.
+    """
     clean_path = str(server_script_path).replace("\\", "/")
     home_dir = Path.home().resolve()
     synced_ides: List[str] = []
@@ -218,13 +226,15 @@ def auto_sync_ide_configs(server_script_path: str) -> List[str]:
                 except Exception:
                     existing_data = {}
 
-            # Maintain exactly 1 entry for forge-aurum-hub
-            existing_data["mcpServers"] = {
-                "forge-aurum-hub": {
-                    "command": "python",
-                    "args": [clean_path],
-                }
-            }
+            servers = dict(existing_data.get("mcpServers") or {})
+            for key in list(servers.keys()):
+                normalized = key.lower().replace("-", "_").replace(" ", "_")
+                entry_json = json.dumps(servers[key])
+                redundant = ("mcp_registry/servers" in entry_json or "/mcp/" in entry_json.replace("\\", "/"))
+                if normalized in HUB_ENTRY_KEYS or redundant:
+                    del servers[key]  # give-once: hub already serves these tools
+            servers["forge-aurum-hub"] = {"command": "python", "args": [clean_path]}
+            existing_data["mcpServers"] = servers
 
             _atomic_write_json(cfg_path, existing_data)
             synced_ides.append(ide_key)

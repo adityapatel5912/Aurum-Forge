@@ -16,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import {
+  downloadFile,
   getHistory,
   getMarketplace,
   installMarketplacePackage,
@@ -301,14 +302,24 @@ export default function MarketplaceView() {
                   {pkg.installs_count} {pkg.installs_count === 1 ? "install" : "installs"}
                 </span>
 
-                <button
-                  onClick={() => handleInstall(pkg)}
-                  disabled={installingId === pkg.package_id}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-navy px-3.5 py-2 font-display text-xs font-bold text-cream shadow-sm transition hover:bg-navy-light hover:text-gold disabled:opacity-50"
-                >
-                  <Download className="h-3.5 w-3.5 text-gold" />
-                  {installingId === pkg.package_id ? "Hot-Loading..." : "1-Click Install"}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => downloadFile(`/api/download/${pkg.name}-mcp.zip`, `${pkg.name}-mcp.zip`)}
+                    className="inline-flex items-center gap-1 rounded-xl border border-navy/20 bg-white/80 px-2.5 py-2 font-display text-xs font-semibold text-navy hover:bg-gold/15 transition"
+                    title="Download Standalone Zip (>1KB)"
+                  >
+                    <Download className="h-3.5 w-3.5 text-gold-deep" />
+                    Zip
+                  </button>
+                  <button
+                    onClick={() => handleInstall(pkg)}
+                    disabled={installingId === pkg.package_id}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-navy px-3.5 py-2 font-display text-xs font-bold text-cream shadow-sm transition hover:bg-navy-light hover:text-gold disabled:opacity-50"
+                  >
+                    <Zap className="h-3.5 w-3.5 text-gold" />
+                    {installingId === pkg.package_id ? "Hot-Loading..." : "1-Click Install"}
+                  </button>
+                </div>
               </div>
             </div>
           ))}

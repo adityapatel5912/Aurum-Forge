@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRightLeft, CheckCircle2, Copy, Download, FileCode, Layers, Sparkles, Upload } from "lucide-react";
-import { copyText, exportUniversalBridge, importUniversalBridge } from "../api";
+import { copyText, downloadFile, exportUniversalBridge, importUniversalBridge } from "../api";
 
 export default function SkillBridgeView() {
   const [mcpName, setMcpName] = useState("forge-aurum-hub");
@@ -92,14 +92,14 @@ export default function SkillBridgeView() {
               >
                 {exporting ? "Synthesizing..." : "Generate Universal Skill & Zip"}
               </button>
-              <a
-                href="/dist/unified-mcp.zip"
-                download="unified-mcp.zip"
+              <button
+                onClick={() => downloadFile("/api/download/unified-mcp.zip", "unified-mcp.zip")}
                 className="flex items-center gap-1 rounded-lg border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-bold text-gold hover:bg-gold/20"
+                title="Download dist/unified-mcp.zip"
               >
                 <Download className="h-3.5 w-3.5" />
                 Download Zip
-              </a>
+              </button>
             </div>
           </div>
 

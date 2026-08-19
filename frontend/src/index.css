@@ -142,6 +142,21 @@ body {
   background: transparent;
 }
 
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(198, 169, 107, 0.35);
+    border-color: rgba(198, 169, 107, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(198, 169, 107, 0.75);
+    border-color: #C6A96B;
+  }
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 2.4s infinite ease-in-out;
+}
+
 .cm-editor {
   border-radius: 0.75rem;
   font-size: 12.5px;

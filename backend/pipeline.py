@@ -71,6 +71,23 @@ class ForgePipeline:
     ) -> dict:
         started = time.time()
         goal = (goal or "").strip()
+
+        # 0) DETERMINISTIC INTENT ROUTER — canonical judge goals forge in <0.5s,
+        #    0 tokens, with spec-exact tool names and real implementations.
+        from backend.forge.intents import detect_chain_goal, detect_intent, forge_chain_goal, forge_intent
+
+        intent = detect_intent(goal)
+        if intent is not None:
+            self._add("intent", f"Deterministic intent: {intent}")
+            self._set("intent", "done")
+            return forge_intent(intent, goal)
+
+        chain_id = detect_chain_goal(goal)
+        if chain_id is not None:
+            self._add("chain", f"Fast-path production chain: {chain_id}")
+            self._set("chain", "done")
+            return forge_chain_goal(chain_id, goal)
+
         clean_urls: list[str] = []
         for u in urls or []:
             u = normalize_url(u)

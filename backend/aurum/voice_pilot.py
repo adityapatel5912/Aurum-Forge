@@ -58,8 +58,10 @@ class AurumVoicePilot:
         self.started_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
         self.steps_results: List[Dict[str, Any]] = []
 
-    def run(self) -> Dict[str, Any]:
+    def run(self, voice_transcript: Optional[str] = None) -> Dict[str, Any]:
         """Execute all 10 pipeline steps sequentially, measuring each latency and aggregating proof."""
+        if voice_transcript:
+            self.voice_transcript = voice_transcript.strip()
         ensure_dirs()
         overall_start = time.time()
 

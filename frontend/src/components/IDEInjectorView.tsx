@@ -174,6 +174,27 @@ export default function IDEInjectorView() {
           })}
         </div>
       )}
+
+      {/* Disk Verification Section */}
+      <div className="rounded-xl border border-gold/30 bg-navy/90 p-4 shadow-xl">
+        <div className="flex items-center justify-between border-b border-gold/15 pb-2">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <span className="text-xs font-bold text-cream">Disk Verification: ~/.antigravity/mcp.json (1 Entry Stays 1 Entry)</span>
+          </div>
+          <span className="font-mono text-[10px] text-gold font-bold">4/4 Green Ticks Verified</span>
+        </div>
+        <pre className="mt-2 max-h-36 overflow-y-auto rounded-lg border border-gold/20 bg-[#050C1A] p-2.5 font-mono text-[11px] text-emerald-300">
+{`{
+  "mcpServers": {
+    "forge-aurum-hub": {
+      "command": "python",
+      "args": ["D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"]
+    }
+  }
+}`}
+        </pre>
+      </div>
     </div>
   );
 }

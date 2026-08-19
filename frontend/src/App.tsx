@@ -45,7 +45,7 @@ export default function App() {
     });
 
   const urls = sites.map((s) => s.url.trim()).filter(Boolean);
-  const canForge = goal.trim().length > 0 && (urls.length > 0 || selected.size > 0);
+  const canForge = goal.trim().length > 0;
 
   const poll = useCallback((id: string) => {
     if (pollRef.current) window.clearInterval(pollRef.current);
@@ -107,6 +107,7 @@ export default function App() {
         selectedOfficials={selected}
         toggleOfficial={toggleOfficial}
         onStartForge={handleStartForge}
+        canForge={canForge}
         isForging={phase === "running"}
         result={result}
       />

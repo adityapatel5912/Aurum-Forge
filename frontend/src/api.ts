@@ -164,6 +164,31 @@ export async function copyText(text: string): Promise<boolean> {
   }
 }
 
+export async function downloadFile(url: string, filename: string): Promise<void> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Download failed: ${res.status}`);
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+  } catch (err) {
+    console.error("Download file error:", err);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+}
+
 // ------------------------------------------------------------- FORGE-AURUM SUPER-HUB APIS
 export function getAurumHubStatus() {
   return fetch("/api/aurum/hub/status").then((r) => json<import("./types").AurumHubCatalog>(r));

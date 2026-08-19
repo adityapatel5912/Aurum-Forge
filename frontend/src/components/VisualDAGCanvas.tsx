@@ -33,6 +33,10 @@ interface ProcessedNode {
 }
 
 function getNodeCategory(task: DagTask): "trigger" | "process" | "output" {
+  const meta = (task as { category?: string }).category;
+  if (meta === "trigger" || meta === "process" || meta === "output") {
+    return meta;
+  }
   const tool = task.tool.toLowerCase();
   const source = task.source.toLowerCase();
 
@@ -372,9 +376,20 @@ export default function VisualDAGCanvas({ dag, goal, onExecuteNode }: Props) {
               <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.8" />
             </linearGradient>
 
+            <linearGradient id="gold-edge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#C6A96B" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#E4D3AC" stopOpacity="1" />
+              <stop offset="100%" stopColor="#C6A96B" stopOpacity="0.9" />
+            </linearGradient>
+
             {/* Glowing Drop Filter */}
             <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+
+            <filter id="gold-node-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
@@ -409,9 +424,9 @@ export default function VisualDAGCanvas({ dag, goal, onExecuteNode }: Props) {
                   strokeLinecap="round"
                   className="animate-pulse"
                 />
-                {/* Flow particle pulse */}
-                <circle r="3.5" fill="#C6A96B" filter="url(#glow)">
-                  <animateMotion path={pathData} dur={`${2.2 + (i % 3) * 0.5}s`} repeatCount="indefinite" />
+                {/* Flow particle pulse with Gold Glow */}
+                <circle r="4" fill="#C6A96B" filter="url(#glow)">
+                  <animateMotion path={pathData} dur={`${2.0 + (i % 3) * 0.4}s`} repeatCount="indefinite" />
                 </circle>
               </g>
             );
@@ -422,22 +437,32 @@ export default function VisualDAGCanvas({ dag, goal, onExecuteNode }: Props) {
             const isSelected = node.id === selectedNodeId;
             const isParallel = Boolean(node.task.parallel);
 
-            // Color themes per category
-            const theme = {
+            // Color themes per category — final Gold outputs pulse in #C6A96B
+            const isGoldOutput =
+              Boolean((node.task as { gold_pulse?: boolean }).gold_pulse) ||
+              (node.task as { color?: string }).color === "#C6A96B";
+            const theme = isGoldOutput
+              ? {
+                  bg: "fill-[#FFFBF0]/95 stroke-[#C6A96B]",
+                  badge: "bg-[#C6A96B] text-navy",
+                  accent: "#C6A96B",
+                  text: "text-[#0A1931]",
+                }
+              : {
               trigger: {
-                bg: "fill-blue-50 stroke-blue-400",
+                bg: "fill-blue-50/95 stroke-blue-500",
                 badge: "bg-blue-600 text-white",
                 accent: "#3B82F6",
                 text: "text-blue-900",
               },
               process: {
-                bg: "fill-emerald-50 stroke-emerald-400",
+                bg: "fill-emerald-50/95 stroke-emerald-500",
                 badge: "bg-emerald-600 text-white",
                 accent: "#10B981",
                 text: "text-emerald-900",
               },
               output: {
-                bg: "fill-purple-50 stroke-purple-400",
+                bg: "fill-purple-50/95 stroke-purple-500",
                 badge: "bg-purple-600 text-white",
                 accent: "#8B5CF6",
                 text: "text-purple-900",
@@ -451,15 +476,29 @@ export default function VisualDAGCanvas({ dag, goal, onExecuteNode }: Props) {
                 onClick={() => setSelectedNodeId(node.id === selectedNodeId ? null : node.id)}
                 className="cursor-pointer transition-transform hover:scale-[1.03]"
               >
+                {/* Outer Aurum Gold Pulse Ring */}
+                <rect
+                  width="204"
+                  height="88"
+                  x="-2"
+                  y="-2"
+                  rx="18"
+                  fill="none"
+                  stroke="#C6A96B"
+                  strokeWidth="1.5"
+                  strokeOpacity="0.7"
+                  filter="url(#gold-node-glow)"
+                  className="animate-pulse"
+                />
+
                 {/* Node Box */}
                 <rect
                   width="200"
                   height="84"
                   rx="16"
                   className={`${theme.bg} transition-all duration-200`}
-                  strokeWidth={isSelected ? 3 : 1.5}
+                  strokeWidth={isSelected ? 3 : 2}
                   stroke={isSelected ? "#C6A96B" : undefined}
-                  filter="drop-shadow(0 4px 6px rgba(10, 25, 49, 0.08))"
                 />
 
                 {/* Node Header */}

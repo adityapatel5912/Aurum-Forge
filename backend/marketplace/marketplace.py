@@ -41,7 +41,22 @@ def ensure_marketplace_dirs() -> None:
     ensure_dirs()
     PACKAGES_DIR.mkdir(parents=True, exist_ok=True)
     with _marketplace_lock:
-        if not MARKETPLACE_JSON.exists():
+        if MARKETPLACE_JSON.exists():
+            try:
+                data = json.loads(MARKETPLACE_JSON.read_text("utf-8"))
+                if not isinstance(data, list):
+                    raise ValueError("marketplace.json must contain a JSON array")
+            except Exception as e:
+                # Self-heal: quarantine the corrupt catalog and start clean so the
+                # Marketplace API never serves a silent empty/broken state.
+                backup = MARKETPLACE_JSON.with_suffix(f".corrupt.{int(time.time())}.json")
+                try:
+                    shutil.move(str(MARKETPLACE_JSON), str(backup))
+                    print(f"[MARKETPLACE SELF-HEAL] Corrupt marketplace.json quarantined -> {backup.name} ({e})")
+                except Exception:
+                    MARKETPLACE_JSON.unlink(missing_ok=True)
+                _atomic_write_json(MARKETPLACE_JSON, [])
+        else:
             _atomic_write_json(MARKETPLACE_JSON, [])
 
 

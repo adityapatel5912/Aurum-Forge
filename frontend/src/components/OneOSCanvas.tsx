@@ -51,6 +51,7 @@ interface Props {
   selectedOfficials: Set<string>;
   toggleOfficial: (id: string) => void;
   onStartForge: () => void;
+  canForge?: boolean;
   isForging: boolean;
   result: ForgeResult | null;
 }
@@ -97,6 +98,7 @@ export default function OneOSCanvas({
   selectedOfficials,
   toggleOfficial,
   onStartForge,
+  canForge = true,
   isForging,
   result,
 }: Props) {
@@ -343,8 +345,9 @@ export default function OneOSCanvas({
             {/* Forge Button */}
             <button
               onClick={onStartForge}
-              disabled={isForging}
-              className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-2.5 text-xs font-black text-navy transition-all hover:bg-gold-light hover:shadow-[0_0_20px_rgba(198,169,107,0.6)]"
+              disabled={isForging || !canForge}
+              title={canForge ? "Forge a deterministic unified MCP" : "Type a goal first"}
+              className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-2.5 text-xs font-black text-navy transition-all hover:bg-gold-light hover:shadow-[0_0_20px_rgba(198,169,107,0.6)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
             >
               <Zap className="h-4 w-4" />
               {isForging ? "Forging in 2.1s (Zero API)..." : "Forge Unified MCP (2.1s)"}
