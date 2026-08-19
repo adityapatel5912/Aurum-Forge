@@ -861,6 +861,22 @@ app = create_app()
 
 
 # ---------------------------------------------------------------------- main
+
+@app.api_route("/api/aurum/proof-deck", methods=["GET", "POST"])
+def handle_proof_deck():
+    from backend.aurum.deck_builder import generate_deck
+    try:
+        generate_deck()
+    except Exception as e:
+        print(f"Deck gen warning: {e}")
+    return {
+        "status": "ok",
+        "deck_json": "dist/AURUM_DECK.json",
+        "pdf": "dist/AURUM_DECK.pdf",
+        "script": "dist/DEMO_SCRIPT.md",
+        "slides_count": 10
+    }
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="FORGE — Self-Forging Browser Workforce")
     parser.add_argument("--urls", default="", help="comma-separated custom site URLs to forge")

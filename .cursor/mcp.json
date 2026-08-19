@@ -3,7 +3,7 @@
     "forge-aurum-hub": {
       "command": "python",
       "args": [
-        "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+        "/app/forge/mcp/forge_aurum_hub/server.py"
       ]
     }
   }

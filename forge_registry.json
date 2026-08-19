@@ -1,5 +1,81 @@
 [
   {
+    "id": "forge_20260819_160816_233254",
+    "timestamp": "2026-08-19T16:08:16",
+    "goal": "Voice composite: Forge Research Chain and chain with official GitHub MCP",
+    "mcp_name": "chain-1787155696",
+    "abs_path": "/app/mcp_registry/servers/chain-1787155696/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Chained from research_v4",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Chained from research_v4",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: chain-1787155696\ndescription: Voice composite: Forge Research Chain and chain with official GitHub MCP\nversion: 1.0.0\nmcp: chain-1787155696\n---\n\n# Skill: Voice composite: Forge Research Chain and chain with official GitHub MCP\n\n## Overview\nThis skill executes: Voice composite: Forge Research Chain and chain with official GitHub MCP\nUses MCP Server: chain-1787155696 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Chained from research_v4\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Chained from research_v4\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `chain-1787155696` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from chain-1787155696) in parallel\n   - CALL `gmail_notify_and_log` (from chain-1787155696) in parallel\n3. Return summary\n\nDo not re-discover tools — use chain-1787155696 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Voice composite: Forge Research Chain and chain with official GitHub MCP\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "/app/mcp_registry/history/forge_20260819_160816_233254/unified-mcp-forge_20260819_160816_233254.zip"
+  },
+  {
+    "id": "forge_20260819_160816_202603",
+    "timestamp": "2026-08-19T16:08:16",
+    "goal": "Forge Research",
+    "mcp_name": "research_v4",
+    "abs_path": "/app/mcp/research_v4/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: research_v4\ndescription: Forge Research\nversion: 1.0.0\nmcp: research_v4\n---\n\n# Skill: Forge Research\n\n## Overview\nThis skill executes: Forge Research\nUses MCP Server: research_v4 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `research_v4` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from research_v4) in parallel\n   - CALL `gmail_notify_and_log` (from research_v4) in parallel\n3. Return summary\n\nDo not re-discover tools — use research_v4 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Forge Research\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "/app/mcp_registry/history/forge_20260819_160816_202603/unified-mcp-forge_20260819_160816_202603.zip"
+  },
+  {
     "id": "forge_20260819_212406_852842",
     "timestamp": "2026-08-19T21:24:06",
     "goal": "Track top 100 RAM products from Amazon, Newegg, BestBuy, Microcenter, B&H sorted by price with alerts",
