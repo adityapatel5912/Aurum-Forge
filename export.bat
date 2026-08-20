@@ -1,10 +1,10 @@
 @echo off
 REM FORGE INFINITY 1-Click Multi-IDE Exporter
 REM Configures Claude Code, Codex, and OpenCode with normalized '/' paths
-echo [FORGE INFINITY] Exporting MCP 'forge-aurum-hub' to AI IDEs...
+echo [FORGE INFINITY] Exporting MCP 'chain_research' to AI IDEs...
 
 REM Claude Code
-claude mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" 2>nul
+claude mcp add chain_research -- python "/app/mcp_registry/servers/chain_research/server.py" 2>nul
 if %ERRORLEVEL% equ 0 (
     echo   [OK] Claude Code configured successfully.
 ) else (
@@ -12,13 +12,13 @@ if %ERRORLEVEL% equ 0 (
 )
 
 REM Codex
-codex mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" 2>nul
+codex mcp add chain_research -- python "/app/mcp_registry/servers/chain_research/server.py" 2>nul
 if %ERRORLEVEL% equ 0 (
     echo   [OK] Codex configured successfully.
 )
 
 REM OpenCode
-opencode mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" 2>nul
+opencode mcp add chain_research -- python "/app/mcp_registry/servers/chain_research/server.py" 2>nul
 if %ERRORLEVEL% equ 0 (
     echo   [OK] OpenCode configured successfully.
 )

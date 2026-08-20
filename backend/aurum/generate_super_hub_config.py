@@ -98,35 +98,41 @@ def scan_all_mcp_servers() -> Tuple[Dict[str, Dict[str, Any]], int]:
     discovered: Dict[str, Dict[str, Any]] = {}
     total_tools_count = 0
 
-    servers_dir = MCP_REGISTRY_DIR / "servers"
-    if servers_dir.exists():
-        for sdir in sorted(servers_dir.iterdir()):
-            if not sdir.is_dir() or sdir.name.startswith((".", "_")) or sdir.name == "temp":
-                continue
-            server_file = sdir / "server.py"
-            if not server_file.exists():
-                continue
+    scan_dirs = [MCP_REGISTRY_DIR / "servers", ROOT / "mcp", HUB_DIR.parent]
+    for search_dir in scan_dirs:
+        if search_dir.exists():
+            for sdir in sorted(search_dir.iterdir()):
+                if not sdir.is_dir() or sdir.name.startswith((".", "_")) or sdir.name in ("temp", "forge_aurum_hub"):
+                    continue
+                if sdir.name in discovered:
+                    continue
+                server_file = sdir / "server.py"
+                if not server_file.exists():
+                    continue
 
-            tools = extract_tools_from_file(server_file)
-            tools_count = len(tools)
-            if tools_count == 0:
-                continue
+                tools = extract_tools_from_file(server_file)
+                tools_count = len(tools)
+                if tools_count == 0:
+                    continue
 
-            content = server_file.read_text("utf-8", errors="replace")
-            content_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()[:12]
-            rel_path = f"mcp_registry/servers/{sdir.name}/server.py"
+                content = server_file.read_text("utf-8", errors="replace")
+                content_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()[:12]
+                try:
+                    rel_p = str(server_file.relative_to(ROOT)).replace("\\", "/")
+                except Exception:
+                    rel_p = f"{search_dir.name}/{sdir.name}/server.py"
 
-            discovered[sdir.name] = {
-                "name": sdir.name,
-                "path": rel_path,
-                "abs_path": str(server_file.resolve()).replace("\\", "/"),
-                "tools": tools_count,
-                "tool_names": [t["name"] for t in tools],
-                "hash": content_hash,
-                "aurum_verified": True,
-                "badge": "AURUM GOLD #C6A96B",
-            }
-            total_tools_count += tools_count
+                discovered[sdir.name] = {
+                    "name": sdir.name,
+                    "path": rel_p,
+                    "abs_path": str(server_file.resolve()).replace("\\", "/"),
+                    "tools": tools_count,
+                    "tool_names": [t["name"] for t in tools],
+                    "hash": content_hash,
+                    "aurum_verified": True,
+                    "badge": "AURUM GOLD #C6A96B",
+                }
+                total_tools_count += tools_count
 
     return discovered, total_tools_count
 

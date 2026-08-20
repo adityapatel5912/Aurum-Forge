@@ -31,58 +31,7 @@ compatible_ides:
 
 ## 3. Levelled Workflow DAG
 ```json
-{
-  "T1_browser_leads": {
-    "tool": "browser_extract_leads",
-    "source": "Browser MCP",
-    "category": "trigger",
-    "color": "#3B82F6",
-    "deps": [],
-    "params": {
-      "target_industry": "Developer Tools",
-      "limit": 25
-    }
-  },
-  "T2_sheets_prospect": {
-    "tool": "sheets_record_prospect",
-    "source": "Sheets MCP",
-    "category": "process",
-    "color": "#10B981",
-    "deps": [
-      "T1_browser_leads"
-    ],
-    "params": {
-      "spreadsheet_id": "auto",
-      "range": "Leads!A1"
-    }
-  },
-  "T3_gmail_outreach": {
-    "tool": "gmail_send_personalized_outreach",
-    "source": "Gmail MCP",
-    "category": "output",
-    "color": "#8B5CF6",
-    "deps": [
-      "T2_sheets_prospect"
-    ],
-    "params": {
-      "subject": "Empowering your team with autonomous MCPs"
-    }
-  },
-  "T4_notion_crm": {
-    "tool": "notion_create_crm_entry",
-    "source": "Notion MCP",
-    "category": "output",
-    "color": "#C6A96B",
-    "gold_pulse": true,
-    "deps": [
-      "T3_gmail_outreach"
-    ],
-    "params": {
-      "title": "Company Lead Record",
-      "status": "Contacted"
-    }
-  }
-}
+{}
 ```
 
 ## 4. Execution Protocol for AI Agents
