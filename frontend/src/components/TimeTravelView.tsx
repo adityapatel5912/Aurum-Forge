@@ -98,7 +98,7 @@ export default function TimeTravelView() {
             const isSelected = selectedCommit?.hash === c.hash;
             return (
               <div
-                key={c.hash || idx}
+                key={`${c.hash || "commit"}-${idx}`}
                 onClick={() => {
                   setSelectedCommit(c);
                   if (commits[idx + 1]) {

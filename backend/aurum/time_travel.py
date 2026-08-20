@@ -142,14 +142,30 @@ def rollback_to_version(target_id: str, version_or_hash: str, server_path: Optio
     target_server_py = target_commit["server_py"]
     target_skill = target_commit.get("skill_content", "")
 
-    # Write to target path if provided or default
-    if server_path:
-        dest_p = Path(server_path)
+    # Resolve target path if not provided
+    resolved_path = server_path
+    if not resolved_path:
+        for candidate in (
+            ROOT / "mcp" / target_id / "server.py",
+            ROOT / "mcp_registry" / "servers" / target_id / "server.py",
+            ROOT / "forge" / "mcp" / target_id / "server.py",
+        ):
+            if candidate.exists():
+                resolved_path = str(candidate).replace("\\", "/")
+                break
+
+    if resolved_path:
+        dest_p = Path(resolved_path)
         dest_p.parent.mkdir(parents=True, exist_ok=True)
         dest_p.write_text(target_server_py, "utf-8")
         skill_p = dest_p.parent / "SKILL.md"
         if target_skill:
             skill_p.write_text(target_skill, "utf-8")
+        try:
+            from backend.factory.hot_loader import hot_load_into_ide
+            hot_load_into_ide("all", target_id, str(dest_p).replace("\\", "/"))
+        except Exception:
+            pass
 
     # Record rollback commit
     new_commit = commit_version(

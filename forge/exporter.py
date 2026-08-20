@@ -239,15 +239,24 @@ def generate_export_scripts(mcp_name: str, server_path: str) -> tuple[str, str]:
 
     bat_content = f"""@echo off
 REM FORGE 1-Click Multi-Agent MCP Exporter (Windows)
+setlocal EnableDelayedExpansion
+set "SCRIPT_DIR=%~dp0"
+set "LOCAL_SERVER=%SCRIPT_DIR%server.py"
+if exist "!LOCAL_SERVER!" (
+    set "RUN_PATH=!LOCAL_SERVER:\\=/!"
+) else (
+    set "RUN_PATH={clean_path}"
+)
+
 echo ========================================================
 echo Exporting MCP Server '{mcp_name}' to AI Agents...
-echo Server Path: {clean_path}
+echo Server Path: !RUN_PATH!
 echo ========================================================
 
 echo [1/3] Adding to Claude Code...
 where claude >nul 2>nul
 if %errorlevel%==0 (
-    claude mcp add {mcp_name} -- python "{clean_path}"
+    claude mcp add {mcp_name} -- python "!RUN_PATH!"
     echo [OK] Claude Code configured.
 ) else (
     echo [SKIP] Claude Code CLI not installed.
@@ -256,7 +265,7 @@ if %errorlevel%==0 (
 echo [2/3] Adding to Codex...
 where codex >nul 2>nul
 if %errorlevel%==0 (
-    codex mcp add {mcp_name} -- python "{clean_path}"
+    codex mcp add {mcp_name} -- python "!RUN_PATH!"
     echo [OK] Codex configured.
 ) else (
     echo [SKIP] Codex CLI not installed.
@@ -265,7 +274,7 @@ if %errorlevel%==0 (
 echo [3/3] Adding to OpenCode...
 where opencode >nul 2>nul
 if %errorlevel%==0 (
-    opencode mcp add {mcp_name} -- python "{clean_path}"
+    opencode mcp add {mcp_name} -- python "!RUN_PATH!"
     echo [OK] OpenCode configured.
 ) else (
     echo [SKIP] OpenCode CLI not installed.
@@ -279,28 +288,35 @@ echo Done!
     sh_content = f"""#!/usr/bin/env bash
 # FORGE 1-Click Multi-Agent MCP Exporter (Linux / macOS)
 set -e
+DIR="$(cd "$(dirname "${{BASH_SOURCE[0]}}")" >/dev/null 2>&1 && pwd)"
+if [ -f "$DIR/server.py" ]; then
+    RUN_PATH="$DIR/server.py"
+else
+    RUN_PATH="{clean_path}"
+fi
+
 echo "========================================================"
 echo "Exporting MCP Server '{mcp_name}' to AI Agents..."
-echo "Server Path: {clean_path}"
+echo "Server Path: $RUN_PATH"
 echo "========================================================"
 
 if command -v claude &> /dev/null; then
     echo "[1/3] Adding to Claude Code..."
-    claude mcp add {mcp_name} -- python "{clean_path}" || true
+    claude mcp add {mcp_name} -- python "$RUN_PATH" || true
 else
     echo "[SKIP] Claude Code CLI not found."
 fi
 
 if command -v codex &> /dev/null; then
     echo "[2/3] Adding to Codex..."
-    codex mcp add {mcp_name} -- python "{clean_path}" || true
+    codex mcp add {mcp_name} -- python "$RUN_PATH" || true
 else
     echo "[SKIP] Codex CLI not found."
 fi
 
 if command -v opencode &> /dev/null; then
     echo "[3/3] Adding to OpenCode..."
-    opencode mcp add {mcp_name} -- python "{clean_path}" || true
+    opencode mcp add {mcp_name} -- python "$RUN_PATH" || true
 else
     echo "[SKIP] OpenCode CLI not found."
 fi

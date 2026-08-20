@@ -247,34 +247,34 @@ export default function MarketplaceView() {
               <div>
                 {/* Header */}
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-navy text-gold shadow-sm font-bold font-mono">
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-navy text-gold shadow-sm font-bold font-mono">
                       {pkg.name.slice(0, 2).toUpperCase()}
                     </div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <h4 className="font-display text-sm font-bold text-navy">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <h4 className="font-display text-sm font-bold text-navy truncate" title={pkg.name}>
                           {pkg.name}
                         </h4>
                         {pkg.verified && (
-                          <span title="Verified Integrity">
+                          <span title="Verified Integrity" className="shrink-0">
                             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                           </span>
                         )}
                       </div>
-                      <span className="text-[11px] font-medium text-navy/50">
+                      <span className="text-[11px] font-medium text-navy/50 truncate block" title={`v${pkg.version} • by ${pkg.author}`}>
                         v{pkg.version} &bull; by {pkg.author}
                       </span>
                     </div>
                   </div>
 
-                  <span className="rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-gold-deep">
+                  <span className="rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-gold-deep shrink-0">
                     {pkg.category}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="mt-3.5 text-xs text-navy/70 line-clamp-2 leading-relaxed">
+                <p className="mt-3.5 text-xs text-navy/70 line-clamp-2 leading-relaxed break-words">
                   {pkg.description}
                 </p>
 
@@ -283,13 +283,14 @@ export default function MarketplaceView() {
                   {pkg.tools.slice(0, 3).map((t) => (
                     <span
                       key={t}
-                      className="rounded-lg bg-navy/5 px-2 py-0.5 font-mono text-[10px] font-semibold text-navy/80"
+                      className="rounded-lg bg-navy/5 px-2 py-0.5 font-mono text-[10px] font-semibold text-navy/80 truncate max-w-[130px]"
+                      title={t}
                     >
                       {t}
                     </span>
                   ))}
                   {pkg.tools.length > 3 && (
-                    <span className="rounded-lg bg-navy/5 px-1.5 py-0.5 text-[10px] font-bold text-navy/50">
+                    <span className="rounded-lg bg-navy/5 px-1.5 py-0.5 text-[10px] font-bold text-navy/50 shrink-0">
                       +{pkg.tools.length - 3} more
                     </span>
                   )}

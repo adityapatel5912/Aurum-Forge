@@ -1,6 +1,7 @@
 import type {
   BenchmarkData,
   ForgeRegistryMcpMeta,
+  ForgeResult,
   HistoryEntry,
   JobState,
   MarketplacePackage,
@@ -33,7 +34,14 @@ export function startForge(payload: {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
-  }).then((r) => json<{ job_id: string }>(r));
+  }).then((r) =>
+    json<{
+      job_id: string;
+      status?: "running" | "done" | "error";
+      result?: ForgeResult;
+      elapsed_seconds?: number;
+    }>(r)
+  );
 }
 
 export function getJob(jobId: string) {
@@ -300,5 +308,21 @@ export function triggerVoicePilot(voice = "Forge Research Chain with GitHub Brow
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ voice }),
   }).then((r) => json<import("./types").VoicePilotResult>(r));
+}
+
+export function checkMcpHealth(server_name = "", server_path = "") {
+  return fetch("/api/mcp/health-check", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ server_name, server_path }),
+  }).then((r) => json<any>(r));
+}
+
+export function executeDag(dag: any, goal = "") {
+  return fetch("/api/dag/execute", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ dag, goal }),
+  }).then((r) => json<any>(r));
 }
 

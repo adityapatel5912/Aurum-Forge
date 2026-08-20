@@ -35,46 +35,54 @@ UNIFIED_SERVER_PATH = (ROOT / "mcp_registry" / "servers" / "unified-mcp" / "serv
 
 
 def _atomic_write_json(file_path: Path, data: Any) -> None:
-    """Atomic write to JSON file using temp file + os.replace."""
+    """Atomic write to JSON file using temp file + os.replace with Windows file-lock retry/fallback."""
     file_path.parent.mkdir(parents=True, exist_ok=True)
     temp_dir = file_path.parent
-    fd, tmp_name = tempfile.mkstemp(dir=temp_dir, prefix=".tmp_forge_", suffix=".json")
-    try:
-        with open(fd, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-        # Replace target atomically
-        if file_path.exists():
-            os.replace(tmp_name, file_path)
-        else:
-            shutil.move(tmp_name, file_path)
-    except Exception:
-        if os.path.exists(tmp_name):
-            try:
-                os.unlink(tmp_name)
-            except Exception:
-                pass
-        raise
+    text = json.dumps(data, indent=2, ensure_ascii=False)
+    for attempt in range(3):
+        try:
+            fd, tmp_name = tempfile.mkstemp(dir=temp_dir, prefix=".tmp_forge_", suffix=".json")
+            with open(fd, "w", encoding="utf-8") as f:
+                f.write(text)
+            if file_path.exists():
+                os.replace(tmp_name, file_path)
+            else:
+                shutil.move(tmp_name, file_path)
+            return
+        except Exception:
+            if "tmp_name" in locals() and os.path.exists(tmp_name):
+                try:
+                    os.unlink(tmp_name)
+                except Exception:
+                    pass
+            if attempt < 2:
+                time.sleep(0.05)
+    file_path.write_text(text, encoding="utf-8")
 
 
 def _atomic_write_text(file_path: Path, text: str) -> None:
-    """Atomic write to text file using temp file + os.replace."""
+    """Atomic write to text file using temp file + os.replace with Windows file-lock retry/fallback."""
     file_path.parent.mkdir(parents=True, exist_ok=True)
     temp_dir = file_path.parent
-    fd, tmp_name = tempfile.mkstemp(dir=temp_dir, prefix=".tmp_forge_", suffix=".txt")
-    try:
-        with open(fd, "w", encoding="utf-8") as f:
-            f.write(text)
-        if file_path.exists():
-            os.replace(tmp_name, file_path)
-        else:
-            shutil.move(tmp_name, file_path)
-    except Exception:
-        if os.path.exists(tmp_name):
-            try:
-                os.unlink(tmp_name)
-            except Exception:
-                pass
-        raise
+    for attempt in range(3):
+        try:
+            fd, tmp_name = tempfile.mkstemp(dir=temp_dir, prefix=".tmp_forge_", suffix=".txt")
+            with open(fd, "w", encoding="utf-8") as f:
+                f.write(text)
+            if file_path.exists():
+                os.replace(tmp_name, file_path)
+            else:
+                shutil.move(tmp_name, file_path)
+            return
+        except Exception:
+            if "tmp_name" in locals() and os.path.exists(tmp_name):
+                try:
+                    os.unlink(tmp_name)
+                except Exception:
+                    pass
+            if attempt < 2:
+                time.sleep(0.05)
+    file_path.write_text(text, encoding="utf-8")
 
 
 def generate_universal_config(
@@ -140,7 +148,7 @@ def generate_universal_config(
         "ides": {
             "antigravity": {
                 "ide_name": "Google Antigravity",
-                "config_path": f"{home_dir}/.antigravity/mcp.json",
+                "config_path": f"{home_dir}/.gemini/config/mcp_config.json",
                 "format": "mcpServers",
                 "snippet": {
                     "mcpServers": {
@@ -152,55 +160,6 @@ def generate_universal_config(
                     }
                 },
                 "how_to_connect": "1. Open Antigravity Settings -> MCP. | 2. Paste the JSON snippet into mcpServers. | 3. The Forge Factory MCP connects in <1s.",
-                "is_cli": False,
-            },
-            "z_code": {
-                "ide_name": "Z Code / Zed",
-                "config_path": f"{home_dir}/.zcode/mcp.json",
-                "format": "mcpServers",
-                "snippet": {
-                    "mcpServers": {
-                        active_mcp_name: {
-                            "command": "python",
-                            "args": [clean_path],
-                            "env": env_block,
-                        }
-                    }
-                },
-                "how_to_connect": "1. Open Z Code / Zed settings.json. | 2. Add this snippet inside experimental.mcpServers or mcpServers. | 3. Save and use immediately.",
-                "is_cli": False,
-            },
-            "claude_code": {
-                "ide_name": "Claude Code",
-                "config_path": f"{home_dir}/.claude.json",
-                "format": "cli_or_json",
-                "cli_command": f"claude mcp add {active_mcp_name} -- python {clean_path}",
-                "snippet": {
-                    "mcpServers": {
-                        active_mcp_name: {
-                            "command": "python",
-                            "args": [clean_path],
-                            "env": env_block,
-                        }
-                    }
-                },
-                "how_to_connect": f"Run in your terminal: claude mcp add {active_mcp_name} -- python {clean_path}",
-                "is_cli": True,
-            },
-            "claude_desktop": {
-                "ide_name": "Claude Desktop",
-                "config_path": claude_desktop_path,
-                "format": "mcpServers",
-                "snippet": {
-                    "mcpServers": {
-                        active_mcp_name: {
-                            "command": "python",
-                            "args": [clean_path],
-                            "env": env_block,
-                        }
-                    }
-                },
-                "how_to_connect": f"Paste snippet into {claude_desktop_path} and restart Claude Desktop.",
                 "is_cli": False,
             },
             "cursor": {
@@ -219,9 +178,9 @@ def generate_universal_config(
                 "how_to_connect": "Paste snippet into .cursor/mcp.json in workspace or global Cursor settings.",
                 "is_cli": False,
             },
-            "windsurf": {
-                "ide_name": "Windsurf (Codeium)",
-                "config_path": f"{home_dir}/.codeium/windsurf/mcp_config.json",
+            "z_code": {
+                "ide_name": "Z Code / Zed",
+                "config_path": f"{home_dir}/.zcode/mcp.json",
                 "format": "mcpServers",
                 "snippet": {
                     "mcpServers": {
@@ -232,24 +191,8 @@ def generate_universal_config(
                         }
                     }
                 },
-                "how_to_connect": "Open Windsurf Settings -> MCP Servers -> Paste snippet.",
+                "how_to_connect": "1. Open Z Code / Zed settings.json. | 2. Add snippet inside experimental.mcpServers. | 3. Save and use.",
                 "is_cli": False,
-            },
-            "opencode": {
-                "ide_name": "OpenCode",
-                "config_path": f"{home_dir}/.opencode/mcp.json",
-                "format": "cli",
-                "cli_command": f"opencode mcp add {active_mcp_name} -- python {clean_path}",
-                "how_to_connect": f"Run in your terminal: opencode mcp add {active_mcp_name} -- python {clean_path}",
-                "is_cli": True,
-            },
-            "codex": {
-                "ide_name": "Codex",
-                "config_path": f"{home_dir}/.codex/mcp.json",
-                "format": "cli",
-                "cli_command": f"codex mcp add {active_mcp_name} -- python {clean_path}",
-                "how_to_connect": f"Run in your terminal: codex mcp add {active_mcp_name} -- python {clean_path}",
-                "is_cli": True,
             },
         },
         "export_scripts": {
@@ -387,19 +330,26 @@ def hot_load_into_ide(
     """Directly and atomically inject MCP server configuration into target IDE config files."""
     clean_path = str(server_path).replace("\\", "/")
     home_dir = Path.home().resolve()
+    appdata = os.environ.get("APPDATA", "")
+    if appdata:
+        claude_desktop_path = Path(appdata).resolve() / "Claude" / "claude_desktop_config.json"
+    else:
+        claude_desktop_path = home_dir / "Library" / "Application Support" / "Claude" / "claude_desktop_config.json"
     
-    ide_paths: Dict[str, Path] = {
-        "antigravity": home_dir / ".antigravity" / "mcp.json",
-        "z_code": home_dir / ".zcode" / "mcp.json",
-        "claude_code": home_dir / ".claude.json",
-        "cursor": home_dir / ".cursor" / "mcp.json",
-        "cursor_project": ROOT / ".cursor" / "mcp.json",
-        "windsurf": home_dir / ".codeium" / "windsurf" / "mcp_config.json",
+    ide_paths: Dict[str, List[Path]] = {
+        "antigravity": [
+            home_dir / ".gemini" / "config" / "mcp_config.json",
+            home_dir / ".antigravity" / "mcp.json",
+        ],
+        "cursor": [
+            home_dir / ".cursor" / "mcp.json",
+            ROOT / ".cursor" / "mcp.json",
+        ],
+        "cursor_project": [ROOT / ".cursor" / "mcp.json"],
+        "z_code": [home_dir / ".zcode" / "mcp.json"],
     }
 
-    def _write_ide_config(key: str) -> Dict[str, Any]:
-        """Write the mcpServers entry into one IDE config file (atomic, mkdir-safe)."""
-        target_file = ide_paths[key]
+    def _write_one_file(target_file: Path) -> bool:
         try:
             target_file.parent.mkdir(parents=True, exist_ok=True)
             existing_data: Dict[str, Any] = {}
@@ -414,11 +364,9 @@ def hot_load_into_ide(
 
             if mcp_name == "forge-aurum-hub":
                 hub_clean = str(AURUM_HUB_SERVER_PATH).replace("\\", "/")
-                existing_data["mcpServers"] = {
-                    "forge-aurum-hub": {
-                        "command": "python",
-                        "args": [hub_clean],
-                    }
+                existing_data["mcpServers"]["forge-aurum-hub"] = {
+                    "command": "python",
+                    "args": [hub_clean],
                 }
                 if env_vars:
                     existing_data["mcpServers"]["forge-aurum-hub"]["env"] = env_vars
@@ -431,16 +379,34 @@ def hot_load_into_ide(
                     existing_data["mcpServers"][mcp_name]["env"] = env_vars
 
             _atomic_write_json(target_file, existing_data)
+            return True
+        except Exception:
+            return False
+
+    def _write_ide_config(key: str) -> Dict[str, Any]:
+        """Write the mcpServers entry into IDE config files (atomic, mkdir-safe)."""
+        files = ide_paths.get(key, [])
+        written_paths = []
+        for tf in files:
+            if _write_one_file(tf):
+                written_paths.append(str(tf).replace("\\", "/"))
+
+        if written_paths:
             return {
                 "ok": True,
                 "ide": key,
-                "config_path": str(target_file).replace("\\", "/"),
+                "config_path": written_paths[0],
+                "all_paths": written_paths,
                 "mcp_name": mcp_name,
                 "server_path": clean_path,
                 "message": f"Successfully hot-loaded '{mcp_name}' into {key}!",
             }
-        except Exception as e:
-            return {"ok": False, "ide": key, "error": f"Failed to write config for {key}: {str(e)}"}
+        else:
+            return {
+                "ok": False,
+                "ide": key,
+                "error": f"Failed to write config for {key}",
+            }
 
     if ide_key == "all":
         results = {k: _write_ide_config(k) for k in ide_paths}
@@ -451,8 +417,12 @@ def hot_load_into_ide(
     if ide_key == "cursor":
         # Cursor: write both the global (~/.cursor/mcp.json) and project (.cursor/mcp.json) configs
         results = {k: _write_ide_config(k) for k in ("cursor", "cursor_project")}
-        write_universal_config_and_scripts(mcp_name, clean_path, env_vars)
-        return {"ok": all(v.get("ok") for v in results.values()), "target": "cursor", "results": results}
+        return {
+            "ok": all(v.get("ok") for v in results.values()),
+            "target": "cursor",
+            "config_path": results.get("cursor", {}).get("config_path"),
+            "results": results,
+        }
 
     if ide_key not in ide_paths:
         return {"ok": False, "error": f"Unsupported IDE key '{ide_key}'"}

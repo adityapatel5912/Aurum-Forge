@@ -185,11 +185,15 @@ export default function AurumDependencyGraph({ chains, onSelectChain, onInstallC
             </div>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {activeChain.tools.map((tool, idx) => (
-                <div key={idx} className="flex items-start gap-2 rounded bg-[#050C1A]/60 p-2 border border-gold/10">
+                <div key={idx} className="flex items-start gap-2 rounded bg-[#050C1A]/60 p-2 border border-gold/10 overflow-hidden">
                   <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                  <div>
-                    <div className="font-mono text-[11px] font-bold text-gold">{tool.name}</div>
-                    <div className="text-[10px] text-cream/70">{tool.description}</div>
+                  <div className="min-w-0 flex-1 overflow-hidden">
+                    <div className="font-mono text-[11px] font-bold text-gold truncate" title={tool.name}>
+                      {tool.name}
+                    </div>
+                    <div className="text-[10px] text-cream/70 line-clamp-2 break-words">
+                      {tool.description}
+                    </div>
                   </div>
                 </div>
               ))}

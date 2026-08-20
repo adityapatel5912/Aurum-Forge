@@ -1129,7 +1129,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "notion_create_database", "source": "Intent Router", "badge": "FORGED", "description": "Create a database with schema"},
             {"name": "notion_query_database", "source": "Intent Router", "badge": "FORGED", "description": "Query database records"},
         ],
-        "match": lambda g: "notion" in g and "chain" not in g and any(k in g for k in ("mcp", "build", "create", "page", "database")),
+        "match": lambda g: ("notion workspace" in g or "notion mcp" in g or g.strip() == "notion" or g.startswith("forge notion")) and "chain" not in g,
     },
     "youtube_mcp": {
         "slug": "youtube_mcp",
@@ -1139,7 +1139,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "youtube_summarize", "source": "Intent Router", "badge": "FORGED", "description": "Summarize transcript into key takeaways"},
             {"name": "youtube_search", "source": "Intent Router", "badge": "FORGED", "description": "Search YouTube videos and titles"},
         ],
-        "match": lambda g: "youtube" in g and "chain" not in g and any(k in g for k in ("mcp", "build", "transcript", "summarize", "search")),
+        "match": lambda g: ("youtube mcp" in g or g.strip() == "youtube" or g.startswith("forge youtube")) and "chain" not in g,
     },
     "browser_mcp": {
         "slug": "browser_mcp",
@@ -1148,7 +1148,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "browser_fetch", "source": "Intent Router", "badge": "FORGED", "description": "Fetch web page markdown and headings"},
             {"name": "browser_enrich", "source": "Intent Router", "badge": "FORGED", "description": "Enrich page with citations and fact checks"},
         ],
-        "match": lambda g: "browser" in g and "chain" not in g and any(k in g for k in ("mcp", "build", "fetch", "enrich")),
+        "match": lambda g: ("browser mcp" in g or g.strip() == "browser" or g.startswith("forge browser")) and "chain" not in g,
     },
     "slack_mcp": {
         "slug": "slack_mcp",
@@ -1157,7 +1157,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "slack_post_message", "source": "Intent Router", "badge": "FORGED", "description": "Post messages to Slack channel"},
             {"name": "slack_read_channel", "source": "Intent Router", "badge": "FORGED", "description": "Read messages from Slack channel"},
         ],
-        "match": lambda g: "slack" in g and "chain" not in g and any(k in g for k in ("mcp", "build", "post", "read", "channel")),
+        "match": lambda g: ("slack mcp" in g or g.strip() == "slack" or g.startswith("forge slack")) and "chain" not in g,
     },
     "gmail_mcp": {
         "slug": "gmail_mcp",
@@ -1167,7 +1167,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "gmail_read", "source": "Intent Router", "badge": "FORGED", "description": "Read email details and bodies"},
             {"name": "gmail_search", "source": "Intent Router", "badge": "FORGED", "description": "Search email threads"},
         ],
-        "match": lambda g: ("gmail" in g or "email" in g) and "chain" not in g and any(k in g for k in ("mcp", "build", "send", "read", "search")),
+        "match": lambda g: ("gmail mcp" in g or "email mcp" in g or g.strip() in ("gmail", "email") or g.startswith("forge gmail")) and "chain" not in g,
     },
     "sheets_mcp": {
         "slug": "sheets_mcp",
@@ -1178,7 +1178,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "sheets_append", "source": "Intent Router", "badge": "FORGED", "description": "Append row to sheet"},
             {"name": "sheets_create", "source": "Intent Router", "badge": "FORGED", "description": "Create new Google spreadsheet"},
         ],
-        "match": lambda g: ("sheet" in g or "sheets" in g) and "chain" not in g and any(k in g for k in ("mcp", "build", "read", "write", "append", "create")),
+        "match": lambda g: ("sheets mcp" in g or "google sheets mcp" in g or g.strip() in ("sheets", "sheet") or g.startswith("forge sheets")) and "chain" not in g,
     },
     "github_mcp": {
         "slug": "github_mcp",
@@ -1189,7 +1189,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "github_create_issue", "source": "Intent Router", "badge": "FORGED", "description": "Create new issue in repo"},
             {"name": "github_list_prs", "source": "Intent Router", "badge": "FORGED", "description": "List pull requests in repo"},
         ],
-        "match": lambda g: "github" in g and "chain" not in g and any(k in g for k in ("mcp", "build", "search", "repo", "issue", "prs")),
+        "match": lambda g: ("github mcp" in g or g.strip() == "github" or g.startswith("forge github")) and "chain" not in g,
     },
 }
 

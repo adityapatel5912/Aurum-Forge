@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import sys
 import threading
@@ -161,10 +162,28 @@ def publish_mcp(
         server_source = entry.get("skill_content", "")
 
     # Security Vault Gate — Hard block if secrets or unsafe calls are present in source or metadata
-    all_content_to_scan = f"{server_source}\n{description}\n{entry.get('goal', '')}\n{entry.get('skill_content', '')}"
-    if all_content_to_scan.strip():
-        from backend.aurum.security_vault import scan_source_security
-        sec_report = scan_source_security(all_content_to_scan, mcp_name)
+    if server_source.strip():
+        from backend.aurum.security_vault import SECRET_PATTERNS, scan_source_security
+        sec_report = scan_source_security(server_source, mcp_name)
+
+        # Also audit metadata (description, goal) for secret leaks
+        meta_text = f"{description}\n{entry.get('goal', '')}"
+        for line in meta_text.splitlines():
+            if "<your_" in line or "YOUR_API_KEY" in line or "your-api-key-here" in line:
+                continue
+            for pattern, rule_name, severity in SECRET_PATTERNS:
+                if re.search(pattern, line):
+                    sec_report["can_publish"] = False
+                    sec_report["security_score"] = min(sec_report.get("security_score", 100), 70)
+                    sec_report["aurum_security_badge"] = False
+                    sec_report.setdefault("findings", []).append({
+                        "rule": rule_name,
+                        "severity": severity,
+                        "message": f"Possible hardcoded credential detected in metadata matching {rule_name}",
+                        "line": 0,
+                    })
+                    break
+
         if not sec_report.get("can_publish", True) or sec_report.get("security_score", 100) < 90:
             return {
                 "ok": False,
@@ -329,13 +348,20 @@ def install_package(package_id: str, target_ide: str = "all") -> Dict[str, Any]:
 
     # Copy / write server.py and single root SKILL.md
     src_server = Path(pkg.get("server_path", ""))
+    pkg_stored_server = PACKAGES_DIR / pkg.get("package_id", "") / "server.py"
+    pkg_stored_skill = PACKAGES_DIR / pkg.get("package_id", "") / "SKILL.md"
+
     if src_server.exists():
         shutil.copy2(src_server, dest_server)
+    elif pkg_stored_server.exists():
+        shutil.copy2(pkg_stored_server, dest_server)
     elif pkg.get("server_py"):
         dest_server.write_text(pkg["server_py"], "utf-8")
 
     if pkg.get("skill_content"):
         dest_skill.write_text(pkg["skill_content"], "utf-8")
+    elif pkg_stored_skill.exists():
+        shutil.copy2(pkg_stored_skill, dest_skill)
 
     clean_path = str(dest_server).replace("\\", "/")
 

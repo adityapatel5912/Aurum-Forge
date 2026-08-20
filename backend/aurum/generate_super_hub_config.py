@@ -132,7 +132,11 @@ def scan_all_mcp_servers() -> Tuple[Dict[str, Dict[str, Any]], int]:
                     "aurum_verified": True,
                     "badge": "AURUM GOLD #C6A96B",
                 }
-                total_tools_count += tools_count
+    unique_tool_names = set()
+    for s_info in discovered.values():
+        for tn in s_info.get("tool_names", []):
+            unique_tool_names.add(tn)
+    total_tools_count = len(unique_tool_names)
 
     return discovered, total_tools_count
 

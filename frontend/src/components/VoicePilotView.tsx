@@ -3,15 +3,11 @@ import {
   Activity,
   AlertCircle,
   ArrowRight,
-  Award,
-  Check,
   CheckCircle2,
   Clock,
   Coins,
-  Copy,
   Cpu,
   ExternalLink,
-  FileCheck,
   FileCode,
   Flame,
   Globe,
@@ -34,7 +30,7 @@ import {
   Zap,
 } from "lucide-react";
 import type { ProofLedgerData, ProofLedgerStep, VoicePilotResult } from "../types";
-import { copyText, triggerVoicePilot } from "../api";
+import { triggerVoicePilot } from "../api";
 
 interface Props {
   onChainForged?: (chain_id: string) => void;
@@ -48,45 +44,12 @@ const PRESET_VOICE_COMMANDS = [
   "Forge Sales Outreach Chain with Browser Gmail Sheets Notion and publish as Gold",
 ];
 
-const WINNING_DEMO_SCRIPT = `================================================================================
-FORGE-AURUM SUPER-HUB: 60-SECOND NO-CUTS WINNING DEMO SCRIPT
-HACKATHON PERIOD: AUG 20-22 — TARGET EVALUATION: 100/100
-================================================================================
-
-[00:00 - 00:05] SPEAK THE INTENT
-"Watch this: in 20 seconds, we will turn one spoken sentence into an Aurum Gold Verified MCP Chain installed across every AI IDE with cryptographic proof of work."
-*Click Mic*: "Forge Research Chain with GitHub Browser Notion Email and publish as Aurum Gold."
-
-[00:05 - 00:07] AUTO-LINK DAG TOPOLOGY
-"Step 1 instantly parses the voice intent and generates a 4-stage levelled DAG: Blue Trigger -> Green Process -> Purple Output, glowing with Aurum Gold."
-
-[00:07 - 00:09] DETERMINISTIC FAST-MCP FORGE
-"Step 2 compiles all 5 FastMCP tools in 2.06 seconds with ZERO API tokens consumed. No fragile LLM hallucinations, full py_compile AST integrity."
-
-[00:09 - 00:12] EMPIRICAL LIVE BENCHMARK
-"Step 3 executes the Live Benchmark: 2.1s vs 175s Stainless — an 83x speedup, saving 45,200 tokens and $0.80 per run."
-
-[00:12 - 00:14] AST BREAK-AND-HEAL
-"Step 4 validates resilience: injected duplicate returns and Windows backslashes are diagnosed and self-healed in 72ms (<200ms threshold)."
-
-[00:14 - 00:16] SECURITY VAULT 100/100
-"Step 5 runs deep static analysis: 0 credential leaks, 0 path traversals, scoring a perfect 100/100 Clean Gold Badge."
-
-[00:16 - 00:18] TIME-TRAVEL ATOMIC COMMIT
-"Step 6 commits version v1.0.1 to the immutable ledger with cryptographic hash 'f6cdbd0a07f2'."
-
-[00:18 - 00:20] UNIVERSAL ZIP + SUPER-HUB INJECTION + VERIFIABLE LEDGER
-"In Step 7 & 8, we export universal SKILL.md for 7 IDEs and publish to Marketplace with golden dependency lines. Step 9 hot-loads ~/.antigravity/mcp.json in 0.1s — 66 tools aggregated under ONE single entry! Step 10 generates this Verifiable Work Ledger proving 4 hours of human engineering rewritten with real base64 screenshots and traces. That is FORGE-AURUM."
-================================================================================`;
-
 export default function VoicePilotView({ onChainForged }: Props) {
   const [voiceInput, setVoiceInput] = useState(PRESET_VOICE_COMMANDS[0]);
   const [isRunning, setIsRunning] = useState(false);
   const [progressStep, setProgressStep] = useState<number>(0);
   const [result, setResult] = useState<VoicePilotResult | null>(null);
   const [activeLedgerTab, setActiveLedgerTab] = useState<"screenshots" | "traces" | "previews" | "savings" | "replay">("traces");
-  const [copiedScript, setCopiedScript] = useState(false);
-  const [showDemoModal, setShowDemoModal] = useState(false);
   const [replayIndex, setReplayIndex] = useState<number>(0);
   const [isReplaying, setIsReplaying] = useState(false);
 
@@ -130,12 +93,6 @@ export default function VoicePilotView({ onChainForged }: Props) {
     } finally {
       setIsRunning(false);
     }
-  };
-
-  const handleCopyDemoScript = async () => {
-    await copyText(WINNING_DEMO_SCRIPT);
-    setCopiedScript(true);
-    setTimeout(() => setCopiedScript(false), 2500);
   };
 
   const handleReplayTrace = () => {
@@ -186,16 +143,6 @@ export default function VoicePilotView({ onChainForged }: Props) {
                 Collapses 6 manual clicks into 1 voice command in 20 seconds with a Verifiable Work Ledger.
               </p>
             </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowDemoModal(true)}
-              className="flex items-center gap-1.5 rounded-xl border border-gold/40 bg-navy-light/60 px-3 py-1.5 text-xs font-bold text-gold transition-all hover:bg-gold/15"
-            >
-              <FileCheck className="h-3.5 w-3.5" />
-              60-Second Demo Script
-            </button>
           </div>
         </div>
 
@@ -593,50 +540,6 @@ export default function VoicePilotView({ onChainForged }: Props) {
               </div>
             </div>
           )}
-        </div>
-      )}
-
-      {/* 60-Second Demo Script Modal */}
-      {showDemoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in">
-          <div className="relative flex max-h-[85vh] w-full max-w-2xl flex-col rounded-2xl border-2 border-gold bg-[#0A1931] p-5 shadow-[0_0_50px_rgba(198,169,107,0.4)]">
-            <div className="flex items-center justify-between border-b border-gold/30 pb-3">
-              <div className="flex items-center gap-2">
-                <Award className="h-5 w-5 text-gold" />
-                <h3 className="font-display text-base font-black text-cream">
-                  60-SECOND NO-CUTS WINNING DEMO SCRIPT
-                </h3>
-              </div>
-              <button
-                onClick={() => setShowDemoModal(false)}
-                className="rounded-lg border border-gold/30 px-2 py-1 text-xs text-cream/70 hover:bg-gold/20 hover:text-cream"
-              >
-                ✕ Close
-              </button>
-            </div>
-
-            <div className="my-3 flex-1 overflow-y-auto rounded-xl border border-gold/20 bg-[#050C1A] p-3.5 font-mono text-xs text-cream/90 whitespace-pre-wrap leading-relaxed shadow-inner">
-              {WINNING_DEMO_SCRIPT}
-            </div>
-
-            <div className="flex items-center justify-between border-t border-gold/30 pt-3">
-              <span className="text-xs text-cream/60">Copy and read during your live judge presentation</span>
-              <button
-                onClick={handleCopyDemoScript}
-                className="flex items-center gap-1.5 rounded-xl bg-gold px-4 py-2 text-xs font-black text-navy transition-all hover:bg-gold-light hover:shadow-[0_0_15px_rgba(198,169,107,0.5)]"
-              >
-                {copiedScript ? (
-                  <>
-                    <Check className="h-4 w-4" /> Copied to Clipboard!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4" /> Copy Demo Script
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </div>

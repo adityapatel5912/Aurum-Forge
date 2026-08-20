@@ -1,744 +1,129 @@
 {
-  "mcpServers": {
-    "forge-aurum-hub": {
+  "version": "3.0.0",
+  "name": "FORGE-AURUM SUPER-HUB Universal Configuration",
+  "badge": "AURUM GOLD (#C6A96B)",
+  "description": "One-click executable connection config for Antigravity, Z Code, Claude Code, Cursor, Windsurf, OpenCode, and Codex",
+  "active_mcp": {
+    "name": "track_top_artificial_intellige",
+    "server_path": "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py",
+    "command": "python",
+    "args": [
+      "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+    ],
+    "env": {
+      "NOTION_TOKEN": "<your_notion_token>",
+      "GMAIL_USER": "<your_gmail_address>",
+      "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+      "GITHUB_TOKEN": "<your_github_token>",
+      "SLACK_BOT_TOKEN": "<your_slack_token>",
+      "FORGE_HEADLESS": "0"
+    }
+  },
+  "servers": {
+    "forge_aurum_hub": {
+      "name": "forge-aurum-hub",
+      "description": "FORGE-AURUM Super-Hub (50-in-1 Aggregator MCP operating all custom sites, official APIs, and chains)",
       "command": "python",
       "args": [
-        "/app/forge/mcp/forge_aurum_hub/server.py"
-      ],
-      "env": {},
-      "description": "Super-Hub 1 entry replaces 50+ — auto-updates — give once",
-      "type": "aurum_gold",
-      "badge": "#C6A96B",
-      "auto_update": true,
-      "watch_path": "/app/mcp_registry/servers",
-      "hot_reload": "0.1s",
-      "version": "1.0.1",
-      "hash": "f6cdbd0a07f2",
-      "aurum_verified": true
+        "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+      ]
+    },
+    "forge_factory": {
+      "name": "forge-factory",
+      "description": "Operating System Factory MCP — forges, hot-loads, benchmarks, and heals MCPs inside your IDE",
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py"
+      ]
+    },
+    "unified_forge": {
+      "name": "unified-forge",
+      "description": "Active Unified MCP server operating all custom websites and official APIs",
+      "command": "python",
+      "args": [
+        "D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py"
+      ]
     }
   },
-  "aurum_auto_update": {
-    "enabled": true,
-    "watch_paths": [
-      "mcp_registry/servers",
-      "forge/mcp",
-      "marketplace.json"
-    ],
-    "reload_interval": "0.1s",
-    "ide_auto_sync": true,
-    "ide_targets": [
-      "antigravity",
-      "claude_code",
-      "cursor",
-      "windsurf",
-      "opencode",
-      "codex",
-      "z_code",
-      "all"
-    ],
-    "last_scan": "2026-08-19T17:26:08+00:00",
-    "total_servers": 34,
-    "total_tools": 317
-  },
-  "discovered_servers": {
-    "aurum-github-mcp": {
-      "name": "aurum-github-mcp",
-      "path": "mcp_registry/servers/aurum-github-mcp/server.py",
-      "abs_path": "/app/mcp_registry/servers/aurum-github-mcp/server.py",
-      "tools": 4,
-      "tool_names": [
-        "aurum_health_check",
-        "github_create_issue",
-        "github_list_prs",
-        "github_get_file_contents"
-      ],
-      "hash": "9876aededfd2",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
+  "ides": {
+    "antigravity": {
+      "ide_name": "Google Antigravity",
+      "config_path": "C:/Users/Admin/.gemini/config/mcp_config.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "track_top_artificial_intellige": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "1. Open Antigravity Settings -> MCP. | 2. Paste the JSON snippet into mcpServers. | 3. The Forge Factory MCP connects in <1s.",
+      "is_cli": false
     },
-    "chain-1787155696": {
-      "name": "chain-1787155696",
-      "path": "mcp_registry/servers/chain-1787155696/server.py",
-      "abs_path": "/app/mcp_registry/servers/chain-1787155696/server.py",
-      "tools": 3,
-      "tool_names": [
-        "list_chain_members",
-        "stage_1_research_v4",
-        "run_chain"
-      ],
-      "hash": "9b11f0fd748a",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
+    "cursor": {
+      "ide_name": "Cursor",
+      "config_path": "D:/Aditya/Forge/.cursor/mcp.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "track_top_artificial_intellige": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Paste snippet into .cursor/mcp.json in workspace or global Cursor settings.",
+      "is_cli": false
     },
-    "chain_content": {
-      "name": "chain_content",
-      "path": "mcp_registry/servers/chain_content/server.py",
-      "abs_path": "/app/mcp_registry/servers/chain_content/server.py",
-      "tools": 7,
-      "tool_names": [
-        "get_chain_metadata",
-        "youtube_get_transcript",
-        "browser_fetch_enrich",
-        "chain_content_summarize",
-        "notion_create_page",
-        "slack_post_message",
-        "chain_content_full_workflow"
-      ],
-      "hash": "08025c01db24",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "chain_dev_workflow": {
-      "name": "chain_dev_workflow",
-      "path": "mcp_registry/servers/chain_dev_workflow/server.py",
-      "abs_path": "/app/mcp_registry/servers/chain_dev_workflow/server.py",
-      "tools": 6,
-      "tool_names": [
-        "get_chain_metadata",
-        "github_watch_prs",
-        "filesystem_scan_diffs",
-        "slack_notify_dev_channel",
-        "notion_update_changelog",
-        "run_dev_workflow_chain"
-      ],
-      "hash": "3900a459b827",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "chain_ops": {
-      "name": "chain_ops",
-      "path": "mcp_registry/servers/chain_ops/server.py",
-      "abs_path": "/app/mcp_registry/servers/chain_ops/server.py",
-      "tools": 6,
-      "tool_names": [
-        "get_chain_metadata",
-        "filesystem_watch_folder",
-        "sheets_append_metrics",
-        "notion_sync_ops_dashboard",
-        "gmail_send_ops_report",
-        "run_ops_chain"
-      ],
-      "hash": "fbb6de05514d",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "chain_research": {
-      "name": "chain_research",
-      "path": "mcp_registry/servers/chain_research/server.py",
-      "abs_path": "/app/mcp_registry/servers/chain_research/server.py",
-      "tools": 6,
-      "tool_names": [
-        "get_chain_metadata",
-        "github_research_repo",
-        "browser_crawl_docs",
-        "notion_publish_research_doc",
-        "gmail_dispatch_summary",
-        "run_research_chain"
-      ],
-      "hash": "a5807f99b6be",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "chain_sales_outreach": {
-      "name": "chain_sales_outreach",
-      "path": "mcp_registry/servers/chain_sales_outreach/server.py",
-      "abs_path": "/app/mcp_registry/servers/chain_sales_outreach/server.py",
-      "tools": 6,
-      "tool_names": [
-        "get_chain_metadata",
-        "browser_extract_leads",
-        "sheets_record_prospect",
-        "gmail_send_personalized_outreach",
-        "notion_create_crm_entry",
-        "run_sales_outreach_chain"
-      ],
-      "hash": "d22de8d9faf4",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "reverse_synthesized_mcp": {
-      "name": "reverse_synthesized_mcp",
-      "path": "mcp_registry/servers/reverse_synthesized_mcp/server.py",
-      "abs_path": "/app/mcp_registry/servers/reverse_synthesized_mcp/server.py",
-      "tools": 1,
-      "tool_names": [
-        "test_tool"
-      ],
-      "hash": "8bdc4ea5cceb",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "unified-mcp": {
-      "name": "unified-mcp",
-      "path": "mcp_registry/servers/unified-mcp/server.py",
-      "abs_path": "/app/mcp_registry/servers/unified-mcp/server.py",
-      "tools": 7,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price"
-      ],
-      "hash": "5c2f113a5f77",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "hello_mcp": {
-      "name": "hello_mcp",
-      "path": "mcp/hello_mcp/server.py",
-      "abs_path": "/app/mcp/hello_mcp/server.py",
-      "tools": 7,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price"
-      ],
-      "hash": "caa1b87aef08",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "notion": {
-      "name": "notion",
-      "path": "mcp/notion/server.py",
-      "abs_path": "/app/mcp/notion/server.py",
-      "tools": 8,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "notion_create_entry"
-      ],
-      "hash": "31f4257dccad",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "notion_forge": {
-      "name": "notion_forge",
-      "path": "mcp/notion_forge/server.py",
-      "abs_path": "/app/mcp/notion_forge/server.py",
-      "tools": 8,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "notion_create_entry"
-      ],
-      "hash": "8b804afa869c",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "notion_v2": {
-      "name": "notion_v2",
-      "path": "mcp/notion_v2/server.py",
-      "abs_path": "/app/mcp/notion_v2/server.py",
-      "tools": 8,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "notion_create_entry"
-      ],
-      "hash": "3a16ae16a0c4",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "ram": {
-      "name": "ram",
-      "path": "mcp/ram/server.py",
-      "abs_path": "/app/mcp/ram/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_amazon",
-        "read_page_amazon",
-        "click_element_amazon",
-        "fill_field_amazon",
-        "extract_links_amazon"
-      ],
-      "hash": "bf555d6e2004",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "ram_tracker": {
-      "name": "ram_tracker",
-      "path": "mcp/ram_tracker/server.py",
-      "abs_path": "/app/mcp/ram_tracker/server.py",
-      "tools": 7,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price"
-      ],
-      "hash": "6cbb58069d92",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "ram_tracker_v2": {
-      "name": "ram_tracker_v2",
-      "path": "mcp/ram_tracker_v2/server.py",
-      "abs_path": "/app/mcp/ram_tracker_v2/server.py",
-      "tools": 7,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price"
-      ],
-      "hash": "07ec40bdd45c",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "ram_tracker_v3": {
-      "name": "ram_tracker_v3",
-      "path": "mcp/ram_tracker_v3/server.py",
-      "abs_path": "/app/mcp/ram_tracker_v3/server.py",
-      "tools": 7,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price"
-      ],
-      "hash": "3a1723f66474",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "ram_v2": {
-      "name": "ram_v2",
-      "path": "mcp/ram_v2/server.py",
-      "abs_path": "/app/mcp/ram_v2/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_amazon",
-        "read_page_amazon",
-        "click_element_amazon",
-        "fill_field_amazon",
-        "extract_links_amazon"
-      ],
-      "hash": "ff7a5a845b24",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "ram_v3": {
-      "name": "ram_v3",
-      "path": "mcp/ram_v3/server.py",
-      "abs_path": "/app/mcp/ram_v3/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_amazon",
-        "read_page_amazon",
-        "click_element_amazon",
-        "fill_field_amazon",
-        "extract_links_amazon"
-      ],
-      "hash": "e427ebd09038",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "research": {
-      "name": "research",
-      "path": "mcp/research/server.py",
-      "abs_path": "/app/mcp/research/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_news_ycombinator",
-        "read_page_news_ycombinator",
-        "click_element_news_ycombinator",
-        "fill_field_news_ycombinator",
-        "extract_links_news_ycombinator"
-      ],
-      "hash": "d2246b8b3bbc",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "research_v2": {
-      "name": "research_v2",
-      "path": "mcp/research_v2/server.py",
-      "abs_path": "/app/mcp/research_v2/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_news_ycombinator",
-        "read_page_news_ycombinator",
-        "click_element_news_ycombinator",
-        "fill_field_news_ycombinator",
-        "extract_links_news_ycombinator"
-      ],
-      "hash": "93cbf760260e",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "research_v3": {
-      "name": "research_v3",
-      "path": "mcp/research_v3/server.py",
-      "abs_path": "/app/mcp/research_v3/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_news_ycombinator",
-        "read_page_news_ycombinator",
-        "click_element_news_ycombinator",
-        "fill_field_news_ycombinator",
-        "extract_links_news_ycombinator"
-      ],
-      "hash": "34c6b0f20be2",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "research_v4": {
-      "name": "research_v4",
-      "path": "mcp/research_v4/server.py",
-      "abs_path": "/app/mcp/research_v4/server.py",
-      "tools": 12,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_news_ycombinator",
-        "read_page_news_ycombinator",
-        "click_element_news_ycombinator",
-        "fill_field_news_ycombinator",
-        "extract_links_news_ycombinator"
-      ],
-      "hash": "7690aa536c4e",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_0": {
-      "name": "stress_0",
-      "path": "mcp/stress_0/server.py",
-      "abs_path": "/app/mcp/stress_0/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "cb6d34b7d98a",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_1": {
-      "name": "stress_1",
-      "path": "mcp/stress_1/server.py",
-      "abs_path": "/app/mcp/stress_1/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "86a594404a19",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_2": {
-      "name": "stress_2",
-      "path": "mcp/stress_2/server.py",
-      "abs_path": "/app/mcp/stress_2/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "7e3750bf4983",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_3": {
-      "name": "stress_3",
-      "path": "mcp/stress_3/server.py",
-      "abs_path": "/app/mcp/stress_3/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "aebfc5d07e15",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_4": {
-      "name": "stress_4",
-      "path": "mcp/stress_4/server.py",
-      "abs_path": "/app/mcp/stress_4/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "b8027d51cf39",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_5": {
-      "name": "stress_5",
-      "path": "mcp/stress_5/server.py",
-      "abs_path": "/app/mcp/stress_5/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "ec9365ac1520",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_6": {
-      "name": "stress_6",
-      "path": "mcp/stress_6/server.py",
-      "abs_path": "/app/mcp/stress_6/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "de5a52f2173e",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_7": {
-      "name": "stress_7",
-      "path": "mcp/stress_7/server.py",
-      "abs_path": "/app/mcp/stress_7/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "27b7bccbc5ec",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_8": {
-      "name": "stress_8",
-      "path": "mcp/stress_8/server.py",
-      "abs_path": "/app/mcp/stress_8/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "1702453596d6",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "stress_9": {
-      "name": "stress_9",
-      "path": "mcp/stress_9/server.py",
-      "abs_path": "/app/mcp/stress_9/server.py",
-      "tools": 13,
-      "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price",
-        "search_example",
-        "read_page_example",
-        "click_element_example",
-        "fill_field_example",
-        "extract_links_example",
-        "notion_create_entry"
-      ],
-      "hash": "d10ec8673094",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
-    },
-    "forge_registry_mcp": {
-      "name": "forge_registry_mcp",
-      "path": "forge/mcp/forge_registry_mcp/server.py",
-      "abs_path": "/app/forge/mcp/forge_registry_mcp/server.py",
-      "tools": 5,
-      "tool_names": [
-        "list_forged_mcps",
-        "get_mcp_details",
-        "get_skill",
-        "search_mcps",
-        "export_mcp_to_platform"
-      ],
-      "hash": "53db25a7c54f",
-      "aurum_verified": true,
-      "badge": "AURUM GOLD #C6A96B"
+    "z_code": {
+      "ide_name": "Z Code / Zed",
+      "config_path": "C:/Users/Admin/.zcode/mcp.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "track_top_artificial_intellige": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "1. Open Z Code / Zed settings.json. | 2. Add snippet inside experimental.mcpServers. | 3. Save and use.",
+      "is_cli": false
     }
   },
-  "super_hub_summary": {
-    "give_once": true,
-    "auto_updates": "All future forged MCPs appear automatically without re-inject",
-    "total_servers": 34,
-    "total_tools": 317,
-    "ide_entry": "1 entry stays 1 entry, tools auto-grow 317",
-    "version": "1.0.1"
+  "export_scripts": {
+    "windows": "export.bat",
+    "unix": "export.sh"
   }
 }

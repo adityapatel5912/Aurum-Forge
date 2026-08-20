@@ -26,8 +26,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("forge_theme") || "cream";
-    document.documentElement.setAttribute("data-theme", savedTheme);
+    document.documentElement.removeAttribute("data-theme");
     getOfficials()
       .then(setCatalog)
       .catch(() => setCatalog([]));
@@ -57,7 +56,7 @@ export default function App() {
           if (pollRef.current) window.clearInterval(pollRef.current);
           setResult(snap.result);
           setPhase("done");
-          showToast(`Forged ${snap.result.server_name} in ${snap.result.stats.elapsed_s}s!`);
+          showToast(`Forged ${snap.result.server_name} in ${snap.result.stats?.elapsed_s || 0.1}s!`);
         } else if (snap.status === "error") {
           if (pollRef.current) window.clearInterval(pollRef.current);
           setError(snap.error ?? "Forge error");
@@ -78,9 +77,15 @@ export default function App() {
     setResult(null);
     setError(null);
     try {
-      const { job_id } = await startForge({ goal: goal.trim(), urls, officials: [...selected] });
-      setJobId(job_id);
-      poll(job_id);
+      const res = await startForge({ goal: goal.trim(), urls, officials: [...selected] });
+      setJobId(res.job_id);
+      if (res.status === "done" && res.result) {
+        setResult(res.result);
+        setPhase("done");
+        showToast(`Forged ${res.result.server_name || "server"} in ${res.result.stats?.elapsed_s || 0.1}s!`);
+      } else {
+        poll(res.job_id);
+      }
     } catch (err) {
       setError(String(err));
       setPhase("error");

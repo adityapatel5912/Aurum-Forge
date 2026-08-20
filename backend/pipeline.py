@@ -8,13 +8,17 @@ LLM call each) -> merge 7 hardcoded cores + official wrappers -> plan the DAG
 from __future__ import annotations
 
 import json
+import py_compile
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from typing import Callable, Optional
 
 from backend.config import (
+    DIST_DIR,
     LOGS_DIR,
+    ROOT,
     SCOUT_HEADFUL_DEFAULT,
     SERVER_NAME,
     VERSION,
@@ -192,14 +196,24 @@ class ForgePipeline:
         # 5) RENDER UNIFIED SERVER --------------------------------------------
         self._add("render", "Create server.py (unified)")
         self._set("render", "active")
-        source, manifest, server_path = render_unified_server(goal, site_logs, site_tools, officials, dag)
+        server_slug = re.sub(r"[^a-zA-Z0-9_]", "_", (goal or "unified_mcp").lower().strip())[:30].strip("_") or "unified_mcp"
+        out_dir = ROOT / "mcp" / server_slug
+        out_dir.mkdir(parents=True, exist_ok=True)
+        source, manifest, server_path = render_unified_server(
+            goal, site_logs, site_tools, officials, dag, server_name=server_slug, out_dir=out_dir
+        )
+        # Also sync to mcp_registry
+        reg_dir = ROOT / "mcp_registry" / "servers" / server_slug
+        reg_dir.mkdir(parents=True, exist_ok=True)
+        (reg_dir / "server.py").write_text(source, "utf-8")
         self._set("render", "done")
 
         # 6) ZIP ---------------------------------------------------------------
-        self._add("zip", "Package dist/unified-mcp.zip + SKILL.md + 6-way configs")
+        self._add("zip", f"Package dist/{server_slug}-mcp.zip + SKILL.md + 3-way configs")
         self._set("zip", "active")
+        out_zip = ROOT / "dist" / f"{server_slug}-mcp.zip"
         zip_path, claude_snippet, cursor_snippet, readme, skill_content, export_configs = build_zip(
-            source, server_path, officials, manifest, dag=dag, goal=goal
+            source, server_path, officials, manifest, dag=dag, goal=goal, out_zip=out_zip, server_name=server_slug, skill_dir=out_dir
         )
         self._set("zip", "done")
 
@@ -207,7 +221,7 @@ class ForgePipeline:
         from forge.history import record_history_entry
         history_entry = record_history_entry(
             goal=goal,
-            mcp_name=SERVER_NAME,
+            mcp_name=server_slug,
             server_path=server_path,
             tools=manifest,
             dag=dag,
@@ -253,11 +267,12 @@ class ForgePipeline:
                 {"id": o["id"], "name": o["name"], "tool_names": [o["tool_name"]], "token_env": o["token_env"]}
                 for o in {o["id"]: o for o in officials}.values()
             ],
+            "server_name": server_slug,
             "tools": manifest,
             "dag": dag,
             "server_py": source,
-            "server_path": server_path,
-            "zip_path": str(zip_path),
+            "server_path": str(server_path).replace("\\", "/"),
+            "zip_path": str(zip_path).replace("\\", "/"),
             "zip_name": zip_path.name,
             "skill_content": skill_content,
             "export_configs": export_configs,
@@ -296,8 +311,6 @@ class ForgePipeline:
 
         # Write named server directory if goal provides specific target name
         if goal:
-            import re
-            import py_compile
             from backend.config import MCP_REGISTRY_DIR
 
             clean_name = re.sub(r"[^a-zA-Z0-9_]+", "_", goal.lower()).strip("_")

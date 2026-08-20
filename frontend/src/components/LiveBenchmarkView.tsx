@@ -47,46 +47,46 @@ export default function LiveBenchmarkView() {
         <div className="flex flex-col gap-4">
           {/* Top Metric Cards */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg">
-              <span className="text-[11px] font-semibold text-cream/70">Measured Speedup</span>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                <span className="text-2xl font-black text-gold">
+            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg overflow-hidden min-w-0">
+              <span className="text-[11px] font-semibold text-cream/70 truncate">Measured Speedup</span>
+              <div className="mt-1 flex items-baseline gap-1 min-w-0">
+                <span className="text-xl sm:text-2xl font-black text-gold truncate">
                   {data.live_speed_test.speedup_factor}x
                 </span>
-                <span className="text-[10px] text-emerald-400">Faster</span>
+                <span className="text-[10px] text-emerald-400 shrink-0">Faster</span>
               </div>
-              <span className="mt-0.5 text-[10px] text-cream/50">
+              <span className="mt-0.5 text-[10px] text-cream/50 truncate">
                 {data.live_speed_test.live_measured_seconds}s vs 175s Stainless
               </span>
             </div>
 
-            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg">
-              <span className="text-[11px] font-semibold text-cream/70">Token Savings</span>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                <span className="text-2xl font-black text-emerald-400">
+            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg overflow-hidden min-w-0">
+              <span className="text-[11px] font-semibold text-cream/70 truncate">Token Savings</span>
+              <div className="mt-1 flex items-baseline gap-1 min-w-0">
+                <span className="text-xl sm:text-2xl font-black text-emerald-400 truncate">
                   {data.live_speed_test.tokens_consumed}
                 </span>
-                <span className="text-[10px] text-emerald-400">Tokens</span>
+                <span className="text-[10px] text-emerald-400 shrink-0">Tokens</span>
               </div>
-              <span className="mt-0.5 text-[10px] text-cream/50">100% Zero-Token Mode</span>
+              <span className="mt-0.5 text-[10px] text-cream/50 truncate">100% Zero-Token Mode</span>
             </div>
 
-            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg">
-              <span className="text-[11px] font-semibold text-cream/70">API Cost</span>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                <span className="text-2xl font-black text-gold">$0.00</span>
-                <span className="text-[10px] text-emerald-400">Saved $0.85</span>
+            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg overflow-hidden min-w-0">
+              <span className="text-[11px] font-semibold text-cream/70 truncate">API Cost</span>
+              <div className="mt-1 flex items-baseline gap-1 min-w-0">
+                <span className="text-xl sm:text-2xl font-black text-gold truncate">$0.00</span>
+                <span className="text-[10px] text-emerald-400 shrink-0">Saved $0.85</span>
               </div>
-              <span className="mt-0.5 text-[10px] text-cream/50">Zero LLM Required</span>
+              <span className="mt-0.5 text-[10px] text-cream/50 truncate">Zero LLM Required</span>
             </div>
 
-            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg">
-              <span className="text-[11px] font-semibold text-cream/70">Self-Heal Latency</span>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                <span className="text-2xl font-black text-gold">&lt;200ms</span>
-                <span className="text-[10px] text-emerald-400">AST Instant</span>
+            <div className="flex flex-col rounded-xl border border-gold/30 bg-navy/90 p-3 shadow-lg overflow-hidden min-w-0">
+              <span className="text-[11px] font-semibold text-cream/70 truncate">Self-Heal Latency</span>
+              <div className="mt-1 flex items-baseline gap-1 min-w-0">
+                <span className="text-xl sm:text-2xl font-black text-gold truncate">&lt;200ms</span>
+                <span className="text-[10px] text-emerald-400 shrink-0">AST</span>
               </div>
-              <span className="mt-0.5 text-[10px] text-cream/50">vs Hours of Debugging</span>
+              <span className="mt-0.5 text-[10px] text-cream/50 truncate">vs Debugging</span>
             </div>
           </div>
 
