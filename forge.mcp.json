@@ -4,11 +4,11 @@
   "badge": "AURUM GOLD (#C6A96B)",
   "description": "One-click executable connection config for Antigravity, Z Code, Claude Code, Cursor, Windsurf, OpenCode, and Codex",
   "active_mcp": {
-    "name": "track_top_artificial_intellige",
-    "server_path": "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py",
+    "name": "forge-aurum-hub",
+    "server_path": "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py",
     "command": "python",
     "args": [
-      "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+      "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
     ],
     "env": {
       "NOTION_TOKEN": "<your_notion_token>",
@@ -52,10 +52,10 @@
       "format": "mcpServers",
       "snippet": {
         "mcpServers": {
-          "track_top_artificial_intellige": {
+          "forge-aurum-hub": {
             "command": "python",
             "args": [
-              "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+              "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
             ],
             "env": {
               "NOTION_TOKEN": "<your_notion_token>",
@@ -77,10 +77,10 @@
       "format": "mcpServers",
       "snippet": {
         "mcpServers": {
-          "track_top_artificial_intellige": {
+          "forge-aurum-hub": {
             "command": "python",
             "args": [
-              "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+              "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
             ],
             "env": {
               "NOTION_TOKEN": "<your_notion_token>",
@@ -96,16 +96,67 @@
       "how_to_connect": "Paste snippet into .cursor/mcp.json in workspace or global Cursor settings.",
       "is_cli": false
     },
+    "claude_code": {
+      "ide_name": "Claude Code",
+      "config_path": "C:/Users/Admin/.claude.json",
+      "format": "mcpServers",
+      "cli_command": "claude mcp add forge-aurum-hub -- python 'D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py'",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Run `claude mcp add forge-aurum-hub -- python 'D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py'` or add to ~/.claude.json",
+      "is_cli": true
+    },
+    "windsurf": {
+      "ide_name": "Windsurf",
+      "config_path": "C:/Users/Admin/.codeium/windsurf/mcp_config.json",
+      "format": "mcpServers",
+      "snippet": {
+        "mcpServers": {
+          "forge-aurum-hub": {
+            "command": "python",
+            "args": [
+              "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
+            ],
+            "env": {
+              "NOTION_TOKEN": "<your_notion_token>",
+              "GMAIL_USER": "<your_gmail_address>",
+              "GMAIL_APP_PASSWORD": "<your_gmail_app_password>",
+              "GITHUB_TOKEN": "<your_github_token>",
+              "SLACK_BOT_TOKEN": "<your_slack_token>",
+              "FORGE_HEADLESS": "0"
+            }
+          }
+        }
+      },
+      "how_to_connect": "Paste snippet into ~/.codeium/windsurf/mcp_config.json",
+      "is_cli": false
+    },
     "z_code": {
       "ide_name": "Z Code / Zed",
       "config_path": "C:/Users/Admin/.zcode/mcp.json",
       "format": "mcpServers",
       "snippet": {
         "mcpServers": {
-          "track_top_artificial_intellige": {
+          "forge-aurum-hub": {
             "command": "python",
             "args": [
-              "D:/Aditya/Forge/mcp/track_top_artificial_intellige/server.py"
+              "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py"
             ],
             "env": {
               "NOTION_TOKEN": "<your_notion_token>",

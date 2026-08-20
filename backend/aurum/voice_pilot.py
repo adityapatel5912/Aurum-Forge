@@ -249,7 +249,7 @@ mcp = FastMCP("self-heal-demo")
 @mcp.tool()
 def extract_market_data(url: str = "https://example.com") -> str:
     # INJECTED BUG 1: Windows backslash path syntax
-    cache_path = "C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Temp\\\\cache_data.json"
+    cache_path = "C:\\\\temp\\\\data\\\\cache_data.json"
     
     # INJECTED BUG 2: Insecure locator traversal
     locator = "../../admin/config.json"

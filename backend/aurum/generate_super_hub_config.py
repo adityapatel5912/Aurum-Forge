@@ -21,7 +21,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-ROOT = Path(__file__).resolve().parents[2]
+from backend.paths import get_project_root, get_user_home, normalize_path
+
+ROOT = get_project_root()
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -214,7 +216,7 @@ def auto_sync_ide_configs(server_script_path: str) -> List[str]:
     (redundant with the give-once hub) are collapsed into the single hub entry.
     """
     clean_path = str(server_script_path).replace("\\", "/")
-    home_dir = Path.home().resolve()
+    home_dir = get_user_home()
     synced_ides: List[str] = []
 
     ide_configs: Dict[str, Path] = {

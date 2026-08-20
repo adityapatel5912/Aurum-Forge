@@ -21,7 +21,9 @@ import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-ROOT = Path(__file__).resolve().parents[2]
+from backend.paths import get_project_root, get_user_home, normalize_path, to_posix_str
+
+ROOT = get_project_root()
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -178,6 +180,39 @@ def generate_universal_config(
                 "how_to_connect": "Paste snippet into .cursor/mcp.json in workspace or global Cursor settings.",
                 "is_cli": False,
             },
+            "claude_code": {
+                "ide_name": "Claude Code",
+                "config_path": f"{home_dir}/.claude.json",
+                "format": "mcpServers",
+                "cli_command": f"claude mcp add {active_mcp_name} -- python '{clean_path}'",
+                "snippet": {
+                    "mcpServers": {
+                        active_mcp_name: {
+                            "command": "python",
+                            "args": [clean_path],
+                            "env": env_block,
+                        }
+                    }
+                },
+                "how_to_connect": f"Run `claude mcp add {active_mcp_name} -- python '{clean_path}'` or add to ~/.claude.json",
+                "is_cli": True,
+            },
+            "windsurf": {
+                "ide_name": "Windsurf",
+                "config_path": f"{home_dir}/.codeium/windsurf/mcp_config.json",
+                "format": "mcpServers",
+                "snippet": {
+                    "mcpServers": {
+                        active_mcp_name: {
+                            "command": "python",
+                            "args": [clean_path],
+                            "env": env_block,
+                        }
+                    }
+                },
+                "how_to_connect": "Paste snippet into ~/.codeium/windsurf/mcp_config.json",
+                "is_cli": False,
+            },
             "z_code": {
                 "ide_name": "Z Code / Zed",
                 "config_path": f"{home_dir}/.zcode/mcp.json",
@@ -204,9 +239,9 @@ def generate_universal_config(
 
 
 def generate_root_export_scripts(mcp_name: str, server_path: str) -> Tuple[str, str]:
-    """Generate export.bat and export.sh scripts at root with '/' path normalization."""
+    """Generate export.bat and export.sh scripts at root with strict '/' path normalization."""
     clean_path = str(server_path).replace("\\", "/")
-    
+
     bat_content = f"""@echo off
 REM FORGE INFINITY 1-Click Multi-IDE Exporter
 REM Configures Claude Code, Codex, and OpenCode with normalized '/' paths
@@ -346,6 +381,8 @@ def hot_load_into_ide(
             ROOT / ".cursor" / "mcp.json",
         ],
         "cursor_project": [ROOT / ".cursor" / "mcp.json"],
+        "claude_code": [home_dir / ".claude.json"],
+        "windsurf": [home_dir / ".codeium" / "windsurf" / "mcp_config.json"],
         "z_code": [home_dir / ".zcode" / "mcp.json"],
     }
 

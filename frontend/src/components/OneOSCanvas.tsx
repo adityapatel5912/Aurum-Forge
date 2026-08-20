@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ArrowRightLeft,
   CheckCircle2,
@@ -22,6 +22,7 @@ import {
   downloadFile,
   getAurumChains,
   getAurumHubStatus,
+  getLiveness,
   getUniversalConfig,
   triggerVoiceToChain,
 } from "../api";
@@ -67,6 +68,34 @@ export default function OneOSCanvas({
   const [activeChains, setActiveChains] = useState<AurumChain[]>([]);
   const [totalToolsCount, setTotalToolsCount] = useState(35);
   const [voiceStatus, setVoiceStatus] = useState<string | null>(null);
+
+  // Live Backend Health State (Green Online / Red Offline)
+  const [backendHealth, setBackendHealth] = useState<"online" | "offline" | "checking">("checking");
+  const [healthLatency, setHealthLatency] = useState<number | null>(null);
+
+  const checkHealth = useCallback(async () => {
+    const t0 = performance.now();
+    try {
+      const res = await getLiveness();
+      const latency = Math.round(performance.now() - t0);
+      if (res && res.status === "ok") {
+        setBackendHealth("online");
+        setHealthLatency(latency);
+      } else {
+        setBackendHealth("offline");
+        setHealthLatency(null);
+      }
+    } catch {
+      setBackendHealth("offline");
+      setHealthLatency(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkHealth();
+    const interval = window.setInterval(checkHealth, 8000);
+    return () => window.clearInterval(interval);
+  }, [checkHealth]);
 
   const [currentDag, setCurrentDag] = useState<Dag>({});
   const [currentGoalDisplay, setCurrentGoalDisplay] = useState(
@@ -208,7 +237,7 @@ export default function OneOSCanvas({
           <div>
             <div className="flex items-center gap-2">
               <span className="font-display text-sm font-black tracking-wide text-cream">
-                FORGE-AURUM
+                AURUM-FORGE
               </span>
               <span className="rounded-full border border-gold/40 bg-gold/15 px-2 py-0.5 font-mono text-[10px] font-bold text-gold">
                 SUPER-HUB
@@ -216,6 +245,45 @@ export default function OneOSCanvas({
               <span className="hidden sm:inline-flex rounded bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-400 border border-emerald-500/30">
                 Live Proof Active
               </span>
+
+              {/* Live Backend Health Badge (Green Online / Red Offline) */}
+              <button
+                type="button"
+                onClick={checkHealth}
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold border transition-all cursor-pointer ${
+                  backendHealth === "online"
+                    ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+                    : backendHealth === "offline"
+                    ? "border-red-500/50 bg-red-500/15 text-red-400 hover:bg-red-500/25 shadow-[0_0_10px_rgba(239,68,68,0.3)]"
+                    : "border-amber-500/50 bg-amber-500/15 text-amber-400 hover:bg-amber-500/25"
+                }`}
+                title={`Backend Status: ${backendHealth.toUpperCase()}${healthLatency !== null ? ` (${healthLatency}ms)` : ""} — Click to re-check`}
+              >
+                <span className="relative flex h-2 w-2 shrink-0">
+                  {backendHealth === "online" && (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                  )}
+                  {backendHealth === "offline" && (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                  )}
+                  <span
+                    className={`relative inline-flex h-2 w-2 rounded-full ${
+                      backendHealth === "online"
+                        ? "bg-emerald-500"
+                        : backendHealth === "offline"
+                        ? "bg-red-500"
+                        : "bg-amber-500 animate-pulse"
+                    }`}
+                  ></span>
+                </span>
+                <span>
+                  {backendHealth === "online"
+                    ? `Backend Online${healthLatency !== null ? ` • ${healthLatency}ms` : ""}`
+                    : backendHealth === "offline"
+                    ? "Backend Offline"
+                    : "Checking..."}
+                </span>
+              </button>
             </div>
           </div>
         </div>

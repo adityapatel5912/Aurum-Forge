@@ -28,6 +28,8 @@ from backend.config import (
     ROLE_TIMEOUT_S,
     ensure_dirs,
 )
+from backend.health.agent_state import get_telemetry_manager
+from backend.health.circuit_breaker import get_circuit_breaker_registry
 
 REQUEST_TIMEOUT = httpx.Timeout(90.0, connect=15.0)
 
@@ -116,11 +118,21 @@ class LLMChain:
                     "tried": [],
                 }
 
+        circuits = get_circuit_breaker_registry()
+        telemetry = get_telemetry_manager()
+
         for full_id in self.chain:
             provider, model = full_id.split("/", 1)
             prov = PROVIDERS.get(provider)
             if not prov:
                 continue
+
+            # Circuit Breaker Check: bypass immediately if provider is in OPEN circuit
+            if not circuits.is_available(provider):
+                tried.append({"model": full_id, "ok": False, "error": "circuit breaker OPEN (fallback active)"})
+                telemetry.record_fallback(f"Circuit OPEN for {provider}")
+                continue
+
             key = next(
                 (os.getenv(e) for e in prov["key_envs"] if os.getenv(e)), None
             )
@@ -151,6 +163,8 @@ class LLMChain:
                     timeout=request_timeout,
                 )
                 if resp.status_code != 200:
+                    circuits.record_failure(provider, status_code=resp.status_code, error=resp.text[:180])
+                    telemetry.record_fallback(f"Provider {provider} returned HTTP {resp.status_code}")
                     tried.append(
                         {
                             "model": full_id,
@@ -161,12 +175,17 @@ class LLMChain:
                     )
                     _diag({"ts": started, **tried[-1]})
                     continue
+
                 data = resp.json()
                 text = data["choices"][0]["message"]["content"]
                 if not text or not text.strip():
                     tried.append({"model": full_id, "ok": False, "error": "empty completion"})
                     _diag({"ts": started, **tried[-1]})
                     continue
+
+                # Request succeeded -> close half-open circuit / reset failure count
+                circuits.record_success(provider)
+
                 meta = {
                     "role": self.role,
                     "provider": provider,
@@ -185,9 +204,12 @@ class LLMChain:
                     }
                     _save_cache(cache)
                 return text, meta
-            except Exception as err:  # network / parse failure -> next provider
+            except Exception as err:  # network / timeout failure -> trip circuit & record fallback
+                circuits.record_failure(provider, error=repr(err)[:180])
+                telemetry.record_fallback(f"Provider {provider} exception: {repr(err)[:60]}")
                 tried.append({"model": full_id, "ok": False, "error": repr(err)[:180]})
                 _diag({"ts": started, **tried[-1]})
                 continue
 
+        telemetry.record_fallback("All LLM providers exhausted; falling back to deterministic mode")
         return None, {"role": self.role, "provider": None, "model": None, "cached": False, "tried": tried}

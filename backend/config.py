@@ -11,7 +11,9 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 # ------------------------------------------------------------------ paths --
-ROOT = Path(__file__).resolve().parents[1]
+from backend.paths import get_project_root, get_user_home, normalize_path, to_posix_str, get_temp_dir
+
+ROOT = get_project_root()
 BACKEND_DIR = ROOT / "backend"
 LOGS_DIR = ROOT / "logs"
 DIST_DIR = ROOT / "dist"
@@ -26,7 +28,8 @@ LLM_CACHE_JSON = LOGS_DIR / "llm_cache.json"
 LLM_DIAG_JSONL = LOGS_DIR / "llm_diagnostics.jsonl"
 
 VERSION = "2.0.0"
-SERVER_NAME = "unified-forge"
+APP_NAME = "Aurum-Forge"
+SERVER_NAME = "aurum-forge"
 FORGE_MCP_JSON = ROOT / "forge.mcp.json"
 MARKETPLACE_JSON = MCP_REGISTRY_DIR / "marketplace.json"
 
