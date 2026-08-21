@@ -179,11 +179,8 @@ def generate_super_hub_config_data(
             "reload_interval": "0.1s",
             "ide_auto_sync": True,
             "ide_targets": [
-                "antigravity",
-                "claude_code",
                 "cursor",
-                "windsurf",
-                "opencode",
+                "antigravity",
                 "codex",
                 "z_code",
                 "all",
@@ -209,49 +206,66 @@ HUB_ENTRY_KEYS = {"forge_aurum_hub", "forge-aurum-hub", "aurum_hub", "forge-hub"
 
 
 def auto_sync_ide_configs(server_script_path: str) -> List[str]:
-    """Auto-sync IDE config files: exactly ONE 'forge-aurum-hub' entry with '/' paths.
+    """Auto-sync IDE config files: exactly ONE 'forge-aurum-hub' entry with '/' paths across Cursor, Antigravity, Codex, Z Code.
 
-    Non-destructive: unrelated user MCP entries are preserved. Only (a) stale
-    hub-name variants and (b) entries pointing into mcp_registry/servers or /mcp/
-    (redundant with the give-once hub) are collapsed into the single hub entry.
+    Non-destructive: unrelated user MCP entries are preserved.
     """
     clean_path = str(server_script_path).replace("\\", "/")
-    home_dir = get_user_home()
+    from backend.aurum.secrets_manager import get_injection_env_block
+    from backend.factory.hot_loader import get_ide_config_paths
+    
+    effective_env = get_injection_env_block()
+    ide_paths_map = get_ide_config_paths()
     synced_ides: List[str] = []
 
-    ide_configs: Dict[str, Path] = {
-        "antigravity": home_dir / ".antigravity" / "mcp.json",
-        "cursor": home_dir / ".cursor" / "mcp.json",
-        "cursor_project": ROOT / ".cursor" / "mcp.json",
-        "claude_code": home_dir / ".claude.json",
-        "windsurf": home_dir / ".codeium" / "windsurf" / "mcp_config.json",
-        "z_code": home_dir / ".zcode" / "mcp.json",
-    }
+    for ide_key, path_list in ide_paths_map.items():
+        for cfg_path in path_list:
+            try:
+                cfg_path.parent.mkdir(parents=True, exist_ok=True)
+                existing_data: Dict[str, Any] = {}
+                if cfg_path.exists():
+                    try:
+                        existing_data = json.loads(cfg_path.read_text("utf-8"))
+                    except Exception:
+                        existing_data = {}
 
-    for ide_key, cfg_path in ide_configs.items():
-        try:
-            cfg_path.parent.mkdir(parents=True, exist_ok=True)
-            existing_data: Dict[str, Any] = {}
-            if cfg_path.exists():
-                try:
-                    existing_data = json.loads(cfg_path.read_text("utf-8"))
-                except Exception:
+                if not isinstance(existing_data, dict):
                     existing_data = {}
 
-            servers = dict(existing_data.get("mcpServers") or {})
-            for key in list(servers.keys()):
-                normalized = key.lower().replace("-", "_").replace(" ", "_")
-                entry_json = json.dumps(servers[key])
-                redundant = ("mcp_registry/servers" in entry_json or "/mcp/" in entry_json.replace("\\", "/"))
-                if normalized in HUB_ENTRY_KEYS or redundant:
-                    del servers[key]  # give-once: hub already serves these tools
-            servers["forge-aurum-hub"] = {"command": "python", "args": [clean_path]}
-            existing_data["mcpServers"] = servers
+                servers = dict(existing_data.get("mcpServers") or {})
+                for key in list(servers.keys()):
+                    normalized = key.lower().replace("-", "_").replace(" ", "_")
+                    entry_json = json.dumps(servers[key])
+                    redundant = ("mcp_registry/servers" in entry_json or "/mcp/" in entry_json.replace("\\", "/"))
+                    if normalized in HUB_ENTRY_KEYS or redundant:
+                        del servers[key]  # give-once: hub already serves these tools
 
-            _atomic_write_json(cfg_path, existing_data)
-            synced_ides.append(ide_key)
-        except Exception as e:
-            print(f"[AUTO-SYNC] Error updating {ide_key} at {cfg_path}: {e}")
+                hub_entry = {
+                    "command": "python",
+                    "args": [clean_path],
+                }
+                if effective_env:
+                    hub_entry["env"] = effective_env
+                servers["forge-aurum-hub"] = hub_entry
+                existing_data["mcpServers"] = servers
+
+                # If Zed settings.json, also update context_servers
+                if ide_key == "z_code" and "settings.json" in cfg_path.name:
+                    if not isinstance(existing_data.get("context_servers"), dict):
+                        existing_data["context_servers"] = {}
+                    existing_data["context_servers"]["forge-aurum-hub"] = {
+                        "command": {
+                            "path": "python",
+                            "args": [clean_path],
+                            "env": effective_env,
+                        }
+                    }
+
+                _atomic_write_json(cfg_path, existing_data)
+                if ide_key not in synced_ides:
+                    synced_ides.append(ide_key)
+            except Exception as e:
+                print(f"[AUTO-SYNC] Error updating {ide_key} at {cfg_path}: {e}")
 
     return synced_ides
 

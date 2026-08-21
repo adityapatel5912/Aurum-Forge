@@ -106,7 +106,7 @@ export default function SkillBridgeView() {
           {/* IDE Compatibility Badges */}
           <div className="flex flex-wrap items-center gap-1.5 rounded-lg border border-gold/15 bg-navy-light/30 p-2 text-xs">
             <span className="text-cream/60">Universal Compatibility:</span>
-            {["Google Antigravity", "Z Code (Zed)", "Claude Code", "Cursor", "Windsurf", "OpenCode", "Codex"].map((ide) => (
+            {["Cursor", "Google Antigravity", "Codex", "Z Code (Zed)"].map((ide) => (
               <span key={ide} className="rounded border border-gold/30 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold text-gold">
                 {ide}
               </span>

@@ -1,5 +1,1260 @@
 [
   {
+    "id": "forge_20260821_154408_662803",
+    "timestamp": "2026-08-21T15:44:08",
+    "goal": "Monitor GitHub issues and send alert notifications to Slack channel",
+    "mcp_name": "monitor_github_issues_and_send_v3",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_github_issues_and_send_v3/server.py",
+    "tools": [
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator",
+      "search_arxiv",
+      "read_page_arxiv",
+      "click_element_arxiv",
+      "fill_field_arxiv",
+      "extract_links_arxiv",
+      "search_spaceflightnow",
+      "read_page_spaceflightnow",
+      "click_element_spaceflightnow",
+      "fill_field_spaceflightnow",
+      "extract_links_spaceflightnow",
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "slack_post_message",
+      "slack_list_channels",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "search_arxiv",
+        "source": "Custom arxiv.org Forged",
+        "parallel": true
+      },
+      "t3": {
+        "tool": "search_spaceflightnow",
+        "source": "Custom spaceflightnow.com Forged",
+        "parallel": true
+      },
+      "t4": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "parallel": true
+      },
+      "t5": {
+        "tool": "slack_post_message",
+        "source": "Official Slack",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "parallel": true
+      },
+      "t6": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_github_issues_and_send_v3\ndescription: Monitor GitHub issues and send alert notifications to Slack channel\nversion: 1.0.0\nmcp: monitor_github_issues_and_send_v3\n---\n\n# Skill: Monitor GitHub issues and send alert notifications to Slack channel\n\n## Overview\nThis skill executes: Monitor GitHub issues and send alert notifications to Slack channel\nUses MCP Server: monitor_github_issues_and_send_v3 with 24 tools\n\n## MCP Tools (from server.py)\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n- search_arxiv\n- read_page_arxiv\n- click_element_arxiv\n- fill_field_arxiv\n- extract_links_arxiv\n- search_spaceflightnow\n- read_page_spaceflightnow\n- click_element_spaceflightnow\n- fill_field_spaceflightnow\n- extract_links_spaceflightnow\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- slack_post_message\n- slack_list_channels\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"search_arxiv\",\n    \"source\": \"Custom arxiv.org Forged\",\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"search_spaceflightnow\",\n    \"source\": \"Custom spaceflightnow.com Forged\",\n    \"parallel\": true\n  },\n  \"t4\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ],\n    \"parallel\": true\n  },\n  \"t5\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ],\n    \"parallel\": true\n  },\n  \"t6\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_github_issues_and_send_v3` installed. Follow this exact sequence:\n\n1. CALL mcp tool `search_news_ycombinator` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_github_issues_and_send_v3) in parallel\n   - CALL `notion_create_database_entry` (from monitor_github_issues_and_send_v3) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_github_issues_and_send_v3 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor GitHub issues and send alert notifications to Slack channel\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_154408_662803/unified-mcp-forge_20260821_154408_662803.zip"
+  },
+  {
+    "id": "forge_20260821_154352_374658",
+    "timestamp": "2026-08-21T15:43:52",
+    "goal": "Monitor GitHub issues and send alert notifications to Slack channel",
+    "mcp_name": "monitor_github_issues_and_send_v2",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_github_issues_and_send_v2/server.py",
+    "tools": [
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator",
+      "search_arxiv",
+      "read_page_arxiv",
+      "click_element_arxiv",
+      "fill_field_arxiv",
+      "extract_links_arxiv",
+      "search_spaceflightnow",
+      "read_page_spaceflightnow",
+      "click_element_spaceflightnow",
+      "fill_field_spaceflightnow",
+      "extract_links_spaceflightnow",
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "slack_post_message",
+      "slack_list_channels",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "search_arxiv",
+        "source": "Custom arxiv.org Forged",
+        "parallel": true
+      },
+      "t3": {
+        "tool": "search_spaceflightnow",
+        "source": "Custom spaceflightnow.com Forged",
+        "parallel": true
+      },
+      "t4": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "parallel": true
+      },
+      "t5": {
+        "tool": "slack_post_message",
+        "source": "Official Slack",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "parallel": true
+      },
+      "t6": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_github_issues_and_send_v2\ndescription: Monitor GitHub issues and send alert notifications to Slack channel\nversion: 1.0.0\nmcp: monitor_github_issues_and_send_v2\n---\n\n# Skill: Monitor GitHub issues and send alert notifications to Slack channel\n\n## Overview\nThis skill executes: Monitor GitHub issues and send alert notifications to Slack channel\nUses MCP Server: monitor_github_issues_and_send_v2 with 24 tools\n\n## MCP Tools (from server.py)\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n- search_arxiv\n- read_page_arxiv\n- click_element_arxiv\n- fill_field_arxiv\n- extract_links_arxiv\n- search_spaceflightnow\n- read_page_spaceflightnow\n- click_element_spaceflightnow\n- fill_field_spaceflightnow\n- extract_links_spaceflightnow\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- slack_post_message\n- slack_list_channels\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"search_arxiv\",\n    \"source\": \"Custom arxiv.org Forged\",\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"search_spaceflightnow\",\n    \"source\": \"Custom spaceflightnow.com Forged\",\n    \"parallel\": true\n  },\n  \"t4\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ],\n    \"parallel\": true\n  },\n  \"t5\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ],\n    \"parallel\": true\n  },\n  \"t6\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_github_issues_and_send_v2` installed. Follow this exact sequence:\n\n1. CALL mcp tool `search_news_ycombinator` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_github_issues_and_send_v2) in parallel\n   - CALL `notion_create_database_entry` (from monitor_github_issues_and_send_v2) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_github_issues_and_send_v2 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor GitHub issues and send alert notifications to Slack channel\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_154352_374658/unified-mcp-forge_20260821_154352_374658.zip"
+  },
+  {
+    "id": "forge_20260821_153851_745950",
+    "timestamp": "2026-08-21T15:38:51",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 7 tools\n\n## MCP Tools (from server.py)\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `telegram_send_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `notion_create_database_entry` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_153851_745950/unified-mcp-forge_20260821_153851_745950.zip"
+  },
+  {
+    "id": "forge_20260821_153620_327285",
+    "timestamp": "2026-08-21T15:36:20",
+    "goal": "Monitor GitHub issues and send alert notifications to Slack channel",
+    "mcp_name": "monitor_github_issues_and_send",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_github_issues_and_send/server.py",
+    "tools": [
+      "slack_post_message",
+      "slack_list_channels",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "notion_log_price",
+        "source": "Core Notion"
+      },
+      "t2": {
+        "tool": "slack_post_message",
+        "source": "Official Slack"
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub"
+      }
+    },
+    "skill_content": "---\nname: monitor_github_issues_and_send\ndescription: Monitor GitHub issues and send alert notifications to Slack channel\nversion: 1.0.0\nmcp: monitor_github_issues_and_send\n---\n\n# Skill: Monitor GitHub issues and send alert notifications to Slack channel\n\n## Overview\nThis skill executes: Monitor GitHub issues and send alert notifications to Slack channel\nUses MCP Server: monitor_github_issues_and_send with 5 tools\n\n## MCP Tools (from server.py)\n- slack_post_message\n- slack_list_channels\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\"\n  },\n  \"t2\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\"\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\"\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_github_issues_and_send` installed. Follow this exact sequence:\n\n1. CALL mcp tool `slack_post_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from monitor_github_issues_and_send) in parallel\n   - CALL `notion_create_database_entry` (from monitor_github_issues_and_send) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_github_issues_and_send tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor GitHub issues and send alert notifications to Slack channel\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_153620_327285/unified-mcp-forge_20260821_153620_327285.zip"
+  },
+  {
+    "id": "forge_20260821_153558_707716",
+    "timestamp": "2026-08-21T15:35:58",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 7 tools\n\n## MCP Tools (from server.py)\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `telegram_send_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `notion_create_database_entry` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_153558_707716/unified-mcp-forge_20260821_153558_707716.zip"
+  },
+  {
+    "id": "forge_20260821_153511_722848",
+    "timestamp": "2026-08-21T15:35:11",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 7 tools\n\n## MCP Tools (from server.py)\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `telegram_send_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `notion_create_database_entry` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_153511_722848/unified-mcp-forge_20260821_153511_722848.zip"
+  },
+  {
+    "id": "forge_20260821_153251_056094",
+    "timestamp": "2026-08-21T15:32:51",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 7 tools\n\n## MCP Tools (from server.py)\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `telegram_send_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `notion_create_database_entry` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_153251_056094/unified-mcp-forge_20260821_153251_056094.zip"
+  },
+  {
+    "id": "forge_20260821_153048_131769",
+    "timestamp": "2026-08-21T15:30:48",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 7 tools\n\n## MCP Tools (from server.py)\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `telegram_send_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `notion_create_database_entry` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_153048_131769/unified-mcp-forge_20260821_153048_131769.zip"
+  },
+  {
+    "id": "forge_20260821_152945_409882",
+    "timestamp": "2026-08-21T15:29:45",
+    "goal": "Monitor GitHub issues and send alert notifications to Slack channel",
+    "mcp_name": "monitor_github_issues_and_send",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_github_issues_and_send/server.py",
+    "tools": [
+      "slack_post_message",
+      "slack_list_channels",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "notion_log_price",
+        "source": "Core Notion"
+      },
+      "t2": {
+        "tool": "slack_post_message",
+        "source": "Official Slack"
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub"
+      }
+    },
+    "skill_content": "---\nname: monitor_github_issues_and_send\ndescription: Monitor GitHub issues and send alert notifications to Slack channel\nversion: 1.0.0\nmcp: monitor_github_issues_and_send\n---\n\n# Skill: Monitor GitHub issues and send alert notifications to Slack channel\n\n## Overview\nThis skill executes: Monitor GitHub issues and send alert notifications to Slack channel\nUses MCP Server: monitor_github_issues_and_send with 5 tools\n\n## MCP Tools (from server.py)\n- slack_post_message\n- slack_list_channels\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\"\n  },\n  \"t2\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\"\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\"\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_github_issues_and_send` installed. Follow this exact sequence:\n\n1. CALL mcp tool `slack_post_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from monitor_github_issues_and_send) in parallel\n   - CALL `notion_create_database_entry` (from monitor_github_issues_and_send) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_github_issues_and_send tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor GitHub issues and send alert notifications to Slack channel\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_152945_409882/unified-mcp-forge_20260821_152945_409882.zip"
+  },
+  {
+    "id": "forge_20260821_152938_785713",
+    "timestamp": "2026-08-21T15:29:38",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 7 tools\n\n## MCP Tools (from server.py)\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `telegram_send_message` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `telegram_send_message` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `notion_create_database_entry` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_152938_785713/unified-mcp-forge_20260821_152938_785713.zip"
+  },
+  {
+    "id": "forge_20260821_152849_139990",
+    "timestamp": "2026-08-21T15:28:49",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "monitor_open_prs_on_github_rep",
+    "abs_path": "D:/Aditya/Forge/mcp/monitor_open_prs_on_github_rep/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "telegram_send_message",
+      "telegram_get_updates",
+      "telegram_send_photo",
+      "telegram_get_chat",
+      "github_create_issue",
+      "github_list_prs",
+      "github_get_file_contents"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Core Amazon",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "github_create_issue",
+        "source": "Official GitHub",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: monitor_open_prs_on_github_rep\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp: monitor_open_prs_on_github_rep\n---\n\n# Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## Overview\nThis skill executes: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nUses MCP Server: monitor_open_prs_on_github_rep with 14 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- telegram_send_message\n- telegram_get_updates\n- telegram_send_photo\n- telegram_get_chat\n- github_create_issue\n- github_list_prs\n- github_get_file_contents\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Core Amazon\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"github_create_issue\",\n    \"source\": \"Official GitHub\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `monitor_open_prs_on_github_rep` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from monitor_open_prs_on_github_rep) in parallel\n   - CALL `gmail_notify_and_log` (from monitor_open_prs_on_github_rep) in parallel\n3. Return summary\n\nDo not re-discover tools — use monitor_open_prs_on_github_rep tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_152849_139990/unified-mcp-forge_20260821_152849_139990.zip"
+  },
+  {
+    "id": "forge_20260821_152831_228227",
+    "timestamp": "2026-08-21T15:28:31",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "ram_tracker",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/ram_tracker/server.py",
+    "tools": [
+      "ram_search",
+      "ram_compare",
+      "ram_alert",
+      "ram_price_history",
+      "ram_watch_price",
+      "ram_best_deals",
+      "ram_stock_check"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "ram_search",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "ram_compare",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t3": {
+        "tool": "ram_alert",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t4": {
+        "tool": "ram_price_history",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t5": {
+        "tool": "ram_watch_price",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t6": {
+        "tool": "ram_best_deals",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t7": {
+        "tool": "ram_stock_check",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      }
+    },
+    "skill_content": "---\nname: ram_tracker\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp_server: ram_tracker\naurum_badge: \"AURUM GOLD (#C6A96B)\"\ncompatible_ides:\n  - Cursor\n  - Antigravity\n  - Codex\n  - Z Code\n---\n\n# Universal Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## 1. Overview & Golden Badge\n- **MCP Server Name**: `ram_tracker`\n- **Server Path**: `mcp/ram_tracker/server.py`\n- **Aurum Verification**: Gold Verified `#C6A96B` (Self-Heal Active, Deterministic <2.1s, 0 Token Cost)\n- **Target Goal**: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## 2. FastMCP Tool Manifest\n- `ram_search` [FORGED]: Search top-100 RAM products sorted by price\n- `ram_compare` [FORGED]: Compare RAM prices across 5 retailers\n- `ram_alert` [FORGED]: Price alert for RAM under budget\n- `ram_price_history` [FORGED]: 14-day deterministic price history\n- `ram_watch_price` [FORGED]: Watch a target RAM price\n- `ram_best_deals` [FORGED]: Steepest RAM discounts\n- `ram_stock_check` [FORGED]: Stock matrix per retailer\n\n## 3. Levelled Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"ram_search\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"ram_compare\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"ram_alert\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t4\": {\n    \"tool\": \"ram_price_history\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t5\": {\n    \"tool\": \"ram_watch_price\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t6\": {\n    \"tool\": \"ram_best_deals\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t7\": {\n    \"tool\": \"ram_stock_check\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  }\n}\n```\n\n## 4. Execution Protocol for AI Agents\nWhen the user requests **\"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\"** or asks to execute this workflow:\n1. **Direct Invocation**: Use the tools exposed by `ram_tracker` directly. Do not guess parameters or synthesize ad-hoc browser scripts.\n2. **Topological Order**: Follow the DAG stages. Feed output payloads from Trigger -> Process -> Output nodes.\n3. **Resilience**: If a locator encounters a dynamic DOM change, the built-in 2-locator fallback self-heals in `<200ms`.\n\n## 5. Universal IDE Configuration\nConnect this skill to your favorite IDE with 1-click via `forge.mcp.json`:\n- **Cursor**: Add to `.cursor/mcp.json` in workspace or `~/.cursor/mcp.json`\n- **Antigravity**: Add `ram_tracker` to `~/.gemini/antigravity/mcp_config.json` or `~/.antigravity/mcp.json`\n- **Codex**: Run `codex mcp add ram_tracker -- python \"mcp/ram_tracker/server.py\"` or add to `~/.codex/config.json`\n- **Z Code**: Add `ram_tracker` to `settings.json` under `context_servers` or `~/.zcode/mcp.json`\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_152831_228227/unified-mcp-forge_20260821_152831_228227.zip"
+  },
+  {
+    "id": "forge_20260821_152649_387451",
+    "timestamp": "2026-08-21T15:26:49",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "ram_tracker",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/ram_tracker/server.py",
+    "tools": [
+      "ram_search",
+      "ram_compare",
+      "ram_alert",
+      "ram_price_history",
+      "ram_watch_price",
+      "ram_best_deals",
+      "ram_stock_check"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "ram_search",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "ram_compare",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t3": {
+        "tool": "ram_alert",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t4": {
+        "tool": "ram_price_history",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t5": {
+        "tool": "ram_watch_price",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t6": {
+        "tool": "ram_best_deals",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t7": {
+        "tool": "ram_stock_check",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      }
+    },
+    "skill_content": "---\nname: ram_tracker\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp_server: ram_tracker\naurum_badge: \"AURUM GOLD (#C6A96B)\"\ncompatible_ides:\n  - Cursor\n  - Antigravity\n  - Codex\n  - Z Code\n---\n\n# Universal Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## 1. Overview & Golden Badge\n- **MCP Server Name**: `ram_tracker`\n- **Server Path**: `mcp/ram_tracker/server.py`\n- **Aurum Verification**: Gold Verified `#C6A96B` (Self-Heal Active, Deterministic <2.1s, 0 Token Cost)\n- **Target Goal**: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## 2. FastMCP Tool Manifest\n- `ram_search` [FORGED]: Search top-100 RAM products sorted by price\n- `ram_compare` [FORGED]: Compare RAM prices across 5 retailers\n- `ram_alert` [FORGED]: Price alert for RAM under budget\n- `ram_price_history` [FORGED]: 14-day deterministic price history\n- `ram_watch_price` [FORGED]: Watch a target RAM price\n- `ram_best_deals` [FORGED]: Steepest RAM discounts\n- `ram_stock_check` [FORGED]: Stock matrix per retailer\n\n## 3. Levelled Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"ram_search\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"ram_compare\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"ram_alert\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t4\": {\n    \"tool\": \"ram_price_history\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t5\": {\n    \"tool\": \"ram_watch_price\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t6\": {\n    \"tool\": \"ram_best_deals\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t7\": {\n    \"tool\": \"ram_stock_check\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  }\n}\n```\n\n## 4. Execution Protocol for AI Agents\nWhen the user requests **\"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\"** or asks to execute this workflow:\n1. **Direct Invocation**: Use the tools exposed by `ram_tracker` directly. Do not guess parameters or synthesize ad-hoc browser scripts.\n2. **Topological Order**: Follow the DAG stages. Feed output payloads from Trigger -> Process -> Output nodes.\n3. **Resilience**: If a locator encounters a dynamic DOM change, the built-in 2-locator fallback self-heals in `<200ms`.\n\n## 5. Universal IDE Configuration\nConnect this skill to your favorite IDE with 1-click via `forge.mcp.json`:\n- **Cursor**: Add to `.cursor/mcp.json` in workspace or `~/.cursor/mcp.json`\n- **Antigravity**: Add `ram_tracker` to `~/.gemini/antigravity/mcp_config.json` or `~/.antigravity/mcp.json`\n- **Codex**: Run `codex mcp add ram_tracker -- python \"mcp/ram_tracker/server.py\"` or add to `~/.codex/config.json`\n- **Z Code**: Add `ram_tracker` to `settings.json` under `context_servers` or `~/.zcode/mcp.json`\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_152649_387451/unified-mcp-forge_20260821_152649_387451.zip"
+  },
+  {
+    "id": "forge_20260821_152600_457293",
+    "timestamp": "2026-08-21T15:26:00",
+    "goal": "Monitor open PRs on GitHub repository and send instant alerts to Telegram bot",
+    "mcp_name": "ram_tracker",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/ram_tracker/server.py",
+    "tools": [
+      "ram_search",
+      "ram_compare",
+      "ram_alert",
+      "ram_price_history",
+      "ram_watch_price",
+      "ram_best_deals",
+      "ram_stock_check"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "ram_search",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "ram_compare",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t3": {
+        "tool": "ram_alert",
+        "source": "Intent Router",
+        "parallel": true
+      },
+      "t4": {
+        "tool": "ram_price_history",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t5": {
+        "tool": "ram_watch_price",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t6": {
+        "tool": "ram_best_deals",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "t7": {
+        "tool": "ram_stock_check",
+        "source": "Intent Router",
+        "deps": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      }
+    },
+    "skill_content": "---\nname: ram_tracker\ndescription: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\nversion: 1.0.0\nmcp_server: ram_tracker\naurum_badge: \"AURUM GOLD (#C6A96B)\"\ncompatible_ides:\n  - Cursor\n  - Antigravity\n  - Codex\n  - Z Code\n---\n\n# Universal Skill: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## 1. Overview & Golden Badge\n- **MCP Server Name**: `ram_tracker`\n- **Server Path**: `mcp/ram_tracker/server.py`\n- **Aurum Verification**: Gold Verified `#C6A96B` (Self-Heal Active, Deterministic <2.1s, 0 Token Cost)\n- **Target Goal**: Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\n\n## 2. FastMCP Tool Manifest\n- `ram_search` [FORGED]: Search top-100 RAM products sorted by price\n- `ram_compare` [FORGED]: Compare RAM prices across 5 retailers\n- `ram_alert` [FORGED]: Price alert for RAM under budget\n- `ram_price_history` [FORGED]: 14-day deterministic price history\n- `ram_watch_price` [FORGED]: Watch a target RAM price\n- `ram_best_deals` [FORGED]: Steepest RAM discounts\n- `ram_stock_check` [FORGED]: Stock matrix per retailer\n\n## 3. Levelled Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"ram_search\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"ram_compare\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"ram_alert\",\n    \"source\": \"Intent Router\",\n    \"parallel\": true\n  },\n  \"t4\": {\n    \"tool\": \"ram_price_history\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t5\": {\n    \"tool\": \"ram_watch_price\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t6\": {\n    \"tool\": \"ram_best_deals\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  },\n  \"t7\": {\n    \"tool\": \"ram_stock_check\",\n    \"source\": \"Intent Router\",\n    \"deps\": [\n      \"t1\",\n      \"t2\",\n      \"t3\"\n    ]\n  }\n}\n```\n\n## 4. Execution Protocol for AI Agents\nWhen the user requests **\"Monitor open PRs on GitHub repository and send instant alerts to Telegram bot\"** or asks to execute this workflow:\n1. **Direct Invocation**: Use the tools exposed by `ram_tracker` directly. Do not guess parameters or synthesize ad-hoc browser scripts.\n2. **Topological Order**: Follow the DAG stages. Feed output payloads from Trigger -> Process -> Output nodes.\n3. **Resilience**: If a locator encounters a dynamic DOM change, the built-in 2-locator fallback self-heals in `<200ms`.\n\n## 5. Universal IDE Configuration\nConnect this skill to your favorite IDE with 1-click via `forge.mcp.json`:\n- **Cursor**: Add to `.cursor/mcp.json` in workspace or `~/.cursor/mcp.json`\n- **Antigravity**: Add `ram_tracker` to `~/.gemini/antigravity/mcp_config.json` or `~/.antigravity/mcp.json`\n- **Codex**: Run `codex mcp add ram_tracker -- python \"mcp/ram_tracker/server.py\"` or add to `~/.codex/config.json`\n- **Z Code**: Add `ram_tracker` to `settings.json` under `context_servers` or `~/.zcode/mcp.json`\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_152600_457293/unified-mcp-forge_20260821_152600_457293.zip"
+  },
+  {
+    "id": "forge_20260821_150919_427204",
+    "timestamp": "2026-08-21T15:09:19",
+    "goal": "Voice composite: Forge Research Chain and chain with official GitHub MCP",
+    "mcp_name": "chain-1787305157",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787305157/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Chained from research_v8",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Chained from research_v8",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: chain-1787305157\ndescription: Voice composite: Forge Research Chain and chain with official GitHub MCP\nversion: 1.0.0\nmcp: chain-1787305157\n---\n\n# Skill: Voice composite: Forge Research Chain and chain with official GitHub MCP\n\n## Overview\nThis skill executes: Voice composite: Forge Research Chain and chain with official GitHub MCP\nUses MCP Server: chain-1787305157 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Chained from research_v8\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Chained from research_v8\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `chain-1787305157` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from chain-1787305157) in parallel\n   - CALL `gmail_notify_and_log` (from chain-1787305157) in parallel\n3. Return summary\n\nDo not re-discover tools — use chain-1787305157 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Voice composite: Forge Research Chain and chain with official GitHub MCP\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_150919_427204/unified-mcp-forge_20260821_150919_427204.zip"
+  },
+  {
+    "id": "forge_20260821_150917_048377",
+    "timestamp": "2026-08-21T15:09:17",
+    "goal": "Forge Research",
+    "mcp_name": "research_v8",
+    "abs_path": "D:/Aditya/Forge/mcp/research_v8/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "params": {
+          "query": "Forge"
+        },
+        "parallel": false
+      },
+      "t2": {
+        "tool": "extract_links_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": false,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_create_database_entry",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t2"
+        ]
+      }
+    },
+    "skill_content": "---\nname: research_v8\ndescription: Forge Research\nversion: 1.0.0\nmcp: research_v8\n---\n\n# Skill: Forge Research\n\n## Overview\nThis skill executes: Forge Research\nUses MCP Server: research_v8 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"params\": {\n      \"query\": \"Forge\"\n    },\n    \"parallel\": false\n  },\n  \"t2\": {\n    \"tool\": \"extract_links_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": false,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_create_database_entry\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t2\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `research_v8` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from research_v8) in parallel\n   - CALL `gmail_notify_and_log` (from research_v8) in parallel\n3. Return summary\n\nDo not re-discover tools — use research_v8 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Forge Research\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260821_150917_048377/unified-mcp-forge_20260821_150917_048377.zip"
+  },
+  {
+    "id": "forge_20260820_211932_186206",
+    "timestamp": "2026-08-20T21:19:32",
+    "goal": "Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.",
+    "mcp_name": "track_top_trending_artificial",
+    "abs_path": "D:/Aditya/Forge/mcp/track_top_trending_artificial/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "slack_post_message"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "slack_post_message",
+        "source": "Official Slack",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: track_top_trending_artificial\ndescription: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instan\nversion: 1.0.0\nmcp: track_top_trending_artificial\n---\n\n# Skill: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.\n\n## Overview\nThis skill executes: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.\nUses MCP Server: track_top_trending_artificial with 10 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- slack_post_message\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `track_top_trending_artificial` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from track_top_trending_artificial) in parallel\n   - CALL `gmail_notify_and_log` (from track_top_trending_artificial) in parallel\n3. Return summary\n\nDo not re-discover tools — use track_top_trending_artificial tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_211932_186206/unified-mcp-forge_20260820_211932_186206.zip"
+  },
+  {
+    "id": "forge_20260820_210042_380056",
+    "timestamp": "2026-08-20T21:00:42",
+    "goal": "Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.",
+    "mcp_name": "track_top_trending_artificial",
+    "abs_path": "D:/Aditya/Forge/mcp/track_top_trending_artificial/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "slack_post_message"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "slack_post_message",
+        "source": "Official Slack",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: track_top_trending_artificial\ndescription: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instan\nversion: 1.0.0\nmcp: track_top_trending_artificial\n---\n\n# Skill: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.\n\n## Overview\nThis skill executes: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.\nUses MCP Server: track_top_trending_artificial with 10 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- slack_post_message\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `track_top_trending_artificial` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from track_top_trending_artificial) in parallel\n   - CALL `gmail_notify_and_log` (from track_top_trending_artificial) in parallel\n3. Return summary\n\nDo not re-discover tools — use track_top_trending_artificial tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack.\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_210042_380056/unified-mcp-forge_20260820_210042_380056.zip"
+  },
+  {
+    "id": "forge_20260820_205716_449347",
+    "timestamp": "2026-08-20T20:57:16",
+    "goal": "Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack",
+    "mcp_name": "track_top_trending_artificial",
+    "abs_path": "D:/Aditya/Forge/mcp/track_top_trending_artificial/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "slack_post_message"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "slack_post_message",
+        "source": "Official Slack",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: track_top_trending_artificial\ndescription: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instan\nversion: 1.0.0\nmcp: track_top_trending_artificial\n---\n\n# Skill: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack\n\n## Overview\nThis skill executes: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack\nUses MCP Server: track_top_trending_artificial with 10 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- slack_post_message\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `track_top_trending_artificial` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from track_top_trending_artificial) in parallel\n   - CALL `gmail_notify_and_log` (from track_top_trending_artificial) in parallel\n3. Return summary\n\nDo not re-discover tools — use track_top_trending_artificial tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_205716_449347/unified-mcp-forge_20260820_205716_449347.zip"
+  },
+  {
+    "id": "forge_20260820_204529_493499",
+    "timestamp": "2026-08-20T20:45:29",
+    "goal": "Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack",
+    "mcp_name": "track_top_trending_artificial",
+    "abs_path": "D:/Aditya/Forge/mcp/track_top_trending_artificial/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "slack_post_message"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Core Notion",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      },
+      "t3": {
+        "tool": "slack_post_message",
+        "source": "Official Slack",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: track_top_trending_artificial\ndescription: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instan\nversion: 1.0.0\nmcp: track_top_trending_artificial\n---\n\n# Skill: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack\n\n## Overview\nThis skill executes: Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack\nUses MCP Server: track_top_trending_artificial with 10 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- slack_post_message\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Core Notion\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  },\n  \"t3\": {\n    \"tool\": \"slack_post_message\",\n    \"source\": \"Official Slack\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `track_top_trending_artificial` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from track_top_trending_artificial) in parallel\n   - CALL `gmail_notify_and_log` (from track_top_trending_artificial) in parallel\n3. Return summary\n\nDo not re-discover tools — use track_top_trending_artificial tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Track top trending artificial intelligence breakthroughs and developer discussions from Hacker News and broadcast instant intelligence briefs to Slack\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_204529_493499/unified-mcp-forge_20260820_204529_493499.zip"
+  },
+  {
+    "id": "forge_20260820_203051_072705",
+    "timestamp": "2026-08-20T20:30:51",
+    "goal": "Voice composite: Forge Research Chain and chain with official GitHub MCP",
+    "mcp_name": "chain-1787238049",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787238049/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Chained from research_v6",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Chained from research_v6",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: chain-1787238049\ndescription: Voice composite: Forge Research Chain and chain with official GitHub MCP\nversion: 1.0.0\nmcp: chain-1787238049\n---\n\n# Skill: Voice composite: Forge Research Chain and chain with official GitHub MCP\n\n## Overview\nThis skill executes: Voice composite: Forge Research Chain and chain with official GitHub MCP\nUses MCP Server: chain-1787238049 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Chained from research_v6\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Chained from research_v6\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `chain-1787238049` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from chain-1787238049) in parallel\n   - CALL `gmail_notify_and_log` (from chain-1787238049) in parallel\n3. Return summary\n\nDo not re-discover tools — use chain-1787238049 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Voice composite: Forge Research Chain and chain with official GitHub MCP\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_203051_072705/unified-mcp-forge_20260820_203051_072705.zip"
+  },
+  {
+    "id": "forge_20260820_203048_916236",
+    "timestamp": "2026-08-20T20:30:48",
+    "goal": "Forge Research",
+    "mcp_name": "research_v6",
+    "abs_path": "D:/Aditya/Forge/mcp/research_v6/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "params": {
+          "query": "Forge"
+        },
+        "parallel": false
+      },
+      "t2": {
+        "tool": "extract_links_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": false,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_create_database_entry",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t2"
+        ]
+      }
+    },
+    "skill_content": "---\nname: research_v6\ndescription: Forge Research\nversion: 1.0.0\nmcp: research_v6\n---\n\n# Skill: Forge Research\n\n## Overview\nThis skill executes: Forge Research\nUses MCP Server: research_v6 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"params\": {\n      \"query\": \"Forge\"\n    },\n    \"parallel\": false\n  },\n  \"t2\": {\n    \"tool\": \"extract_links_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": false,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_create_database_entry\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t2\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `research_v6` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from research_v6) in parallel\n   - CALL `gmail_notify_and_log` (from research_v6) in parallel\n3. Return summary\n\nDo not re-discover tools — use research_v6 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Forge Research\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_203048_916236/unified-mcp-forge_20260820_203048_916236.zip"
+  },
+  {
+    "id": "forge_20260820_202841_011995",
+    "timestamp": "2026-08-20T20:28:41",
+    "goal": "Voice composite: Forge Research Chain and chain with official GitHub MCP",
+    "mcp_name": "chain-1787237919",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787237919/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Chained from research_v5",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Chained from research_v5",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: chain-1787237919\ndescription: Voice composite: Forge Research Chain and chain with official GitHub MCP\nversion: 1.0.0\nmcp: chain-1787237919\n---\n\n# Skill: Voice composite: Forge Research Chain and chain with official GitHub MCP\n\n## Overview\nThis skill executes: Voice composite: Forge Research Chain and chain with official GitHub MCP\nUses MCP Server: chain-1787237919 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Chained from research_v5\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Chained from research_v5\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `chain-1787237919` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from chain-1787237919) in parallel\n   - CALL `gmail_notify_and_log` (from chain-1787237919) in parallel\n3. Return summary\n\nDo not re-discover tools — use chain-1787237919 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Voice composite: Forge Research Chain and chain with official GitHub MCP\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_202841_011995/unified-mcp-forge_20260820_202841_011995.zip"
+  },
+  {
+    "id": "forge_20260820_202839_421009",
+    "timestamp": "2026-08-20T20:28:39",
+    "goal": "Forge Research",
+    "mcp_name": "research_v5",
+    "abs_path": "D:/Aditya/Forge/mcp/research_v5/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "params": {
+          "query": "Forge"
+        },
+        "parallel": false
+      },
+      "t2": {
+        "tool": "extract_links_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": false,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_create_database_entry",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t2"
+        ]
+      }
+    },
+    "skill_content": "---\nname: research_v5\ndescription: Forge Research\nversion: 1.0.0\nmcp: research_v5\n---\n\n# Skill: Forge Research\n\n## Overview\nThis skill executes: Forge Research\nUses MCP Server: research_v5 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"params\": {\n      \"query\": \"Forge\"\n    },\n    \"parallel\": false\n  },\n  \"t2\": {\n    \"tool\": \"extract_links_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": false,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_create_database_entry\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t2\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `research_v5` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from research_v5) in parallel\n   - CALL `gmail_notify_and_log` (from research_v5) in parallel\n3. Return summary\n\nDo not re-discover tools — use research_v5 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Forge Research\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_202839_421009/unified-mcp-forge_20260820_202839_421009.zip"
+  },
+  {
+    "id": "forge_20260820_202728_569452",
+    "timestamp": "2026-08-20T20:27:28",
+    "goal": "Voice composite: Forge Research Chain and chain with official GitHub MCP",
+    "mcp_name": "chain-1787237847",
+    "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787237847/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "amazon_search_ram",
+        "source": "Chained from research_v4",
+        "parallel": true
+      },
+      "t2": {
+        "tool": "notion_log_price",
+        "source": "Chained from research_v4",
+        "deps": [
+          "t1"
+        ],
+        "parallel": true
+      }
+    },
+    "skill_content": "---\nname: chain-1787237847\ndescription: Voice composite: Forge Research Chain and chain with official GitHub MCP\nversion: 1.0.0\nmcp: chain-1787237847\n---\n\n# Skill: Voice composite: Forge Research Chain and chain with official GitHub MCP\n\n## Overview\nThis skill executes: Voice composite: Forge Research Chain and chain with official GitHub MCP\nUses MCP Server: chain-1787237847 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"amazon_search_ram\",\n    \"source\": \"Chained from research_v4\",\n    \"parallel\": true\n  },\n  \"t2\": {\n    \"tool\": \"notion_log_price\",\n    \"source\": \"Chained from research_v4\",\n    \"deps\": [\n      \"t1\"\n    ],\n    \"parallel\": true\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `chain-1787237847` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from chain-1787237847) in parallel\n   - CALL `gmail_notify_and_log` (from chain-1787237847) in parallel\n3. Return summary\n\nDo not re-discover tools — use chain-1787237847 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Voice composite: Forge Research Chain and chain with official GitHub MCP\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_202728_569452/unified-mcp-forge_20260820_202728_569452.zip"
+  },
+  {
+    "id": "forge_20260820_202726_738593",
+    "timestamp": "2026-08-20T20:27:26",
+    "goal": "Forge Research",
+    "mcp_name": "research_v4",
+    "abs_path": "D:/Aditya/Forge/mcp/research_v4/server.py",
+    "tools": [
+      "amazon_search_ram",
+      "amazon_check_discount",
+      "amazon_monitor_ram_discount",
+      "gmail_send_email",
+      "gmail_notify_and_log",
+      "notion_create_database_entry",
+      "notion_log_price",
+      "search_news_ycombinator",
+      "read_page_news_ycombinator",
+      "click_element_news_ycombinator",
+      "fill_field_news_ycombinator",
+      "extract_links_news_ycombinator"
+    ],
+    "dag": {
+      "t1": {
+        "tool": "search_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "params": {
+          "query": "Forge"
+        },
+        "parallel": false
+      },
+      "t2": {
+        "tool": "extract_links_news_ycombinator",
+        "source": "Custom news.ycombinator.com Forged",
+        "parallel": false,
+        "deps": [
+          "t1"
+        ]
+      },
+      "t3": {
+        "tool": "notion_create_database_entry",
+        "source": "Core Notion",
+        "parallel": true,
+        "deps": [
+          "t2"
+        ]
+      }
+    },
+    "skill_content": "---\nname: research_v4\ndescription: Forge Research\nversion: 1.0.0\nmcp: research_v4\n---\n\n# Skill: Forge Research\n\n## Overview\nThis skill executes: Forge Research\nUses MCP Server: research_v4 with 12 tools\n\n## MCP Tools (from server.py)\n- amazon_search_ram\n- amazon_check_discount\n- amazon_monitor_ram_discount\n- gmail_send_email\n- gmail_notify_and_log\n- notion_create_database_entry\n- notion_log_price\n- search_news_ycombinator\n- read_page_news_ycombinator\n- click_element_news_ycombinator\n- fill_field_news_ycombinator\n- extract_links_news_ycombinator\n\n## Workflow DAG\n```json\n{\n  \"t1\": {\n    \"tool\": \"search_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"params\": {\n      \"query\": \"Forge\"\n    },\n    \"parallel\": false\n  },\n  \"t2\": {\n    \"tool\": \"extract_links_news_ycombinator\",\n    \"source\": \"Custom news.ycombinator.com Forged\",\n    \"parallel\": false,\n    \"deps\": [\n      \"t1\"\n    ]\n  },\n  \"t3\": {\n    \"tool\": \"notion_create_database_entry\",\n    \"source\": \"Core Notion\",\n    \"parallel\": true,\n    \"deps\": [\n      \"t2\"\n    ]\n  }\n}\n```\n\n## Instructions for Agent (Performance Optimized)\nYou have MCP Server `research_v4` installed. Follow this exact sequence:\n\n1. CALL mcp tool `amazon_search_ram` or respective search tool from DAG T1\n2. IF result meets threshold (discount >20%, prize>50000, price<2000):\n   - CALL `gmail_send_email` (from research_v4) in parallel\n   - CALL `gmail_notify_and_log` (from research_v4) in parallel\n3. Return summary\n\nDo not re-discover tools — use research_v4 tools directly. This SKILL.md is single source of truth for this workflow.\n\n## When to Invoke\nUser says: \"Forge Research\" or similar to RAM/hackathon/tee tracking\n\n## Expected Output\n- Email sent\n- Notion logged\n- Summary returned\n",
+    "zip_path": "D:/Aditya/Forge/mcp_registry/history/forge_20260820_202726_738593/unified-mcp-forge_20260820_202726_738593.zip"
+  },
+  {
     "id": "forge_20260820_200446_126561",
     "timestamp": "2026-08-20T20:04:46",
     "goal": "Track price site 9 and log to notion",

@@ -16,6 +16,7 @@ import {
   Wrench,
   X,
   Zap,
+  KeyRound,
 } from "lucide-react";
 import type { AurumChain, Dag, ForgeResult, InspectorTab, Official, SiteRow } from "../types";
 import {
@@ -35,6 +36,7 @@ import SkillBridgeView from "./SkillBridgeView";
 import LiveBenchmarkView from "./LiveBenchmarkView";
 import SelfHealDiffView from "./SelfHealDiffView";
 import IDEInjectorView from "./IDEInjectorView";
+import SecretsVaultModal from "./SecretsVaultModal";
 
 interface Props {
   goal: string;
@@ -68,6 +70,7 @@ export default function OneOSCanvas({
   const [activeChains, setActiveChains] = useState<AurumChain[]>([]);
   const [totalToolsCount, setTotalToolsCount] = useState(35);
   const [voiceStatus, setVoiceStatus] = useState<string | null>(null);
+  const [isSecretsModalOpen, setIsSecretsModalOpen] = useState(false);
 
   // Live Backend Health State (Green Online / Red Offline)
   const [backendHealth, setBackendHealth] = useState<"online" | "offline" | "checking">("checking");
@@ -78,7 +81,7 @@ export default function OneOSCanvas({
     try {
       const res = await getLiveness();
       const latency = Math.round(performance.now() - t0);
-      if (res && res.status === "ok") {
+      if (res && (res.status === "alive" || res.status === "ok")) {
         setBackendHealth("online");
         setHealthLatency(latency);
       } else {
@@ -300,6 +303,17 @@ export default function OneOSCanvas({
             <span className="font-bold text-emerald-400">&lt;2.1s (0 API Tokens)</span>
           </div>
 
+          {/* 1-Click Secrets & Token Vault */}
+          <button
+            onClick={() => setIsSecretsModalOpen(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-gold/40 bg-gold/10 px-3 py-1 font-bold text-gold hover:bg-gold hover:text-navy hover:shadow-[0_0_15px_rgba(198,169,107,0.4)] transition-all"
+            title="Configure API keys & tokens in UI (Telegram, Gmail, Instagram, YouTube, GitHub, Notion, Slack) and inject directly into IDEs"
+          >
+            <KeyRound className="h-3.5 w-3.5 shrink-0" />
+            <span className="hidden sm:inline">Secrets & Tokens</span>
+            <span className="sm:hidden">Vault</span>
+          </button>
+
           {/* 1-Click Download Super Hub ZIP */}
           <button
             onClick={handleDownloadSuperHub}
@@ -432,9 +446,16 @@ export default function OneOSCanvas({
 
           {/* Official MCP Ecosystem Toggles */}
           <div className="flex flex-col gap-2 rounded-xl border border-white/[0.08] bg-[#0C1222] p-3.5 shadow-sm">
-            <label className="text-[11px] font-bold text-cream/80">Official MCP Integrations</label>
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] font-bold text-cream/80">Official MCP Integrations</label>
+              {selectedOfficials.size > 0 && (
+                <span className="rounded bg-gold/20 px-1.5 py-0.5 text-[9px] font-bold text-gold">
+                  {selectedOfficials.size} Selected
+                </span>
+              )}
+            </div>
             <div className="grid grid-cols-2 gap-1.5">
-              {catalog.slice(0, 6).map((off) => {
+              {catalog.map((off) => {
                 const isSelected = selectedOfficials.has(off.id);
                 return (
                   <button
@@ -575,6 +596,11 @@ export default function OneOSCanvas({
           </div>
         </div>
       </div>
+
+      <SecretsVaultModal
+        isOpen={isSecretsModalOpen}
+        onClose={() => setIsSecretsModalOpen(false)}
+      />
     </div>
   );
 }

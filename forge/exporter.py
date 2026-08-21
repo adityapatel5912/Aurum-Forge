@@ -12,17 +12,9 @@ from __future__ import annotations
 
 from typing import Any
 
-VALID_PLATFORMS = ("claude_code", "cursor", "zcode", "opencode", "antigravity", "codex")
+VALID_PLATFORMS = ("cursor", "antigravity", "codex", "zcode")
 
 PLATFORM_METADATA = {
-    "claude_code": {
-        "id": "claude_code",
-        "name": "Claude Code",
-        "is_cli": True,
-        "alias": ["claude", "claude_code", "claudecode"],
-        "configFile": "claude_desktop_config.json",
-        "configPath": "%APPDATA%/Claude/claude_desktop_config.json",
-    },
     "cursor": {
         "id": "cursor",
         "name": "Cursor",
@@ -31,6 +23,22 @@ PLATFORM_METADATA = {
         "configFile": ".cursor/mcp.json",
         "configPath": ".cursor/mcp.json",
     },
+    "antigravity": {
+        "id": "antigravity",
+        "name": "Antigravity",
+        "is_cli": False,
+        "alias": ["antigravity", "agy", "google_antigravity"],
+        "configFile": "mcp_config.json",
+        "configPath": "~/.gemini/antigravity/mcp_config.json",
+    },
+    "codex": {
+        "id": "codex",
+        "name": "Codex",
+        "is_cli": True,
+        "alias": ["codex", "openai_codex"],
+        "configFile": "config.json",
+        "configPath": "~/.codex/config.json",
+    },
     "zcode": {
         "id": "zcode",
         "name": "Z Code (Zed)",
@@ -38,30 +46,6 @@ PLATFORM_METADATA = {
         "alias": ["zcode", "zed", "z_code"],
         "configFile": "settings.json",
         "configPath": "~/.config/zed/settings.json (context_servers)",
-    },
-    "opencode": {
-        "id": "opencode",
-        "name": "OpenCode",
-        "is_cli": True,
-        "alias": ["opencode", "open_code"],
-        "configFile": "opencode_mcp.json",
-        "configPath": "opencode_mcp.json",
-    },
-    "antigravity": {
-        "id": "antigravity",
-        "name": "Antigravity",
-        "is_cli": False,
-        "alias": ["antigravity", "agy"],
-        "configFile": "mcp.json",
-        "configPath": "~/.config/antigravity/mcp.json",
-    },
-    "codex": {
-        "id": "codex",
-        "name": "Codex",
-        "is_cli": True,
-        "alias": ["codex", "openai_codex"],
-        "configFile": "codex_mcp.json",
-        "configPath": "codex_mcp.json",
     },
 }
 

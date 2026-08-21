@@ -27,18 +27,15 @@
     "reload_interval": "0.1s",
     "ide_auto_sync": true,
     "ide_targets": [
-      "antigravity",
-      "claude_code",
       "cursor",
-      "windsurf",
-      "opencode",
+      "antigravity",
       "codex",
       "z_code",
       "all"
     ],
-    "last_scan": "2026-08-20T14:34:43+00:00",
-    "total_servers": 53,
-    "total_tools": 101
+    "last_scan": "2026-08-21T10:18:11+00:00",
+    "total_servers": 79,
+    "total_tools": 120
   },
   "discovered_servers": {
     "aurum-github-mcp": {
@@ -256,6 +253,62 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "chain-1787237847": {
+      "name": "chain-1787237847",
+      "path": "mcp_registry/servers/chain-1787237847/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787237847/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_research_v4",
+        "run_chain"
+      ],
+      "hash": "420a6fdc53fc",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1787237919": {
+      "name": "chain-1787237919",
+      "path": "mcp_registry/servers/chain-1787237919/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787237919/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_research_v5",
+        "run_chain"
+      ],
+      "hash": "b768b9358b5f",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1787238049": {
+      "name": "chain-1787238049",
+      "path": "mcp_registry/servers/chain-1787238049/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787238049/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_research_v6",
+        "run_chain"
+      ],
+      "hash": "ddddb470659c",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain-1787305157": {
+      "name": "chain-1787305157",
+      "path": "mcp_registry/servers/chain-1787305157/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/chain-1787305157/server.py",
+      "tools": 3,
+      "tool_names": [
+        "list_chain_members",
+        "stage_1_research_v8",
+        "run_chain"
+      ],
+      "hash": "f166aa2a7ebc",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "chain_content": {
       "name": "chain_content",
       "path": "mcp_registry/servers/chain_content/server.py",
@@ -371,6 +424,74 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "monitor_github_issues_an": {
+      "name": "monitor_github_issues_an",
+      "path": "mcp_registry/servers/monitor_github_issues_an/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/monitor_github_issues_an/server.py",
+      "tools": 5,
+      "tool_names": [
+        "slack_post_message",
+        "slack_list_channels",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "07140837b96c",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "monitor_github_issues_and_send": {
+      "name": "monitor_github_issues_and_send",
+      "path": "mcp_registry/servers/monitor_github_issues_and_send/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/monitor_github_issues_and_send/server.py",
+      "tools": 5,
+      "tool_names": [
+        "slack_post_message",
+        "slack_list_channels",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "07140837b96c",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "monitor_open_prs_on_gith": {
+      "name": "monitor_open_prs_on_gith",
+      "path": "mcp_registry/servers/monitor_open_prs_on_gith/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/monitor_open_prs_on_gith/server.py",
+      "tools": 7,
+      "tool_names": [
+        "telegram_send_message",
+        "telegram_get_updates",
+        "telegram_send_photo",
+        "telegram_get_chat",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "3a112cd8fac6",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "monitor_open_prs_on_github_rep": {
+      "name": "monitor_open_prs_on_github_rep",
+      "path": "mcp_registry/servers/monitor_open_prs_on_github_rep/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/monitor_open_prs_on_github_rep/server.py",
+      "tools": 7,
+      "tool_names": [
+        "telegram_send_message",
+        "telegram_get_updates",
+        "telegram_send_photo",
+        "telegram_get_chat",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "3a112cd8fac6",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "notion_workspace": {
       "name": "notion_workspace",
       "path": "mcp_registry/servers/notion_workspace/server.py",
@@ -393,15 +514,15 @@
       "abs_path": "D:/Aditya/Forge/mcp_registry/servers/ram_tracker/server.py",
       "tools": 7,
       "tool_names": [
-        "amazon_search_ram",
-        "amazon_check_discount",
-        "amazon_monitor_ram_discount",
-        "gmail_send_email",
-        "gmail_notify_and_log",
-        "notion_create_database_entry",
-        "notion_log_price"
+        "ram_search",
+        "ram_compare",
+        "ram_alert",
+        "ram_price_history",
+        "ram_watch_price",
+        "ram_best_deals",
+        "ram_stock_check"
       ],
-      "hash": "142e273a88e4",
+      "hash": "4914ebc4d2c9",
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
@@ -655,6 +776,48 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "track_top_trending_artif": {
+      "name": "track_top_trending_artif",
+      "path": "mcp_registry/servers/track_top_trending_artif/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/track_top_trending_artif/server.py",
+      "tools": 10,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "slack_post_message"
+      ],
+      "hash": "18943d6ecfec",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "track_top_trending_artificial": {
+      "name": "track_top_trending_artificial",
+      "path": "mcp_registry/servers/track_top_trending_artificial/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp_registry/servers/track_top_trending_artificial/server.py",
+      "tools": 10,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "slack_post_message"
+      ],
+      "hash": "18943d6ecfec",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "unified-mcp": {
       "name": "unified-mcp",
       "path": "mcp_registry/servers/unified-mcp/server.py",
@@ -669,7 +832,7 @@
         "notion_create_database_entry",
         "notion_log_price"
       ],
-      "hash": "fad430b75036",
+      "hash": "2b06d4bb8c1d",
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
@@ -808,6 +971,76 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "monitor_github_issues_and_send_v2": {
+      "name": "monitor_github_issues_and_send_v2",
+      "path": "mcp/monitor_github_issues_and_send_v2/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/monitor_github_issues_and_send_v2/server.py",
+      "tools": 24,
+      "tool_names": [
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator",
+        "search_arxiv",
+        "read_page_arxiv",
+        "click_element_arxiv",
+        "fill_field_arxiv",
+        "extract_links_arxiv",
+        "search_spaceflightnow",
+        "read_page_spaceflightnow",
+        "click_element_spaceflightnow",
+        "fill_field_spaceflightnow",
+        "extract_links_spaceflightnow",
+        "telegram_send_message",
+        "telegram_get_updates",
+        "telegram_send_photo",
+        "telegram_get_chat",
+        "slack_post_message",
+        "slack_list_channels",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "a840b6a1cbc9",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "monitor_github_issues_and_send_v3": {
+      "name": "monitor_github_issues_and_send_v3",
+      "path": "mcp/monitor_github_issues_and_send_v3/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/monitor_github_issues_and_send_v3/server.py",
+      "tools": 24,
+      "tool_names": [
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator",
+        "search_arxiv",
+        "read_page_arxiv",
+        "click_element_arxiv",
+        "fill_field_arxiv",
+        "extract_links_arxiv",
+        "search_spaceflightnow",
+        "read_page_spaceflightnow",
+        "click_element_spaceflightnow",
+        "fill_field_spaceflightnow",
+        "extract_links_spaceflightnow",
+        "telegram_send_message",
+        "telegram_get_updates",
+        "telegram_send_photo",
+        "telegram_get_chat",
+        "slack_post_message",
+        "slack_list_channels",
+        "github_create_issue",
+        "github_list_prs",
+        "github_get_file_contents"
+      ],
+      "hash": "2b6ca57fdd78",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "notion": {
       "name": "notion",
       "path": "mcp/notion/server.py",
@@ -938,6 +1171,121 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "research_v4": {
+      "name": "research_v4",
+      "path": "mcp/research_v4/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/research_v4/server.py",
+      "tools": 12,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator"
+      ],
+      "hash": "f814b302396b",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "research_v5": {
+      "name": "research_v5",
+      "path": "mcp/research_v5/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/research_v5/server.py",
+      "tools": 12,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator"
+      ],
+      "hash": "dab43218eaa9",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "research_v6": {
+      "name": "research_v6",
+      "path": "mcp/research_v6/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/research_v6/server.py",
+      "tools": 12,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator"
+      ],
+      "hash": "ce483b85c4fb",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "research_v7": {
+      "name": "research_v7",
+      "path": "mcp/research_v7/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/research_v7/server.py",
+      "tools": 12,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator"
+      ],
+      "hash": "7411906eafb2",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "research_v8": {
+      "name": "research_v8",
+      "path": "mcp/research_v8/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/research_v8/server.py",
+      "tools": 12,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_news_ycombinator",
+        "read_page_news_ycombinator",
+        "click_element_news_ycombinator",
+        "fill_field_news_ycombinator",
+        "extract_links_news_ycombinator"
+      ],
+      "hash": "fe21e3519910",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "stress_0": {
       "name": "stress_0",
       "path": "mcp/stress_0/server.py",
@@ -962,6 +1310,222 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "stress_1": {
+      "name": "stress_1",
+      "path": "mcp/stress_1/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_1/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "1cbd22717ec5",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_2": {
+      "name": "stress_2",
+      "path": "mcp/stress_2/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_2/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "efa27ec1fa61",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_3": {
+      "name": "stress_3",
+      "path": "mcp/stress_3/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_3/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "8b3aae9a85d7",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_4": {
+      "name": "stress_4",
+      "path": "mcp/stress_4/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_4/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "75cdadfe0aff",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_5": {
+      "name": "stress_5",
+      "path": "mcp/stress_5/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_5/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "ec5f163ccdc9",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_6": {
+      "name": "stress_6",
+      "path": "mcp/stress_6/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_6/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "68f1435823e2",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_7": {
+      "name": "stress_7",
+      "path": "mcp/stress_7/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_7/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "8f3fd72e89c8",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_8": {
+      "name": "stress_8",
+      "path": "mcp/stress_8/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_8/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "34d4883766d2",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "stress_9": {
+      "name": "stress_9",
+      "path": "mcp/stress_9/server.py",
+      "abs_path": "D:/Aditya/Forge/mcp/stress_9/server.py",
+      "tools": 13,
+      "tool_names": [
+        "amazon_search_ram",
+        "amazon_check_discount",
+        "amazon_monitor_ram_discount",
+        "gmail_send_email",
+        "gmail_notify_and_log",
+        "notion_create_database_entry",
+        "notion_log_price",
+        "search_example",
+        "read_page_example",
+        "click_element_example",
+        "fill_field_example",
+        "extract_links_example",
+        "notion_create_entry"
+      ],
+      "hash": "8e10695d154a",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "forge_registry_mcp": {
       "name": "forge_registry_mcp",
       "path": "forge/mcp/forge_registry_mcp/server.py",
@@ -982,9 +1546,9 @@
   "super_hub_summary": {
     "give_once": true,
     "auto_updates": "All future forged MCPs appear automatically without re-inject",
-    "total_servers": 53,
-    "total_tools": 101,
-    "ide_entry": "1 entry stays 1 entry, tools auto-grow 101",
+    "total_servers": 79,
+    "total_tools": 120,
+    "ide_entry": "1 entry stays 1 entry, tools auto-grow 120",
     "version": "1.0.1"
   }
 }

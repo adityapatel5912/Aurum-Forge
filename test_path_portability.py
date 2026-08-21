@@ -52,8 +52,8 @@ def test_export_scripts_portability():
     # Verify scripts use normalized forward slashes and no backslashes
     assert "\\" not in bat_text, "export.bat must use normalized '/' path"
     assert "\\" not in sh_text, "export.sh must use normalized '/' path"
-    assert "claude mcp add" in bat_text
-    assert "claude mcp add" in sh_text
+    assert "codex mcp add" in bat_text
+    assert "codex mcp add" in sh_text
 
     print("  -> PASSED: Deployment scripts verified dynamically portable with '/' normalization.")
 

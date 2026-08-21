@@ -89,6 +89,26 @@ export function injectIDEConfig(ide: string, mcp_name = "forge-factory", server_
   }).then((r) => json<{ ok: boolean; message?: string; error?: string; config_path?: string }>(r));
 }
 
+export function getSecrets() {
+  return fetch(apiUrl("/api/secrets")).then((r) => json<import("./types").SecretsVaultData>(r));
+}
+
+export function saveSecrets(secrets: Record<string, string>) {
+  return fetch(apiUrl("/api/secrets"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ secrets }),
+  }).then((r) => json<import("./types").SecretsVaultData>(r));
+}
+
+export function injectSecrets(ide = "all", mcp_name = "forge-aurum-hub", server_path = "") {
+  return fetch(apiUrl("/api/secrets/inject"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ide, mcp_name, server_path }),
+  }).then((r) => json<{ ok: boolean; message?: string; error?: string; config_path?: string }>(r));
+}
+
 export function validateSystemEnvironment(server_path = "") {
   const url = server_path ? `/api/config/validate?server_path=${encodeURIComponent(server_path)}` : "/api/config/validate";
   return fetch(apiUrl(url)).then((r) => json<SystemValidation>(r));
@@ -336,13 +356,13 @@ export function executeDag(dag: any, goal = "") {
 
 // ------------------------------------------------------------- HEALTH SYSTEM APIS
 export function getLiveness() {
-  return fetch(apiUrl("/health/live")).then((r) => json<any>(r));
+  return fetch(apiUrl("/api/health/live")).then((r) => json<any>(r));
 }
 
 export function getReadiness() {
-  return fetch(apiUrl("/health/ready")).then((r) => json<any>(r));
+  return fetch(apiUrl("/api/health/ready")).then((r) => json<any>(r));
 }
 
 export function getHealthTelemetry() {
-  return fetch(apiUrl("/health/telemetry")).then((r) => json<any>(r));
+  return fetch(apiUrl("/api/health/telemetry")).then((r) => json<any>(r));
 }

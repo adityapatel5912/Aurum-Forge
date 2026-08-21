@@ -36,12 +36,10 @@ const TABS: { id: Tab; label: string; icon: typeof Table2 }[] = [
 ];
 
 const PLATFORM_OPTIONS: { id: PlatformKey; label: string }[] = [
-  { id: "claude_code", label: "Claude Code" },
   { id: "cursor", label: "Cursor" },
-  { id: "zcode", label: "Z Code (Zed)" },
-  { id: "opencode", label: "OpenCode" },
   { id: "antigravity", label: "Antigravity" },
   { id: "codex", label: "Codex" },
+  { id: "zcode", label: "Z Code (Zed)" },
 ];
 
 /* --------------------------------------------------------------- empty -- */
@@ -218,7 +216,7 @@ function ResultState({
                     >
                       <span>{plat.label}</span>
                       <span className="rounded bg-navy/10 px-1 py-0.5 text-[8.5px] font-mono text-navy/60">
-                        {plat.id === "claude_code" || plat.id === "codex" || plat.id === "opencode" ? "CLI" : "JSON"}
+                        {plat.id === "codex" ? "CLI" : "JSON"}
                       </span>
                     </button>
                   ))}

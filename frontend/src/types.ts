@@ -62,12 +62,36 @@ export interface ForgeStats {
 }
 
 export type PlatformKey =
-  | "claude_code"
   | "cursor"
-  | "zcode"
-  | "opencode"
   | "antigravity"
-  | "codex";
+  | "codex"
+  | "zcode";
+
+export interface SecretKeyItem {
+  key: string;
+  label: string;
+  placeholder: string;
+  description: string;
+  required: boolean;
+  is_configured: boolean;
+  masked_value: string;
+}
+
+export interface SecretServiceItem {
+  service: string;
+  name: string;
+  configured: boolean;
+  keys: SecretKeyItem[];
+}
+
+export interface SecretsVaultData {
+  ok: boolean;
+  total_services: number;
+  total_keys: number;
+  configured_keys: number;
+  services: SecretServiceItem[];
+  badge: string;
+}
 
 export interface PlatformExport {
   platform_id: PlatformKey;

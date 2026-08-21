@@ -433,7 +433,12 @@ def render_unified_server(
                 tools = deterministic_tools(site_log, set())[:2]
             custom_sites.append(_site_context(site_log, tools))
 
-        manifest: list[dict] = [dict(entry) for entry in CORE_TOOL_MANIFEST]
+        cores_to_include = []
+        manifest: list[dict] = []
+        if not custom_sites and not officials:
+            cores_to_include = [{"source": src} for src in CORE_SOURCES]
+            manifest.extend([dict(entry) for entry in CORE_TOOL_MANIFEST])
+
         for site in custom_sites:
             for t in site["tools"]:
                 manifest.append(
@@ -471,7 +476,7 @@ def render_unified_server(
             "goal": goal or "(no goal given)",
             "site_labels": ", ".join(s["label"] for s in custom_sites) or "none",
             "official_labels": ", ".join(sorted({o["name"] for o in off_entries})) or "none",
-            "cores": [{"source": src} for src in CORE_SOURCES],
+            "cores": cores_to_include,
             "custom_sites": custom_sites,
             "officials": off_entries,
             "tool_manifest": json.dumps(manifest, indent=4, ensure_ascii=False),

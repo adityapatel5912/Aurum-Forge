@@ -4,6 +4,7 @@ import {
   Copy,
   Download,
   HardDrive,
+  KeyRound,
   Layers,
   RotateCcw,
   ShieldCheck,
@@ -20,6 +21,7 @@ import {
   validateSystemEnvironment,
 } from "../api";
 import type { SystemValidation, UniversalConfig } from "../types";
+import SecretsVaultModal from "./SecretsVaultModal";
 
 interface Props {
   activeServerName?: string;
@@ -41,6 +43,7 @@ export default function IDEInjectorView({
   const [actionStatus, setActionStatus] = useState<string | null>(null);
   const [healthResult, setHealthResult] = useState<any | null>(null);
   const [isCheckingHealth, setIsCheckingHealth] = useState(false);
+  const [isSecretsOpen, setIsSecretsOpen] = useState(false);
 
   useEffect(() => {
     if (propServerName) {
@@ -136,6 +139,16 @@ export default function IDEInjectorView({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* UI Secrets Vault Button */}
+          <button
+            onClick={() => setIsSecretsOpen(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-bold text-gold hover:bg-gold hover:text-navy transition-all"
+            title="Enter tokens and API keys through UI to inject directly into IDEs"
+          >
+            <KeyRound className="h-3.5 w-3.5" />
+            Tokens & Secrets
+          </button>
+
           {/* Live STDIO Subprocess Test Button */}
           <button
             onClick={handleRunHealthCheck}
@@ -383,7 +396,7 @@ export default function IDEInjectorView({
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-emerald-400" />
             <span className="text-xs font-bold text-cream">
-              Live Disk Verification: ~/.antigravity/mcp.json (1 Entry Stays 1 Entry)
+              Live Disk Verification: ~/.gemini/antigravity/mcp_config.json / ~/.cursor/mcp.json (1 Entry Stays 1 Entry)
             </span>
           </div>
           <button
@@ -401,8 +414,18 @@ export default function IDEInjectorView({
                   command: "python",
                   args: [
                     config?.servers?.forge_aurum_hub?.args?.[0] ||
-                      "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py",
+                      "forge/mcp/forge_aurum_hub/server.py",
                   ],
+                  env: config?.active_mcp?.env || {
+                    TELEGRAM_BOT_TOKEN: "<your_telegram_token>",
+                    GMAIL_USER: "<your_gmail_address>",
+                    GMAIL_APP_PASSWORD: "<your_gmail_app_password>",
+                    INSTAGRAM_ACCESS_TOKEN: "<your_instagram_token>",
+                    YOUTUBE_API_KEY: "<your_youtube_api_key>",
+                    GITHUB_TOKEN: "<your_github_token>",
+                    NOTION_TOKEN: "<your_notion_token>",
+                    SLACK_BOT_TOKEN: "<your_slack_token>",
+                  },
                 },
               },
             },
@@ -411,6 +434,15 @@ export default function IDEInjectorView({
           )}
         </pre>
       </div>
+
+      <SecretsVaultModal
+        isOpen={isSecretsOpen}
+        onClose={() => {
+          setIsSecretsOpen(false);
+          refreshData();
+        }}
+        onSaved={refreshData}
+      />
     </div>
   );
 }

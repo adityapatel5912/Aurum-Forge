@@ -5,12 +5,10 @@ import { copyText } from "../api";
 import type { PlatformExport, PlatformKey } from "../types";
 
 const PLATFORMS: { id: PlatformKey; label: string; iconLabel: string; isCli: boolean }[] = [
-  { id: "claude_code", label: "Claude Code", iconLabel: "CC", isCli: true },
   { id: "cursor", label: "Cursor", iconLabel: "CU", isCli: false },
-  { id: "zcode", label: "Z Code (Zed)", iconLabel: "ZD", isCli: false },
-  { id: "opencode", label: "OpenCode", iconLabel: "OC", isCli: true },
   { id: "antigravity", label: "Antigravity", iconLabel: "AG", isCli: false },
   { id: "codex", label: "Codex", iconLabel: "CX", isCli: true },
+  { id: "zcode", label: "Z Code (Zed)", iconLabel: "ZD", isCli: false },
 ];
 
 interface Props {
@@ -27,7 +25,7 @@ export default function ExportModal({
   onClose,
   mcpName,
   serverPath,
-  initialPlatform = "claude_code",
+  initialPlatform = "cursor",
   exportConfigs,
 }: Props) {
   const [activePlatform, setActivePlatform] = useState<PlatformKey>(initialPlatform);
@@ -46,9 +44,14 @@ export default function ExportModal({
         command: "python",
         args: [cleanPath],
         env: {
-          NOTION_TOKEN: "<your_notion_token>",
+          TELEGRAM_BOT_TOKEN: "<your_telegram_token>",
           GMAIL_USER: "<your_gmail_address>",
           GMAIL_APP_PASSWORD: "<your_gmail_app_password>",
+          INSTAGRAM_ACCESS_TOKEN: "<your_instagram_token>",
+          YOUTUBE_API_KEY: "<your_youtube_api_key>",
+          GITHUB_TOKEN: "<your_github_token>",
+          NOTION_TOKEN: "<your_notion_token>",
+          SLACK_BOT_TOKEN: "<your_slack_token>",
         },
       },
     },
@@ -57,9 +60,7 @@ export default function ExportModal({
   const getCommand = (): string | null => {
     if (exportConfigs?.[activePlatform]?.command) return exportConfigs[activePlatform].command;
     if (isCli) {
-      if (activePlatform === "claude_code") return `claude mcp add ${mcpName} -- python ${cleanPath}`;
       if (activePlatform === "codex") return `codex mcp add ${mcpName} -- python ${cleanPath}`;
-      if (activePlatform === "opencode") return `opencode mcp add ${mcpName} -- python ${cleanPath}`;
     }
     return null;
   };
@@ -67,18 +68,14 @@ export default function ExportModal({
   const getConfigPath = (): string => {
     if (exportConfigs?.[activePlatform]?.config_path) return exportConfigs[activePlatform].config_path!;
     switch (activePlatform) {
-      case "claude_code":
-        return "%APPDATA%/Claude/claude_desktop_config.json";
       case "cursor":
-        return ".cursor/mcp.json (in project root or global settings)";
-      case "zcode":
-        return "~/.config/zed/settings.json (under context_servers)";
-      case "opencode":
-        return "opencode_mcp.json";
+        return ".cursor/mcp.json or ~/.cursor/mcp.json";
       case "antigravity":
-        return "~/.config/antigravity/mcp.json";
+        return "~/.gemini/antigravity/mcp_config.json or ~/.antigravity/mcp.json";
       case "codex":
-        return "codex_mcp.json";
+        return "~/.codex/config.json or ~/.codex/mcp.json";
+      case "zcode":
+        return "~/.config/zed/settings.json (under context_servers / mcpServers) or ~/.zcode/mcp.json";
       default:
         return "mcp.json";
     }

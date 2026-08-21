@@ -1,4 +1,4 @@
-﻿# ==============================================================================
+# ==============================================================================
 # SECRETS & ENVIRONMENT VARIABLES (STRICT BLOCK)
 # ==============================================================================
 .env
@@ -12,6 +12,15 @@
 .credentials/
 *.secret
 *.secrets
+secrets_vault.json
+mcp_registry/secrets_vault.json
+
+# IDE local configuration files containing injected environment blocks
+.cursor/
+.antigravity/
+.codex/
+.zcode/
+.gemini/
 
 # Private Keys, Certificates & Tokens
 *.pem
@@ -51,7 +60,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -89,12 +97,20 @@ frontend/build/
 .playwright/
 
 # ==============================================================================
-# FORGE ARTIFACTS & DYNAMIC CACHES (REGENERATED ON-DEMAND)
+# DIST ARTIFACTS (TRACK DECKS & PRODUCTION BUNDLES, IGNORE TEMP TEST DATA)
 # ==============================================================================
-logs/*.json
-logs/*.jsonl
-logs/*.log
-logs/*.sqlite
+dist/downloads_test/
+dist/test_manual_verify/
+dist/verify-*/
+dist/playwright_*/
+dist/test-*
+dist/verify-*
+
+# ==============================================================================
+# FORGE RUNTIME CACHES & LOGS (REGENERATED ON-DEMAND)
+# ==============================================================================
+logs/
+*.log
 mcp_registry/temp/
 mcp_registry/packages/
 mcp_registry/time_travel/
@@ -103,10 +119,14 @@ mcp_registry/history/
 mcp_registry/registry.json
 mcp_registry/marketplace.json
 
-# Scratch & QA Verification Scripts
+# Internal Scratch Test Materials
+scripts/
+test_goals_infinity.py
 test_qa_*.py
+test_e2e_verification.py
 scratch_*.py
 *.scratch
+judge-test-*.png
 
 # ==============================================================================
 # OS & IDE SYSTEM FILES
@@ -120,7 +140,7 @@ ehthumbs.db
 Thumbs.db
 [Dd]esktop.ini
 
-# IDE config files (Personal developer environments)
+# Personal Developer Configurations
 .idea/
 *.swp
 *.swo

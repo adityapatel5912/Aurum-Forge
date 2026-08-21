@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
 # FORGE INFINITY 1-Click Multi-IDE Exporter
-# Configures Claude Code, Codex, and OpenCode with normalized '/' paths
+# Configures Cursor, Antigravity, Codex, and Z Code with normalized '/' paths
 set -e
-echo "[FORGE INFINITY] Exporting MCP 'forge-aurum-hub' to AI IDEs..."
-
-if command -v claude &> /dev/null; then
-    claude mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" || true
-    echo "  [OK] Claude Code configured successfully."
-fi
+echo "[FORGE INFINITY] Exporting MCP 'monitor_github_issues_and_send_v3' to AI IDEs (Cursor, Antigravity, Codex, Z Code)..."
 
 if command -v codex &> /dev/null; then
-    codex mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" || true
+    codex mcp add monitor_github_issues_and_send_v3 -- python "D:/Aditya/Forge/mcp/monitor_github_issues_and_send_v3/server.py" || true
     echo "  [OK] Codex configured successfully."
+else
+    echo "  [INFO] codex CLI not found - use 1-Click Inject from UI."
 fi
 
-if command -v opencode &> /dev/null; then
-    opencode mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" || true
-    echo "  [OK] OpenCode configured successfully."
-fi
-
-echo "[FORGE INFINITY] For Antigravity, Z Code, Cursor, and Windsurf, copy snippets from forge.mcp.json!"
+echo "[FORGE INFINITY] For Cursor, Antigravity, and Z Code, 1-Click Inject from UI writes directly to disk!"
+echo "[FORGE INFINITY] Secrets are injected directly into environment blocks."

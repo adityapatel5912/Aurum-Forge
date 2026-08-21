@@ -1,27 +1,16 @@
 @echo off
 REM FORGE INFINITY 1-Click Multi-IDE Exporter
-REM Configures Claude Code, Codex, and OpenCode with normalized '/' paths
-echo [FORGE INFINITY] Exporting MCP 'forge-aurum-hub' to AI IDEs...
+REM Configures Cursor, Antigravity, Codex, and Z Code with normalized '/' paths
+echo [FORGE INFINITY] Exporting MCP 'monitor_github_issues_and_send_v3' to AI IDEs (Cursor, Antigravity, Codex, Z Code)...
 
-REM Claude Code
-claude mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" 2>nul
+REM Codex CLI auto-configuration
+where codex >nul 2>nul
 if %ERRORLEVEL% equ 0 (
-    echo   [OK] Claude Code configured successfully.
-) else (
-    echo   [INFO] claude CLI not found or already configured.
-)
-
-REM Codex
-codex mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" 2>nul
-if %ERRORLEVEL% equ 0 (
+    codex mcp add monitor_github_issues_and_send_v3 -- python "D:/Aditya/Forge/mcp/monitor_github_issues_and_send_v3/server.py" 2>nul
     echo   [OK] Codex configured successfully.
+) else (
+    echo   [INFO] codex CLI not in PATH - use 1-Click Inject from UI.
 )
 
-REM OpenCode
-opencode mcp add forge-aurum-hub -- python "D:/Aditya/Forge/forge/mcp/forge_aurum_hub/server.py" 2>nul
-if %ERRORLEVEL% equ 0 (
-    echo   [OK] OpenCode configured successfully.
-)
-
-echo [FORGE INFINITY] For Antigravity, Z Code, Cursor, and Windsurf, copy snippets from forge.mcp.json!
-pause
+echo [FORGE INFINITY] For Cursor, Antigravity, and Z Code, 1-Click Inject from UI writes directly to disk!
+echo [FORGE INFINITY] Secrets are injected directly into environment blocks.

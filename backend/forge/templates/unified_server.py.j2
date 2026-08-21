@@ -212,20 +212,128 @@ def {{ o.tool_name }}({{ o.signature }}) -> dict:
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
         }
+        clean_repo = repo.strip().strip("/")
+{% if o.tool_name == "github_create_issue" %}
         resp = httpx.post(
-            "https://api.github.com/repos/" + repo.strip().strip("/") + "/issues",
+            f"https://api.github.com/repos/{clean_repo}/issues",
             headers=headers,
             json={"title": title[:200], "body": body or ""},
             timeout=30,
+            follow_redirects=True,
         )
+{% elif o.tool_name == "github_list_prs" %}
+        resp = httpx.get(
+            f"https://api.github.com/repos/{clean_repo}/pulls",
+            headers=headers,
+            params={"state": state or "open"},
+            timeout=30,
+            follow_redirects=True,
+        )
+{% elif o.tool_name == "github_get_file_contents" %}
+        resp = httpx.get(
+            f"https://api.github.com/repos/{clean_repo}/contents/{path.lstrip('/')}",
+            headers=headers,
+            params={"ref": ref or "main"},
+            timeout=30,
+            follow_redirects=True,
+        )
+{% else %}
+        resp = httpx.get(f"https://api.github.com/repos/{clean_repo}", headers=headers, timeout=30, follow_redirects=True)
+{% endif %}
 {% elif o.kind == "slack" %}
         headers = {"Authorization": "Bearer " + token, "Content-Type": "application/json"}
+{% if o.tool_name == "slack_post_message" %}
         resp = httpx.post(
             "https://slack.com/api/chat.postMessage",
             headers=headers,
             json={"channel": channel, "text": text[:3500]},
             timeout=30,
         )
+{% elif o.tool_name == "slack_list_channels" %}
+        resp = httpx.get(
+            "https://slack.com/api/conversations.list",
+            headers=headers,
+            params={"types": types or "public_channel,private_channel"},
+            timeout=30,
+        )
+{% else %}
+        resp = httpx.get("https://slack.com/api/auth.test", headers=headers, timeout=30)
+{% endif %}
+{% elif o.kind == "telegram" %}
+{% if o.tool_name == "telegram_get_updates" %}
+        resp = httpx.get(f"https://api.telegram.org/bot{token}/getUpdates", params={"limit": limit, "offset": offset}, timeout=30)
+{% elif o.tool_name == "telegram_get_chat" %}
+        chat_target = chat_id or os.environ.get("TELEGRAM_CHAT_ID", "")
+        if not chat_target:
+            return {"ok": False, "error": "chat_id not provided and TELEGRAM_CHAT_ID env not set"}
+        resp = httpx.get(f"https://api.telegram.org/bot{token}/getChat", params={"chat_id": chat_target}, timeout=30)
+{% elif o.tool_name == "telegram_send_photo" %}
+        chat_target = chat_id or os.environ.get("TELEGRAM_CHAT_ID", "")
+        if not chat_target:
+            return {"ok": False, "error": "chat_id not provided and TELEGRAM_CHAT_ID env not set"}
+        resp = httpx.post(
+            f"https://api.telegram.org/bot{token}/sendPhoto",
+            json={"chat_id": chat_target, "photo": photo_url, "caption": caption or ""},
+            timeout=30,
+        )
+{% else %}
+        chat_target = chat_id or os.environ.get("TELEGRAM_CHAT_ID", "")
+        if not chat_target:
+            return {"ok": False, "error": "chat_id not provided and TELEGRAM_CHAT_ID env not set"}
+        resp = httpx.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": chat_target, "text": text, "parse_mode": parse_mode or "HTML"},
+            timeout=30,
+        )
+{% endif %}
+{% elif o.kind == "gmail" %}
+        # High deliverability Gmail SMTP dispatch
+        import smtplib
+        from email.mime.text import MIMEText
+        from email.mime.multipart import MIMEMultipart
+        gmail_user = os.environ.get("GMAIL_USER", "")
+        msg = MIMEMultipart("alternative" if is_html else "plain")
+        msg["Subject"] = subject
+        msg["From"] = gmail_user
+        msg["To"] = to
+        msg.attach(MIMEText(body, "html" if is_html else "plain"))
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15) as srv:
+            srv.login(gmail_user, token)
+            srv.send_message(msg)
+        return {"ok": True, "status": 200, "data": f"Email successfully dispatched to {to}"}
+{% elif o.kind == "instagram" %}
+        account_id = os.environ.get("INSTAGRAM_ACCOUNT_ID", "")
+{% if o.tool_name == "instagram_publish_photo" %}
+        create_resp = httpx.post(
+            f"https://graph.facebook.com/v19.0/{account_id}/media",
+            json={"image_url": image_url, "caption": caption or "", "access_token": token},
+            timeout=30,
+        )
+        data = create_resp.json()
+        creation_id = data.get("id")
+        if not creation_id:
+            return {"ok": False, "error": data}
+        resp = httpx.post(
+            f"https://graph.facebook.com/v19.0/{account_id}/media_publish",
+            json={"creation_id": creation_id, "access_token": token},
+            timeout=30,
+        )
+{% elif o.tool_name == "instagram_get_user_insights" %}
+        resp = httpx.get(f"https://graph.facebook.com/v19.0/{account_id}/insights", params={"metric": metric, "period": period, "access_token": token}, timeout=30)
+{% else %}
+        resp = httpx.get(f"https://graph.facebook.com/v19.0/{account_id}/media", params={"access_token": token, "limit": limit}, timeout=30)
+{% endif %}
+{% elif o.kind == "youtube" %}
+{% if o.tool_name == "youtube_get_transcript" %}
+        from youtube_transcript_api import YouTubeTranscriptApi
+        vid = video_url_or_id.split("v=")[-1].split("&")[0].split("/")[-1]
+        t_data = YouTubeTranscriptApi.get_transcript(vid, languages=[language or "en"])
+        return {"ok": True, "status": 200, "data": t_data}
+{% elif o.tool_name == "youtube_search_videos" %}
+        resp = httpx.get("https://www.googleapis.com/youtube/v3/search", params={"q": query, "part": "snippet", "maxResults": max_results, "key": token}, timeout=30)
+{% else %}
+        resp = httpx.get("https://www.googleapis.com/youtube/v3/videos", params={"id": video_url_or_id, "part": "snippet,contentDetails,statistics", "key": token}, timeout=30)
+{% endif %}
 {% else %}
         return {"ok": False, "error": "unsupported official kind"}
 {% endif %}

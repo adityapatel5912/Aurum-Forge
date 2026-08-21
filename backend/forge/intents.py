@@ -1117,7 +1117,7 @@ INTENTS: Dict[str, Dict[str, Any]] = {
             {"name": "ram_best_deals", "source": "Intent Router", "badge": "FORGED", "description": "Steepest RAM discounts"},
             {"name": "ram_stock_check", "source": "Intent Router", "badge": "FORGED", "description": "Stock matrix per retailer"},
         ],
-        "match": lambda g: "ram" in g and any(k in g for k in ("track", "price", "product", "monitor", "top", "amazon")),
+        "match": lambda g: bool(re.search(r"\b(?:ram|ddr4|ddr5)\b", g)) and any(k in g for k in ("track", "price", "product", "monitor", "top", "amazon")),
     },
     "notion_workspace": {
         "slug": "notion_workspace",
@@ -1361,7 +1361,7 @@ def forge_intent(intent_key: str, goal: str) -> Dict[str, Any]:
     try:
         from backend.aurum.generate_super_hub_config import generate_and_sync_super_hub
         generate_and_sync_super_hub(auto_sync_ides=True)
-        result["hot_loaded_into"] = ["Antigravity", "Z Code", "Claude Code", "Cursor", "Windsurf"]
+        result["hot_loaded_into"] = ["Cursor", "Antigravity", "Codex", "Z Code"]
     except Exception as e:  # pragma: no cover
         result["hot_load_error"] = str(e)
 
@@ -1465,7 +1465,7 @@ def forge_chain_goal(chain_id: str, goal: str) -> Dict[str, Any]:
     try:
         from backend.aurum.generate_super_hub_config import generate_and_sync_super_hub
         generate_and_sync_super_hub(auto_sync_ides=True)
-        result["hot_loaded_into"] = ["Antigravity", "Z Code", "Claude Code", "Cursor", "Windsurf"]
+        result["hot_loaded_into"] = ["Cursor", "Antigravity", "Codex", "Z Code"]
     except Exception as e:  # pragma: no cover
         result["hot_load_error"] = str(e)
 

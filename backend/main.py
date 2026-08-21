@@ -19,11 +19,11 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
-from backend.paths import get_project_root, get_user_home, normalize_path
-
-ROOT = get_project_root()
+ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from backend.paths import get_project_root, get_user_home, normalize_path
 
 from backend.config import SERVER_NAME, VERSION, ensure_dirs  # noqa: E402
 
@@ -48,6 +48,16 @@ class ForgeRequest(BaseModel):
 class InjectConfigRequest(BaseModel):
     ide: str
     mcp_name: str = "forge-factory"
+    server_path: str = ""
+
+
+class SecretsSaveRequest(BaseModel):
+    secrets: dict[str, str] = Field(default_factory=dict)
+
+
+class SecretsInjectRequest(BaseModel):
+    ide: str = "all"
+    mcp_name: str = "forge-aurum-hub"
     server_path: str = ""
 
 
@@ -504,6 +514,33 @@ def create_app():
     def inject_config(req: InjectConfigRequest):
         server_path = req.server_path or str(ROOT / "forge" / "mcp" / "forge_factory_mcp" / "server.py")
         return hot_load_into_ide(req.ide, req.mcp_name, server_path)
+
+    # ------------------------------------------------ Secrets & Token Vault APIs
+    from backend.aurum.secrets_manager import get_secrets_status, save_vault_secrets, get_injection_env_block
+
+    @app.get("/api/secrets")
+    def get_secrets_endpoint():
+        """Retrieve configured token statuses (masked for security) for all official MCP services."""
+        return get_secrets_status()
+
+    @app.post("/api/secrets")
+    def save_secrets_endpoint(req: SecretsSaveRequest):
+        """Save API tokens directly from UI so user never has to give them to the agent."""
+        res = save_vault_secrets(req.secrets)
+        # Also auto-update universal config and active IDEs with the new secrets
+        try:
+            from backend.aurum.generate_super_hub_config import generate_and_sync_super_hub
+            generate_and_sync_super_hub(auto_sync_ides=True)
+        except Exception:
+            pass
+        return res
+
+    @app.post("/api/secrets/inject")
+    def inject_secrets_endpoint(req: SecretsInjectRequest):
+        """Inject saved secrets directly into target IDE config files."""
+        server_path = req.server_path or str(ROOT / "forge" / "mcp" / "forge_aurum_hub" / "server.py")
+        env_block = get_injection_env_block()
+        return hot_load_into_ide(req.ide, req.mcp_name, server_path, env_vars=env_block)
 
     @app.get("/api/config/validate")
     @app.get("/api/ide/validate")

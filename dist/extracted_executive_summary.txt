@@ -1,0 +1,135 @@
+=== PAGE 1 ===
+Executive Summary 
+Addix Labs & The Cyruss ParadigmMission 
+Building the Intelligent Operating Layer 
+ 
+At Addix Labs, we build software, not experiments. We launched this company to solve a 
+fundamental disconnect in modern computing: the "Implementation Gap." We observed that while AI 
+chatbots excel at dialogue and ideation, they consistently fail at execution. 
+ 
+As developers and founders, we reached a point where existing tools—despite their conversational 
+fluency—left the work unfinished. We found ourselves constantly switching between chat windows 
+and actual work applications, manually executing tasks that an intelligent system should handle 
+natively. Cyruss exists to resolve this. We are developing an autonomous AI desktop assistant 
+designed to function as an intelligent operating layer for personal and professional computing. Our 
+goal is to transform human intent into digital outcomes, shifting the role of the professional from a 
+manual operator of software to a strategic director of automated workflows.The Implementation 
+Gap: Why Current AI Falls Short 
+ 
+The current AI ecosystem is saturated with tools optimized for conversation, not action. This creates 
+three systemic bottlenecks for professional users: 
+1.​ Context Fragmentation: Most AI systems operate in silos. They rarely persist across 
+projects, losing critical user requirements the moment a session concludes. 
+2.​ Cognitive Switching Costs: The burden of transferring information from an AI interface to 
+actual tools—document editors, code environments, and file systems—remains with the user. 
+This "copy-paste" tax destroys flow states. 
+3.​ The "Doing" Barrier: Chatbots suggest, but they rarely execute. They provide the instructions, 
+but the user remains the primary operator. 
+Addix Labs was founded to eliminate these hurdles. We believe the future of productivity is not 
+better conversation; it is seamless, autonomous execution.Addix Labs: A Structured Approach to 
+Software 
+ 
+Addix Labs is the parent entity and operational framework for our development efforts. We view the 
+company as a "learning sandbox" that balances rigorous engineering with pragmatic product 
+development. We are building capabilities, not just features. 
+ 
+Our vision centers on long-term sustainability and meaningful technical growth. We approach 
+development with a "Lean Operations" mindset, ensuring our growth is tied to functional utility rather 
+than speculative expansion. This philosophy drives our architecture: we prioritize modularity, 
+reliability, and cost-effective design over feature bloat. We exist to provide tools that genuinely save 
+users time, and our company structure is designed to support that mission through disciplined, 
+hands-on iteration.Cyruss: Technical Architecture 
+ 
+
+
+=== PAGE 2 ===
+Cyruss acts as the central orchestrator within the user's digital environment. It is not an "Operating 
+System" in the traditional sense, but an intelligent layer that sits atop your existing tools to execute 
+complex goals.The Stack 
+●​
+Frontend: React, TypeScript, and Tailwind CSS. 
+●​
+Backend: FastAPI for high-performance orchestration. 
+●​
+Intelligence: DeepSeek API (primary) with model routing capabilities to Gemini, Claude, and 
+others, selected based on task specificity and cost optimization. 
+Multi-Agent System 
+ 
+Our core architecture relies on a Hierarchical Multi-Agent System: 
+●​
+Planner Agent: Decomposes abstract goals into executable task sequences. 
+●​
+Researcher Agent: Executes web searches, aggregates data, and compiles validated 
+sources. 
+●​
+Coder Agent: Generates, tests, debugs, and refactors code within the user's environment. 
+●​
+Reviewer Agent: Operates as a programmatic gatekeeper, evaluating outputs against 
+user-defined constraints before finalizing tasks. 
+The Verification Engine 
+ 
+This is our primary differentiator. We rely on Pydantic-based schema validation to ensure structured 
+output and utilize Human-in-the-Loop (HITL) checkpoints. Cyruss prioritizes safety; if the system 
+encounters ambiguity on a high-stakes task, it pauses and requests user verification. It is 
+programmed to avoid guessing.Current Progress & Product Roadmap 
+ 
+We adhere to strict operational discipline, clearly distinguishing between code already in production 
+and our planned trajectory.Implemented & Verified Capabilities 
+ 
+The following are currently operational in our development environment: 
+●​
+OS Control Layer: Full control over application states (open/close/switch), window 
+management, and media playback. 
+●​
+System Integration: Robust connectivity between the frontend, backend, and CLI. 
+●​
+Action History: A persistent, auditable log of every action performed. 
+●​
+Safety Layer: A strict "Do not execute" protocol for uncertain tasks. 
+●​
+Integrations: Functional control interfaces for YouTube and Spotify. 
+Development Roadmap 
+●​
+Phase 1 (Active): Refinement of core system architecture, API integration, and project 
+workflow mapping. 
+●​
+Phase 2 (In Development): Development of advanced browser automation, research 
+workflows, and automated document generation. 
+●​
+Phase 3 (Planned): Limited public launch, user testing cycles, and feedback integration. 
+
+
+=== PAGE 3 ===
+●​
+Phase 4 (Future): Integration of advanced AI models, release of premium feature tiers, and 
+platform scaling. 
+The Business Case 
+ 
+Cyruss is engineered for professionals—developers, analysts, and founders—who lose hours to 
+administrative friction. 
+●​
+Executives: Solving the "administrative loop" by delegating coordination and document 
+management. 
+●​
+Developers: Maintaining "flow state" by automating environment setup and background 
+testing. 
+●​
+Analysts: Offloading the repetitive labor of cleaning datasets and generating reports. 
+●​
+Founders: Leveraging Cyruss as a fractional operational team to automate routine 
+administrative overhead. 
+Market Opportunity & Sustainability 
+ 
+We are targeting the growth in the Agentic AI space by offering a persistent, autonomous 
+workspace. Unlike enterprise SaaS, which often requires complex onboarding, our lean operational 
+model—using cloud-native APIs rather than expensive hardware—allows us to provide high-value 
+automation at a sustainable cost structure. 
+ 
+The technology is finally ready. Modern LLMs possess the reasoning capacity for execution, and 
+market frustration with manual software interaction is at an all-time high. Addix Labs is filling this 
+void with a tool that acts as the intelligent orchestrator of your digital life.Conclusion 
+ 
+Cyruss is not a replacement for human creativity; it is a force multiplier that liberates it. Through 
+Addix Labs, we are repositioning the professional from a manual operator to a strategic director. 
+This is the future of work—and we are building it one executable task at a time.  
+ 

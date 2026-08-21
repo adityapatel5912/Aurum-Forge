@@ -17,17 +17,15 @@ import { copyText, getForgeRegistryMcpConfig } from "../api";
 import type { ForgeRegistryMcpMeta, PlatformKey } from "../types";
 
 const PLATFORMS: { id: PlatformKey; label: string; isCli: boolean }[] = [
-  { id: "claude_code", label: "Claude Code", isCli: true },
   { id: "cursor", label: "Cursor", isCli: false },
-  { id: "zcode", label: "Z Code (Zed)", isCli: false },
-  { id: "opencode", label: "OpenCode", isCli: true },
   { id: "antigravity", label: "Antigravity", isCli: false },
   { id: "codex", label: "Codex", isCli: true },
+  { id: "zcode", label: "Z Code (Zed)", isCli: false },
 ];
 
 export default function ForgeRegistryMcpView() {
   const [meta, setMeta] = useState<ForgeRegistryMcpMeta | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<PlatformKey>("claude_code");
+  const [selectedPlatform, setSelectedPlatform] = useState<PlatformKey>("cursor");
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [copiedJson, setCopiedJson] = useState(false);
   const [exportDropdownOpen, setExportDropdownOpen] = useState(false);
@@ -45,33 +43,33 @@ export default function ForgeRegistryMcpView() {
         // Fallback meta
         setMeta({
           name: "forge-registry",
-          server_path: "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py",
+          server_path: "forge/mcp/forge_registry_mcp/server.py",
           description: "Meta MCP server exposing all forged MCPs and SKILL.md files to any AI Agent",
           tools: [
             { name: "list_forged_mcps", description: "List all MCP servers generated in Forge" },
             { name: "get_mcp_details", description: "Get details of a specific forged MCP by id" },
             { name: "get_skill", description: "Get the single SKILL.md for that workflow" },
             { name: "search_mcps", description: "Search forged MCPs by goal text or tool name" },
-            { name: "export_mcp_to_platform", description: "Export MCP Server to 6 platforms" },
+            { name: "export_mcp_to_platform", description: "Export MCP Server to AI IDEs" },
           ],
           platforms: {} as any,
           install_command:
-            "claude mcp add forge-registry -- python D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py",
+            "codex mcp add forge-registry -- python forge/mcp/forge_registry_mcp/server.py",
         });
       });
   }, []);
 
   const activeExport = meta?.platforms?.[selectedPlatform];
-  const isCurrentCli = PLATFORMS.find((p) => p.id === selectedPlatform)?.isCli ?? true;
+  const isCurrentCli = PLATFORMS.find((p) => p.id === selectedPlatform)?.isCli ?? false;
   const activeCmd =
     activeExport?.command ||
-    `claude mcp add forge-registry -- python ${meta?.server_path || "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"}`;
+    `codex mcp add forge-registry -- python ${meta?.server_path || "forge/mcp/forge_registry_mcp/server.py"}`;
 
   const jsonSnippet = activeExport?.config || {
     mcpServers: {
       "forge-registry": {
         command: "python",
-        args: [meta?.server_path || "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"],
+        args: [meta?.server_path || "forge/mcp/forge_registry_mcp/server.py"],
       },
     },
   };
@@ -83,12 +81,12 @@ export default function ForgeRegistryMcpView() {
     const platName = platInfo?.label || platform;
 
     const platExport = meta?.platforms?.[platform];
-    const cmd = platExport?.command || `claude mcp add forge-registry -- python ${meta?.server_path || "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"}`;
+    const cmd = platExport?.command || `codex mcp add forge-registry -- python ${meta?.server_path || "forge/mcp/forge_registry_mcp/server.py"}`;
     const cfg = platExport?.config || {
       mcpServers: {
         "forge-registry": {
           command: "python",
-          args: [meta?.server_path || "D:/Aditya/Forge/forge/mcp/forge_registry_mcp/server.py"],
+          args: [meta?.server_path || "forge/mcp/forge_registry_mcp/server.py"],
         },
       },
     };

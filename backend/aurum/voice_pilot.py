@@ -380,7 +380,7 @@ if __name__ == "__main__":
             "skill_path": str(skill_file).replace("\\", "/"),
             "files_in_bundle": files_in_zip,
             "bundle_file_count": len(files_in_zip),
-            "universal_ides": ["Antigravity", "Z Code", "Claude Code", "Cursor", "Windsurf", "OpenCode", "Codex"],
+            "universal_ides": ["Cursor", "Antigravity", "Codex", "Z Code"],
             "message": f"Generated universal bundle {zip_path.name} (7 files, '/' normalized paths, universal SKILL.md).",
         }
 

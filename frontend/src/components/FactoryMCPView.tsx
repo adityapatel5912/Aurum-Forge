@@ -35,7 +35,7 @@ const FACTORY_TOOLS = [
   {
     name: "hot_load_mcp",
     signature: "hot_load_mcp(mcp_name, server_path, target_ide='all')",
-    description: "Atomically injects MCP config into Antigravity, Z Code, Claude Code, Cursor, and Windsurf without restarting.",
+    description: "Atomically injects MCP config into Cursor, Antigravity, Codex, and Z Code without restarting.",
     badge: "HOT-LOAD",
   },
   {
@@ -99,7 +99,7 @@ export default function FactoryMCPView() {
     setTimeout(() => setCopiedCmd(null), 2400);
   };
 
-  const factoryPath = "d:/Aditya/Forge/forge/mcp/forge_factory_mcp/server.py";
+  const factoryPath = "forge/mcp/forge_factory_mcp/server.py";
 
   return (
     <div className="space-y-6">
@@ -113,7 +113,7 @@ export default function FactoryMCPView() {
             FORGE Factory MCP
           </h2>
           <p className="mt-2 text-sm text-cream/70 leading-relaxed">
-            The meta-layer where MCPs build, hot-load, self-heal, chain, and distribute MCPs autonomously. Run FORGE Factory directly inside Claude Code, Antigravity, or Z Code to create new workforce tools on voice command.
+            The meta-layer where MCPs build, hot-load, self-heal, chain, and distribute MCPs autonomously. Run FORGE Factory directly inside Cursor, Antigravity, Codex, or Z Code to create new workforce tools on voice command.
           </p>
         </div>
       </div>

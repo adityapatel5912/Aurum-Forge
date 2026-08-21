@@ -112,7 +112,7 @@ export default function SelfHealStudio() {
               type="text"
               value={serverPath}
               onChange={(e) => setServerPath(e.target.value)}
-              placeholder="e.g. D:/Aditya/Forge/mcp_registry/servers/unified-mcp/server.py"
+              placeholder="e.g. mcp_registry/servers/unified-mcp/server.py"
               className="w-full rounded-2xl border border-navy/15 bg-white p-3 text-xs font-medium text-navy focus:border-gold focus:outline-none"
             />
           </div>

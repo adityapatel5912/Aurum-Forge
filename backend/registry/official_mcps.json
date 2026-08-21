@@ -1,37 +1,167 @@
 {
   "officials": [
     {
-      "id": "notion",
-      "name": "Notion",
-      "kind": "notion",
-      "token_env": "NOTION_TOKEN",
-      "description": "Create entries / pages in Notion databases",
+      "id": "telegram",
+      "name": "Telegram",
+      "kind": "telegram",
+      "token_env": "TELEGRAM_BOT_TOKEN",
+      "description": "Send Telegram messages, poll bot updates, broadcast media to channels",
       "tools": [
         {
-          "tool_name": "notion_create_entry",
-          "description": "Create a page entry in Notion (uses NOTION_PARENT_PAGE or a database_id)",
+          "tool_name": "telegram_send_message",
+          "description": "Send a message to a Telegram chat, group, or channel",
           "params": [
-            { "name": "title", "type": "str", "default": null },
-            { "name": "database_id", "type": "str", "default": "" },
-            { "name": "content", "type": "str", "default": "" }
+            { "name": "text", "type": "str", "default": null },
+            { "name": "chat_id", "type": "str", "default": "" },
+            { "name": "parse_mode", "type": "str", "default": "HTML" }
+          ]
+        },
+        {
+          "tool_name": "telegram_get_updates",
+          "description": "Poll incoming bot messages and updates",
+          "params": [
+            { "name": "limit", "type": "int", "default": 10 },
+            { "name": "offset", "type": "int", "default": 0 }
+          ]
+        },
+        {
+          "tool_name": "telegram_send_photo",
+          "description": "Send an image/photo with caption to a Telegram chat",
+          "params": [
+            { "name": "photo_url", "type": "str", "default": null },
+            { "name": "caption", "type": "str", "default": "" },
+            { "name": "chat_id", "type": "str", "default": "" }
+          ]
+        },
+        {
+          "tool_name": "telegram_get_chat",
+          "description": "Get metadata of a target Telegram chat or channel",
+          "params": [
+            { "name": "chat_id", "type": "str", "default": null }
           ]
         }
       ]
     },
     {
-      "id": "gsheet",
-      "name": "Google Sheets",
-      "kind": "gsheet",
-      "token_env": "GOOGLE_OAUTH_TOKEN",
-      "description": "Append rows to Google Sheets spreadsheets",
+      "id": "gmail",
+      "name": "Gmail",
+      "kind": "gmail",
+      "token_env": "GMAIL_APP_PASSWORD",
+      "description": "Send HTML emails, create drafts, and search Gmail messages",
       "tools": [
         {
-          "tool_name": "sheets_append_row",
-          "description": "Append a row (JSON array of values) to a Google Sheet",
+          "tool_name": "gmail_send_email",
+          "description": "Send an email notification via Gmail SMTP/API",
           "params": [
-            { "name": "spreadsheet_id", "type": "str", "default": null },
-            { "name": "sheet_range", "type": "str", "default": "Sheet1!A1" },
-            { "name": "values_json", "type": "str", "default": "[]" }
+            { "name": "to", "type": "str", "default": null },
+            { "name": "subject", "type": "str", "default": null },
+            { "name": "body", "type": "str", "default": null },
+            { "name": "is_html", "type": "bool", "default": false }
+          ]
+        },
+        {
+          "tool_name": "gmail_create_draft",
+          "description": "Create an email draft in Gmail",
+          "params": [
+            { "name": "to", "type": "str", "default": null },
+            { "name": "subject", "type": "str", "default": null },
+            { "name": "body", "type": "str", "default": null }
+          ]
+        },
+        {
+          "tool_name": "gmail_read_inbox",
+          "description": "Fetch recent emails and subject summaries from Gmail inbox",
+          "params": [
+            { "name": "max_results", "type": "int", "default": 10 },
+            { "name": "unread_only", "type": "bool", "default": true }
+          ]
+        },
+        {
+          "tool_name": "gmail_search_messages",
+          "description": "Search Gmail inbox with query filters",
+          "params": [
+            { "name": "query", "type": "str", "default": null },
+            { "name": "max_results", "type": "int", "default": 10 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "kind": "instagram",
+      "token_env": "INSTAGRAM_ACCESS_TOKEN",
+      "description": "Publish photo/carousel posts, fetch media, and retrieve account insights",
+      "tools": [
+        {
+          "tool_name": "instagram_publish_photo",
+          "description": "Publish a photo post to Instagram Business/Creator account",
+          "params": [
+            { "name": "image_url", "type": "str", "default": null },
+            { "name": "caption", "type": "str", "default": "" }
+          ]
+        },
+        {
+          "tool_name": "instagram_get_media",
+          "description": "Fetch recent media posts and engagement metrics",
+          "params": [
+            { "name": "limit", "type": "int", "default": 10 }
+          ]
+        },
+        {
+          "tool_name": "instagram_get_user_insights",
+          "description": "Retrieve account metrics: impressions, reach, profile views",
+          "params": [
+            { "name": "metric", "type": "str", "default": "impressions,reach" },
+            { "name": "period", "type": "str", "default": "day" }
+          ]
+        },
+        {
+          "tool_name": "instagram_post_carousel",
+          "description": "Publish a multi-media carousel post to Instagram account",
+          "params": [
+            { "name": "media_urls", "type": "str", "default": null },
+            { "name": "caption", "type": "str", "default": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "kind": "youtube",
+      "token_env": "YOUTUBE_API_KEY",
+      "description": "Extract video transcripts, fetch video info, and search videos",
+      "tools": [
+        {
+          "tool_name": "youtube_get_transcript",
+          "description": "Extract full timestamps and transcript text for any YouTube video",
+          "params": [
+            { "name": "video_url_or_id", "type": "str", "default": null },
+            { "name": "language", "type": "str", "default": "en" }
+          ]
+        },
+        {
+          "tool_name": "youtube_get_video_info",
+          "description": "Fetch video title, channel, description, duration, and statistics",
+          "params": [
+            { "name": "video_url_or_id", "type": "str", "default": null }
+          ]
+        },
+        {
+          "tool_name": "youtube_search_videos",
+          "description": "Search YouTube for top videos matching query keywords",
+          "params": [
+            { "name": "query", "type": "str", "default": null },
+            { "name": "max_results", "type": "int", "default": 5 }
+          ]
+        },
+        {
+          "tool_name": "youtube_list_channel_videos",
+          "description": "List latest uploaded videos and metadata from a target channel",
+          "params": [
+            { "name": "channel_id_or_handle", "type": "str", "default": null },
+            { "name": "max_results", "type": "int", "default": 10 }
           ]
         }
       ]
@@ -41,7 +171,7 @@
       "name": "GitHub",
       "kind": "github",
       "token_env": "GITHUB_TOKEN",
-      "description": "Create issues on GitHub repositories",
+      "description": "Create issues, pull requests, and fetch file contents on GitHub",
       "tools": [
         {
           "tool_name": "github_create_issue",
@@ -49,7 +179,52 @@
           "params": [
             { "name": "repo", "type": "str", "default": null },
             { "name": "title", "type": "str", "default": null },
-            { "name": "body", "type": "str", "default": "" }
+            { "name": "body", "type": "str", "default": "" },
+            { "name": "labels", "type": "list[str]", "default": "[]" }
+          ]
+        },
+        {
+          "tool_name": "github_list_prs",
+          "description": "List pull requests for a repository",
+          "params": [
+            { "name": "repo", "type": "str", "default": null },
+            { "name": "state", "type": "str", "default": "open" }
+          ]
+        },
+        {
+          "tool_name": "github_get_file_contents",
+          "description": "Fetch file content from GitHub repository default or target branch",
+          "params": [
+            { "name": "repo", "type": "str", "default": null },
+            { "name": "path", "type": "str", "default": null },
+            { "name": "ref", "type": "str", "default": "main" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "kind": "notion",
+      "token_env": "NOTION_TOKEN",
+      "description": "Create entries / pages in Notion databases with block formatting",
+      "tools": [
+        {
+          "tool_name": "notion_create_database_entry",
+          "description": "Create a page in a Notion database with structured properties and body",
+          "params": [
+            { "name": "title", "type": "str", "default": null },
+            { "name": "database_id", "type": "str", "default": "" },
+            { "name": "properties_json", "type": "str", "default": "{}" },
+            { "name": "content", "type": "str", "default": "" }
+          ]
+        },
+        {
+          "tool_name": "notion_search_pages",
+          "description": "Search Notion workspace for pages, databases, or content blocks",
+          "params": [
+            { "name": "query", "type": "str", "default": null },
+            { "name": "filter_type", "type": "str", "default": "page" }
           ]
         }
       ]
@@ -58,15 +233,81 @@
       "id": "slack",
       "name": "Slack",
       "kind": "slack",
-      "token_env": "SLACK_TOKEN",
-      "description": "Post messages to Slack channels",
+      "token_env": "SLACK_BOT_TOKEN",
+      "description": "Post messages to Slack channels and discover channels",
       "tools": [
         {
           "tool_name": "slack_post_message",
-          "description": "Post a message to a Slack channel (#general or channel id)",
+          "description": "Post a formatted message or alert to a Slack channel or webhook",
           "params": [
             { "name": "channel", "type": "str", "default": null },
-            { "name": "text", "type": "str", "default": "" }
+            { "name": "text", "type": "str", "default": "" },
+            { "name": "thread_ts", "type": "str", "default": "" }
+          ]
+        },
+        {
+          "tool_name": "slack_list_channels",
+          "description": "List available public and private channels in the workspace",
+          "params": [
+            { "name": "types", "type": "str", "default": "public_channel" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "filesystem",
+      "name": "Filesystem",
+      "kind": "filesystem",
+      "token_env": "",
+      "description": "Sandboxed filesystem tools with path traversal protection and atomic writes",
+      "tools": [
+        {
+          "tool_name": "filesystem_read_file",
+          "description": "Read file contents safely with UTF-8 encoding",
+          "params": [
+            { "name": "file_path", "type": "str", "default": null }
+          ]
+        },
+        {
+          "tool_name": "filesystem_write_file",
+          "description": "Write or append text content to a sandboxed file path atomically",
+          "params": [
+            { "name": "file_path", "type": "str", "default": null },
+            { "name": "content", "type": "str", "default": null },
+            { "name": "append", "type": "bool", "default": false }
+          ]
+        },
+        {
+          "tool_name": "filesystem_list_directory",
+          "description": "List files and subdirectories with size and modified timestamp metadata",
+          "params": [
+            { "name": "directory_path", "type": "str", "default": null },
+            { "name": "pattern", "type": "str", "default": "*" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "browser",
+      "name": "Browser",
+      "kind": "browser",
+      "token_env": "",
+      "description": "Stealth DOM scraper and web automation engine with 2-locator fallback",
+      "tools": [
+        {
+          "tool_name": "browser_scrape_page",
+          "description": "Scrape text, metadata, headings, and key elements from any URL",
+          "params": [
+            { "name": "url", "type": "str", "default": null },
+            { "name": "selector", "type": "str", "default": "" }
+          ]
+        },
+        {
+          "tool_name": "browser_search_google",
+          "description": "Perform a structured web search query and extract top organic results",
+          "params": [
+            { "name": "query", "type": "str", "default": null },
+            { "name": "num_results", "type": "int", "default": 5 }
           ]
         }
       ]

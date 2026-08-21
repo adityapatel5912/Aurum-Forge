@@ -30,13 +30,10 @@ interface Props {
 }
 
 type IDEKey =
-  | "antigravity"
-  | "z_code"
-  | "claude_code"
   | "cursor"
-  | "windsurf"
-  | "opencode"
-  | "codex";
+  | "antigravity"
+  | "codex"
+  | "z_code";
 
 export default function UniversalConfigModal({
   isOpen,
@@ -44,7 +41,7 @@ export default function UniversalConfigModal({
   serverPath,
   mcpName = "forge-factory",
 }: Props) {
-  const [activeIDE, setActiveIDE] = useState<IDEKey>("antigravity");
+  const [activeIDE, setActiveIDE] = useState<IDEKey>("cursor");
   const [config, setConfig] = useState<UniversalConfig | null>(null);
   const [validation, setValidation] = useState<SystemValidation | null>(null);
   const [copied, setCopied] = useState(false);
@@ -101,7 +98,7 @@ export default function UniversalConfigModal({
                 Universal IDE Config Hub
               </h2>
               <p className="text-xs text-navy/55">
-                Connect FORGE Factory MCP into any AI IDE in 10 seconds &bull; Normalized '/' Paths
+                Connect FastMCP into Cursor, Antigravity, Codex, or Z Code in seconds &bull; Normalized '/' Paths
               </p>
             </div>
           </div>
@@ -161,13 +158,10 @@ export default function UniversalConfigModal({
         {/* IDE Selector Tabs */}
         <div className="flex flex-wrap gap-2 border-b border-navy/10 bg-cream/50 px-6 py-3">
           {[
-            { id: "antigravity", label: "Antigravity", badge: "Google" },
-            { id: "z_code", label: "Z Code (Zed)", badge: "Fast" },
-            { id: "claude_code", label: "Claude Code", badge: "CLI" },
             { id: "cursor", label: "Cursor", badge: "IDE" },
-            { id: "windsurf", label: "Windsurf", badge: "Codeium" },
-            { id: "opencode", label: "OpenCode", badge: "CLI" },
+            { id: "antigravity", label: "Antigravity", badge: "Google" },
             { id: "codex", label: "Codex", badge: "CLI" },
+            { id: "z_code", label: "Z Code (Zed)", badge: "Fast" },
           ].map((item) => (
             <button
               key={item.id}

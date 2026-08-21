@@ -28,12 +28,10 @@ function formatDateTime(isoString: string): string {
 }
 
 const PLATFORM_OPTIONS: { id: PlatformKey; label: string }[] = [
-  { id: "claude_code", label: "Claude Code" },
   { id: "cursor", label: "Cursor" },
-  { id: "zcode", label: "Z Code (Zed)" },
-  { id: "opencode", label: "OpenCode" },
   { id: "antigravity", label: "Antigravity" },
   { id: "codex", label: "Codex" },
+  { id: "zcode", label: "Z Code (Zed)" },
 ];
 
 interface Props {

@@ -263,7 +263,7 @@ def forge_new_mcp(
         "tools_count": len(manifest),
         "tools": [t["name"] for t in manifest],
         "dag_nodes": list(dag.keys()),
-        "hot_loaded_into": ["Antigravity", "Z Code", "Claude Code", "Cursor", "Windsurf"],
+        "hot_loaded_into": ["Cursor", "Antigravity", "Codex", "Z Code"],
         "say_line": f"Use {final_name} at {clean_server_path}",
         "universal_config": "forge.mcp.json updated at root",
         "history_id": hist_entry["id"],
@@ -301,20 +301,28 @@ def forge_from_voice(voice_transcript: str) -> str:
     urls: List[str] = []
     officials: List[str] = []
 
-    if re.search(r"ram|price|amazon|discount", text, re.IGNORECASE):
+    if re.search(r"\b(?:ram|ddr4|ddr5)\b|\b(?:amazon|discount)\b", text, re.IGNORECASE):
         urls.append("https://amazon.com")
-    if re.search(r"hackathon|event|devpost|unstop", text, re.IGNORECASE):
+    if re.search(r"\b(?:hackathon|event|devpost|unstop)\b", text, re.IGNORECASE):
         urls.append("https://unstop.com")
-    if re.search(r"news|hacker\s*news|tech", text, re.IGNORECASE):
+    if re.search(r"\b(?:news|hacker\s*news|tech)\b", text, re.IGNORECASE):
         urls.append("https://news.ycombinator.com")
 
-    if re.search(r"notion|table|database", text, re.IGNORECASE):
+    if re.search(r"\b(?:telegram|t\.me)\b", text, re.IGNORECASE):
+        officials.append("telegram")
+    if re.search(r"\b(?:github|git|repo|pr|pull request|issue)\b", text, re.IGNORECASE):
+        officials.append("github")
+    if re.search(r"\b(?:instagram|insta)\b", text, re.IGNORECASE):
+        officials.append("instagram")
+    if re.search(r"\b(?:youtube|transcript)\b", text, re.IGNORECASE):
+        officials.append("youtube")
+    if re.search(r"\b(?:notion|database)\b", text, re.IGNORECASE):
         officials.append("notion")
-    if re.search(r"mail|gmail|email|alert", text, re.IGNORECASE):
+    if re.search(r"\b(?:mail|gmail|email)\b", text, re.IGNORECASE):
         officials.append("gmail")
-    if re.search(r"sheet|google\s*sheet|spreadsheet", text, re.IGNORECASE):
+    if re.search(r"\b(?:sheet|google\s*sheet|spreadsheet)\b", text, re.IGNORECASE):
         officials.append("gsheet")
-    if re.search(r"slack|message", text, re.IGNORECASE):
+    if re.search(r"\b(?:slack)\b", text, re.IGNORECASE):
         officials.append("slack")
 
     if not urls and not officials:
@@ -361,12 +369,12 @@ def forge_from_voice(voice_transcript: str) -> str:
 
 @mcp.tool()
 def hot_load_mcp(mcp_name: str, server_path: str, target_ide: str = "all") -> str:
-    """Atomically hot-load an MCP server into target IDE config files (Antigravity, Z Code, Claude Code, Cursor, Windsurf).
+    """Atomically hot-load an MCP server into target IDE config files (Cursor, Antigravity, Codex, Z Code).
 
     Parameters:
     - mcp_name: Name of MCP server (e.g. 'unified-forge')
     - server_path: Absolute path to server.py
-    - target_ide: 'all', 'antigravity', 'z_code', 'claude_code', 'cursor', or 'windsurf'
+    - target_ide: 'all', 'cursor', 'antigravity', 'codex', or 'z_code'
     """
     started = time.time()
     clean_path = str(server_path).replace("\\", "/")

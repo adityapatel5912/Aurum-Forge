@@ -9,7 +9,7 @@
 
 > One manifest that dynamically discovers capabilities. Auto-updates 62→65 in 0.1s. Give once, "/" paths, hash verifiable.
 
-**Demo Video:** [YouTube 60-sec]([PLACEHOLDER: YOUTUBE_DEMO_LINK]) | **Deck:** `dist/AURUM_DECK.pdf` | **API Docs:** `/api/docs`
+**Demo Video:** [YouTube 60-sec]([PLACEHOLDER: YOUTUBE_DEMO_LINK]) | **Deck:** [AURUM_DECK.pptx](dist/AURUM_DECK.pptx) | **API Docs:** `/api/docs`
 
 ---
 
@@ -104,6 +104,9 @@ npm run dev
 
 # Step 4: Run end-to-end production workflows in Antigravity chat
 @forge-aurum-hub chain_content_full_workflow youtube_url=https://www.youtube.com/watch?v=0ASanC5Iv-k slack_channel=#content
+
+# Step 5: Run Master Hackathon Judge Verification Suite (20/20 Checks in <8s)
+python test_judge_suite.py
 ```
 
 ---
@@ -169,16 +172,18 @@ services:
 
 ---
 
-## 10. Project Structure — No Hardcode
+## 10. Project Structure — Clean & Modular
 
 ```
 Aurum-Forge/
+├── AURUM_DECK.pptx                 # Master Hackathon Pitch Deck (PowerPoint)
+├── test_judge_suite.py             # Master Judge Verification Suite (20/20 Checks in 1 Command)
 ├── mcp_registry/servers/*           # 10+ Base MCPs (YouTube, Browser, Notion, Slack, GitHub, Gmail, Sheets)
 ├── forge/mcp/*                      # Forge-built MCPs + Super-Hub
 │   └── forge_aurum_hub/server.py    # Super-Hub Kernel — Path(__file__) + as_posix() "/" — No D:/
 ├── backend/main.py                  # FastAPI 44+2 routes — HOST 0.0.0.0 PORT env — /api/health /api/health/deep /ping
 ├── frontend/                        # React Vite TS — One OS Canvas 9 switches — VITE_API_URL env — No hardcoded localhost
-├── dist/                            # unified-mcp.zip, chain_*.zip, *-mcp.zip, AURUM_DECK.pdf, qr_demo.png
+├── dist/                            # unified-mcp.zip, chain_*.zip, *-mcp.zip, AURUM_DECK.pptx
 ├── render.yaml                      # No hardcoded paths — rootDir: . — startCommand python -m backend.main
 ├── vercel.json                      # Vercel proxy rewrite to Render backend
 ├── requirements.txt                 # Backend Python dependencies
@@ -217,7 +222,7 @@ Aurum-Forge/
 - **Benchmark:** [https://aurum-forge.onrender.com/api/aurum/benchmark/live](https://aurum-forge.onrender.com/api/aurum/benchmark/live)
 - **GitHub:** [adityapatel5912/Aurum-Forge](https://github.com/adityapatel5912/Aurum-Forge)
 - **Demo:** [YouTube 60-sec]([PLACEHOLDER: YOUTUBE_DEMO_LINK])
-- **Deck:** `dist/AURUM_DECK.pdf`
+- **Deck:** [AURUM_DECK.pptx](dist/AURUM_DECK.pptx)
 
 **Tagline:** **Forge Once. Use Everywhere. Verify Forever.**
 

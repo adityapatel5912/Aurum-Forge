@@ -128,8 +128,8 @@ def build_zip(
     export_configs = generate_all_export_configs(active_name, server_clean_path, env_block)
     bat_script, sh_script = generate_export_scripts(active_name, server_clean_path)
 
-    claude_snippet = export_configs["claude_code"]["config"]
-    cursor_snippet = export_configs["cursor"]["config"]
+    cursor_snippet = export_configs.get("cursor", {}).get("config", {})
+    antigravity_snippet = export_configs.get("antigravity", {}).get("config", {})
 
     tokens_section = (
         "\n".join(
@@ -185,4 +185,4 @@ def build_zip(
         if universal_config_bytes:
             zf.writestr("unified-mcp/forge.mcp.json", universal_config_bytes)
 
-    return out_zip, claude_snippet, cursor_snippet, readme, skill_content, export_configs
+    return out_zip, antigravity_snippet, cursor_snippet, readme, skill_content, export_configs

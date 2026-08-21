@@ -70,13 +70,10 @@ version: 1.0.0
 mcp_server: {mcp_name}
 aurum_badge: "AURUM GOLD (#C6A96B)"
 compatible_ides:
-  - Antigravity
-  - Z Code
-  - Claude Code
   - Cursor
-  - Windsurf
-  - OpenCode
+  - Antigravity
   - Codex
+  - Z Code
 ---
 
 # Universal Skill: {goal_clean}
@@ -103,10 +100,10 @@ When the user requests **"{goal_clean}"** or asks to execute this workflow:
 
 ## 5. Universal IDE Configuration
 Connect this skill to your favorite IDE with 1-click via `forge.mcp.json`:
-- **Antigravity**: Add `{mcp_name}` to `~/.antigravity/mcp.json`
-- **Z Code**: Add `{mcp_name}` to `settings.json` under `mcpServers`
-- **Claude Code**: Run `claude mcp add {mcp_name} -- python "{clean_path}"`
-- **Cursor / Windsurf**: Add to `.cursor/mcp.json` or `.codeium/windsurf/mcp_config.json`
+- **Cursor**: Add to `.cursor/mcp.json` in workspace or `~/.cursor/mcp.json`
+- **Antigravity**: Add `{mcp_name}` to `~/.gemini/antigravity/mcp_config.json` or `~/.antigravity/mcp.json`
+- **Codex**: Run `codex mcp add {mcp_name} -- python "{clean_path}"` or add to `~/.codex/config.json`
+- **Z Code**: Add `{mcp_name}` to `settings.json` under `context_servers` or `~/.zcode/mcp.json`
 """
     return content
 

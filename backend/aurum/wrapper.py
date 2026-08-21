@@ -160,6 +160,92 @@ OFFICIAL_AURUM_CATALOG: Dict[str, Dict[str, Any]] = {
             },
         ],
     },
+    "telegram": {
+        "id": "telegram",
+        "name": "Official Telegram MCP",
+        "badge": "AURUM GOLD",
+        "color": "#C6A96B",
+        "category": "Messaging & Bots",
+        "description": "Real-time Telegram bot messaging, updates polling, media broadcasting, and channel notifications.",
+        "env_vars": ["TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"],
+        "tools": [
+            {
+                "name": "telegram_send_message",
+                "description": "Send a text or HTML/Markdown message to a Telegram chat, group, or channel",
+                "params": [
+                    {"name": "text", "type": "str", "required": True, "description": "Message content"},
+                    {"name": "chat_id", "type": "str", "required": False, "default": "", "description": "Optional chat/channel ID override"},
+                    {"name": "parse_mode", "type": "str", "required": False, "default": "HTML", "description": "HTML or Markdown"},
+                ],
+            },
+            {
+                "name": "telegram_get_updates",
+                "description": "Poll incoming messages, commands, and events from Telegram bot updates",
+                "params": [
+                    {"name": "limit", "type": "int", "required": False, "default": 10},
+                    {"name": "offset", "type": "int", "required": False, "default": 0},
+                ],
+            },
+            {
+                "name": "telegram_send_photo",
+                "description": "Send an image or photo with a caption to a Telegram chat",
+                "params": [
+                    {"name": "photo_url", "type": "str", "required": True},
+                    {"name": "caption", "type": "str", "required": False, "default": ""},
+                    {"name": "chat_id", "type": "str", "required": False, "default": ""},
+                ],
+            },
+            {
+                "name": "telegram_get_chat",
+                "description": "Get metadata, title, and member count of a target Telegram chat or channel",
+                "params": [
+                    {"name": "chat_id", "type": "str", "required": True},
+                ],
+            },
+        ],
+    },
+    "instagram": {
+        "id": "instagram",
+        "name": "Official Instagram MCP",
+        "badge": "AURUM GOLD",
+        "color": "#C6A96B",
+        "category": "Social & Media",
+        "description": "Instagram Graph API engine for posting media, scheduling carousels, and extracting account insights.",
+        "env_vars": ["INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_ACCOUNT_ID"],
+        "tools": [
+            {
+                "name": "instagram_publish_photo",
+                "description": "Publish a photo post to Instagram Business/Creator account with caption and tags",
+                "params": [
+                    {"name": "image_url", "type": "str", "required": True},
+                    {"name": "caption", "type": "str", "required": False, "default": ""},
+                ],
+            },
+            {
+                "name": "instagram_get_media",
+                "description": "Fetch recent media posts, captions, permalinks, and like/comment counts",
+                "params": [
+                    {"name": "limit", "type": "int", "required": False, "default": 10},
+                ],
+            },
+            {
+                "name": "instagram_get_user_insights",
+                "description": "Retrieve account metrics: impressions, reach, profile views, and audience growth",
+                "params": [
+                    {"name": "metric", "type": "str", "required": False, "default": "impressions,reach"},
+                    {"name": "period", "type": "str", "required": False, "default": "day"},
+                ],
+            },
+            {
+                "name": "instagram_post_carousel",
+                "description": "Publish a multi-photo/video carousel post to Instagram account",
+                "params": [
+                    {"name": "media_urls", "type": "str", "required": True, "description": "Comma-separated list of image/video URLs"},
+                    {"name": "caption", "type": "str", "required": False, "default": ""},
+                ],
+            },
+        ],
+    },
     "gmail": {
         "id": "gmail",
         "name": "Official Gmail MCP",
@@ -186,6 +272,22 @@ OFFICIAL_AURUM_CATALOG: Dict[str, Dict[str, Any]] = {
                     {"name": "to", "type": "str", "required": True},
                     {"name": "subject", "type": "str", "required": True},
                     {"name": "body", "type": "str", "required": True},
+                ],
+            },
+            {
+                "name": "gmail_read_inbox",
+                "description": "Fetch recent emails and subject summaries from Gmail inbox",
+                "params": [
+                    {"name": "max_results", "type": "int", "required": False, "default": 10},
+                    {"name": "unread_only", "type": "bool", "required": False, "default": True},
+                ],
+            },
+            {
+                "name": "gmail_search_messages",
+                "description": "Search Gmail inbox with query filters (from, subject, has:attachment)",
+                "params": [
+                    {"name": "query", "type": "str", "required": True},
+                    {"name": "max_results", "type": "int", "required": False, "default": 10},
                 ],
             },
         ],
@@ -223,8 +325,8 @@ OFFICIAL_AURUM_CATALOG: Dict[str, Dict[str, Any]] = {
         "badge": "AURUM GOLD",
         "color": "#C6A96B",
         "category": "Data & APIs",
-        "description": "Video transcript extractor and metadata synthesizer for content summarization workflows.",
-        "env_vars": [],
+        "description": "Video transcript extractor, YouTube Data API v3 synthesizer, and channel analysis pipeline.",
+        "env_vars": ["YOUTUBE_API_KEY"],
         "tools": [
             {
                 "name": "youtube_get_transcript",
@@ -239,6 +341,22 @@ OFFICIAL_AURUM_CATALOG: Dict[str, Dict[str, Any]] = {
                 "description": "Fetch video title, channel, description, duration, and view statistics",
                 "params": [
                     {"name": "video_url_or_id", "type": "str", "required": True},
+                ],
+            },
+            {
+                "name": "youtube_search_videos",
+                "description": "Search YouTube for top videos matching query keywords",
+                "params": [
+                    {"name": "query", "type": "str", "required": True},
+                    {"name": "max_results", "type": "int", "required": False, "default": 5},
+                ],
+            },
+            {
+                "name": "youtube_list_channel_videos",
+                "description": "List latest uploaded videos and metadata from a target YouTube channel",
+                "params": [
+                    {"name": "channel_id_or_handle", "type": "str", "required": True},
+                    {"name": "max_results", "type": "int", "required": False, "default": 10},
                 ],
             },
         ],
