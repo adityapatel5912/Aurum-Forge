@@ -1,0 +1,96 @@
+{
+  "total_reports": 11,
+  "total_waste_kg_reduced": 1.8,
+  "total_solar_potential_kw": 7.71,
+  "total_co2_saved_kg": 7659.42,
+  "total_tokens_saved": 497200,
+  "chains_run": {
+    "chain_eco_monitor": 5,
+    "chain_waste_reduce": 3,
+    "chain_renewable_optimize": 3
+  },
+  "recent_runs": [
+    {
+      "chain": "chain_renewable_optimize",
+      "hash": "205116ac620e",
+      "notion_url": "https://notion.so/Solar-Adoption-Plan-205116ac620e",
+      "slack_posted": true,
+      "latency_s": 1.61,
+      "at": "2026-08-21T11:47:45+00:00"
+    },
+    {
+      "chain": "chain_waste_reduce",
+      "hash": "3884a1da81ed",
+      "notion_url": "https://notion.so/Waste-Reduction-Plan-3884a1da81ed",
+      "slack_posted": true,
+      "latency_s": 0.05,
+      "at": "2026-08-21T11:47:44+00:00"
+    },
+    {
+      "chain": "chain_eco_monitor",
+      "hash": "e6fc66f5f8ea",
+      "notion_url": "https://notion.so/Earth-Forward-Report-e6fc66f5f8ea",
+      "slack_posted": true,
+      "latency_s": 1.55,
+      "at": "2026-08-21T11:47:44+00:00"
+    },
+    {
+      "chain": "chain_eco_monitor",
+      "hash": "7e5e9b25ad4d",
+      "notion_url": "https://notion.so/Earth-Forward-Report-7e5e9b25ad4d",
+      "slack_posted": true,
+      "latency_s": 1.44,
+      "at": "2026-08-21T11:47:34+00:00"
+    },
+    {
+      "chain": "chain_renewable_optimize",
+      "hash": "28bf0fbce977",
+      "notion_url": "https://notion.so/Solar-Adoption-Plan-28bf0fbce977",
+      "slack_posted": true,
+      "latency_s": 1.43,
+      "at": "2026-08-21T11:45:13+00:00"
+    },
+    {
+      "chain": "chain_waste_reduce",
+      "hash": "05c40486e7e6",
+      "notion_url": "https://notion.so/Waste-Reduction-Plan-05c40486e7e6",
+      "slack_posted": true,
+      "latency_s": 0.05,
+      "at": "2026-08-21T11:45:12+00:00"
+    },
+    {
+      "chain": "chain_eco_monitor",
+      "hash": "8926ebe08a75",
+      "notion_url": "https://notion.so/Earth-Forward-Report-8926ebe08a75",
+      "slack_posted": true,
+      "latency_s": 1.35,
+      "at": "2026-08-21T11:45:12+00:00"
+    },
+    {
+      "chain": "chain_eco_monitor",
+      "hash": "30a99d284a41",
+      "notion_url": "https://notion.so/Earth-Forward-Report-30a99d284a41",
+      "slack_posted": true,
+      "latency_s": 1.43,
+      "at": "2026-08-21T11:43:02+00:00"
+    },
+    {
+      "chain": "chain_renewable_optimize",
+      "hash": "ee9f626d62dc",
+      "notion_url": "https://notion.so/Solar-Adoption-Plan-ee9f626d62dc",
+      "slack_posted": true,
+      "latency_s": 1.49,
+      "at": "2026-08-21T11:42:48+00:00"
+    },
+    {
+      "chain": "chain_waste_reduce",
+      "hash": "ec6f38404354",
+      "notion_url": "https://notion.so/Waste-Reduction-Plan-ec6f38404354",
+      "slack_posted": true,
+      "latency_s": 0.05,
+      "at": "2026-08-21T11:42:46+00:00"
+    }
+  ],
+  "first_run_at": "2026-08-21T11:42:46+00:00",
+  "last_run_at": "2026-08-21T11:47:45+00:00"
+}

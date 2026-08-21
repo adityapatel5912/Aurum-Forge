@@ -366,3 +366,116 @@ export function getReadiness() {
 export function getHealthTelemetry() {
   return fetch(apiUrl("/api/health/telemetry")).then((r) => json<any>(r));
 }
+
+// ------------------------------------------------------------- EARTH ADDITION (NextStep Hacks 2026 — Earth Forward)
+export interface EarthChainResult {
+  ok?: boolean;
+  chain_id: string;
+  name?: string;
+  status: string;
+  theme?: string;
+  earth_forward?: boolean;
+  hash: string;
+  workflow_hash?: string;
+  notion_url: string;
+  slack_posted: boolean;
+  slack_channel?: string;
+  message_preview?: string;
+  summary?: Record<string, any>;
+  stages?: Record<string, any>;
+  waste_kg?: number;
+  co2_kg?: number;
+  solar_potential_kw?: number;
+  co2_saved_kg_year?: number;
+  time_human: string;
+  latency_s?: number;
+  tokens_saved: number;
+  proof_ledger?: {
+    hash: string;
+    notion_url: string;
+    slack_posted: boolean;
+    screenshots: string;
+    time_human: string;
+    tokens_saved: number;
+    verifiable: boolean;
+    verified: boolean;
+  };
+}
+
+export interface EarthHealth {
+  ok: boolean;
+  status: string;
+  service: string;
+  tagline: string;
+  theme: string;
+  earth_forward: boolean;
+  uptime_s: number;
+  total_tools: number;
+  total_servers: number;
+  hash: string;
+  aurum_verified: boolean;
+}
+
+export interface EarthStats {
+  ok: boolean;
+  hash: string;
+  uptime_s: number;
+  total_reports: number;
+  total_waste_kg_reduced: number;
+  total_solar_potential_kw: number;
+  total_co2_saved_kg: number;
+  total_tokens_saved: number;
+  chains_run: Record<string, number>;
+  recent_runs: Array<Record<string, any>>;
+}
+
+export interface EarthChain {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  category: string;
+  badge_color: string;
+  earth_forward?: boolean;
+  hash: string;
+  aurum_verified: boolean;
+  installed?: boolean;
+  download_url?: string;
+  dag?: Record<string, any>;
+}
+
+export function getEarthHealth() {
+  return fetch(apiUrl("/api/earth/health")).then((r) => json<EarthHealth>(r));
+}
+
+export function getEarthChains() {
+  return fetch(apiUrl("/api/earth/chains")).then((r) =>
+    json<{ ok: boolean; hash: string; totals: { earth_new: number; existing: number; all_chains: number }; earth_chains: EarthChain[]; chains: EarthChain[] }>(r)
+  );
+}
+
+export function runEarthChain(payload: {
+  chain: string;
+  city?: string;
+  items?: string[];
+  usage_kwh?: number;
+  slack_channel?: string;
+}) {
+  return fetch(apiUrl("/api/earth/chains/run"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  }).then((r) => json<EarthChainResult>(r));
+}
+
+export function getEarthStats() {
+  return fetch(apiUrl("/api/earth/stats")).then((r) => json<EarthStats>(r));
+}
+
+export function scanEarthVault(server_name = "forge_eco") {
+  return fetch(apiUrl("/api/earth/vault/scan"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ server_name }),
+  }).then((r) => json<any>(r));
+}

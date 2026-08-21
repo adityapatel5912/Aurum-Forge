@@ -33,9 +33,9 @@
       "z_code",
       "all"
     ],
-    "last_scan": "2026-08-21T10:18:11+00:00",
-    "total_servers": 79,
-    "total_tools": 120
+    "last_scan": "2026-08-21T11:47:51+00:00",
+    "total_servers": 83,
+    "total_tools": 134
   },
   "discovered_servers": {
     "aurum-github-mcp": {
@@ -832,7 +832,7 @@
         "notion_create_database_entry",
         "notion_log_price"
       ],
-      "hash": "2b06d4bb8c1d",
+      "hash": "bbbb005d4d80",
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
@@ -1526,6 +1526,77 @@
       "aurum_verified": true,
       "badge": "AURUM GOLD #C6A96B"
     },
+    "chain_eco_monitor": {
+      "name": "chain_eco_monitor",
+      "path": "forge/mcp/chain_eco_monitor/server.py",
+      "abs_path": "D:/Aditya/Forge/forge/mcp/chain_eco_monitor/server.py",
+      "tools": 8,
+      "tool_names": [
+        "get_chain_metadata",
+        "tavily_search_eco",
+        "browser_fetch_enrich_eco",
+        "eco_air_quality",
+        "eco_water_quality",
+        "notion_create_page_eco",
+        "slack_post_message_eco",
+        "chain_eco_monitor_full_workflow"
+      ],
+      "hash": "126da8fbf6e6",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_renewable_optimize": {
+      "name": "chain_renewable_optimize",
+      "path": "forge/mcp/chain_renewable_optimize/server.py",
+      "abs_path": "D:/Aditya/Forge/forge/mcp/chain_renewable_optimize/server.py",
+      "tools": 7,
+      "tool_names": [
+        "get_chain_metadata",
+        "eco_solar_calc",
+        "sheets_add_row",
+        "browser_fetch_enrich",
+        "notion_create_page",
+        "slack_post_message",
+        "chain_renewable_optimize_full_workflow"
+      ],
+      "hash": "a31653a7293d",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "chain_waste_reduce": {
+      "name": "chain_waste_reduce",
+      "path": "forge/mcp/chain_waste_reduce/server.py",
+      "abs_path": "D:/Aditya/Forge/forge/mcp/chain_waste_reduce/server.py",
+      "tools": 6,
+      "tool_names": [
+        "get_chain_metadata",
+        "eco_waste_audit",
+        "sheets_add_row",
+        "notion_create_page",
+        "slack_post_message",
+        "chain_waste_reduce_full_workflow"
+      ],
+      "hash": "1a91b9ab657b",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
+    "forge_eco": {
+      "name": "forge_eco",
+      "path": "forge/mcp/forge_eco/server.py",
+      "abs_path": "D:/Aditya/Forge/forge/mcp/forge_eco/server.py",
+      "tools": 6,
+      "tool_names": [
+        "eco_air_quality",
+        "eco_water_quality",
+        "eco_waste_audit",
+        "eco_solar_calc",
+        "eco_wildlife_monitor",
+        "chain_eco_full_workflow"
+      ],
+      "hash": "f5410339f822",
+      "aurum_verified": true,
+      "badge": "AURUM GOLD #C6A96B"
+    },
     "forge_registry_mcp": {
       "name": "forge_registry_mcp",
       "path": "forge/mcp/forge_registry_mcp/server.py",
@@ -1546,9 +1617,9 @@
   "super_hub_summary": {
     "give_once": true,
     "auto_updates": "All future forged MCPs appear automatically without re-inject",
-    "total_servers": 79,
-    "total_tools": 120,
-    "ide_entry": "1 entry stays 1 entry, tools auto-grow 120",
+    "total_servers": 83,
+    "total_tools": 134,
+    "ide_entry": "1 entry stays 1 entry, tools auto-grow 134",
     "version": "1.0.1"
   }
 }

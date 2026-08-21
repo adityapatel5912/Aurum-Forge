@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "chain-renewable-optimize": {
+      "command": "python",
+      "args": ["forge/mcp/chain_renewable_optimize/server.py"],
+      "env": {},
+      "description": "Earth Forward Renewable Optimize Chain — solar calc -> Sheets log -> browser refs -> Notion plan -> Slack",
+      "type": "earth_green",
+      "badge": "#10B981",
+      "gold_badge": "#C6A96B",
+      "auto_update": true,
+      "hot_reload": "0.1s",
+      "version": "1.0.0",
+      "hash": "f6cdbd0a07f2",
+      "aurum_verified": true,
+      "earth_forward": true
+    }
+  },
+  "chain_meta": {
+    "id": "chain_renewable_optimize",
+    "name": "Renewable Optimize Chain",
+    "total_tools": 7,
+    "tools": ["get_chain_metadata", "eco_solar_calc", "sheets_add_row", "browser_fetch_enrich", "notion_create_page", "slack_post_message", "chain_renewable_optimize_full_workflow"],
+    "work_rewritten_hours": 4.0,
+    "zero_llm": true,
+    "tokens_used": 0,
+    "paths": "Path(__file__).resolve().parents[3] + as_posix() '/' — zero backslashes, zero hardcoded drives"
+  }
+}

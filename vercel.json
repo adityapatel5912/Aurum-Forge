@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/earth",
+      "destination": "/index.html"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://aurum-forge.onrender.com/api/:path*"
     },

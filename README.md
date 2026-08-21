@@ -213,6 +213,76 @@ Aurum-Forge/
 
 ---
 
+## 13. Earth Forward — Earth Addition (NextStep Hacks 2026)
+
+**Forge Once. Use Everywhere. Verify Forever. For Earth.** 🌍
+
+Earth Addition is an **additive-only** new page for FORGE, built for the
+[NextStep Hacks 2026](https://nextstephacks.dev) **Earth Forward** theme
+(Aug 21–23) — climate resilience, renewable energy, conservation, waste
+reduction, and monitoring ecosystems. Nothing existing was removed or changed:
+the 9 One OS Canvas switches, 5 production chains, Super-Hub, health system and
+deployments all keep working.
+
+### Before vs During (honest split — old project continued)
+
+- **Before the hackathon:** Forge OS = Factory + Registry + Super-Hub + Evidence
+  Engine, 120 tools across 79 servers, 5 chains, deployed API + frontend.
+- **During the hackathon (this addition):** +1 MCP (`forge_eco`), +3 Earth
+  chains, +5 `/api/earth/*` routes, +`/earth` page with Earth Mode theme,
+  Super-Hub hot-reloaded **120 → 134 tools in 0.1s** — one IDE entry, no re-inject.
+
+### New Earth Forward chains (all Zero-LLM, 0 tokens, <2.1s)
+
+| Chain | Pipeline | Live data |
+|---|---|---|
+| **Eco Monitor** | Climate search → NASA/EPA enrich → AQI + water score → Notion report → `#earth-forward` Slack | Open-Meteo air-quality API (free, key-less) |
+| **Waste Reduce** | Waste audit (kg + CO₂) → Sheets log → Notion reduction plan → `#sustainability` Slack | Deterministic emission factors |
+| **Renewable Optimize** | Solar potential kW + savings + ROI → Sheets log → verified refs → Notion plan → Slack | Open-Meteo irradiance (MJ/m² → kWh/m²) |
+| **forge_eco MCP** | `eco_air_quality` `eco_water_quality` `eco_waste_audit` `eco_solar_calc` `eco_wildlife_monitor` `chain_eco_full_workflow` | Real-API-first with honestly-labeled deterministic fallback |
+
+### New API routes (existing routes untouched)
+
+```
+GET  /api/earth/health      -> status ok, earth_forward true, total_tools 134, hash f6cdbd0a07f2
+GET  /api/earth/chains      -> 3 Earth chains + 5 existing = 8 total, each 12-char hash aurum_verified
+POST /api/earth/chains/run  -> {chain: eco_monitor|waste_reduce|renewable_optimize|forge_eco, city, items, usage_kwh}
+                              -> notion_url + slack posted true + hash + screenshots base64 + tokens_saved
+GET  /api/earth/stats       -> cumulative eco reports, waste kg, solar kW, CO2 kg saved, tokens saved
+POST /api/earth/vault/scan  -> 100/100 AURUM SECURITY GOLD, can_publish true
+```
+
+### New frontend page
+
+- **`/earth`** — Earth Forward Edition: 3 Run-Chain cards (live proof per card),
+  live stats dashboard, Earth DAG canvas + green/golden dependency graph
+  (ROOT->CLIMATE/RENEWABLE/WASTE/WATER/NOTION/SLACK), Proof Ledger
+  (hash f6cdbd0a07f2 · verifiable true), evidence-zip downloads, QR slot.
+- **Earth Mode toggle** `[Cream | White | Earth]` — Earth Green `#10B981` +
+  Aurum Gold `#C6A96B` + Sky `#3B82F6` on Cream, persisted in
+  `localStorage("forge-aurum-theme-earth")`.
+- **🌍 Earth Forward** switch in the One OS Canvas header (additive 10th switch)
+  → navigates to `/earth`; **Back to Forge** returns to the untouched 9-switch canvas.
+
+### Collaboration & local impact
+
+Default city is **Balasar, Gujarat** — the chains are designed for local
+communities, environmental groups and researchers: AQI monitoring, rainwater
+harvesting math, waste CO₂ audits, rooftop-solar ROI (Gujarat irradiance
+≈ 5.2 kWh/m²/day live-measured), and endangered-species actions for India
+(Great Indian Bustard, Ganges Dolphin, Snow Leopard, Olive Ridley Turtle).
+
+### Verify it yourself
+
+```bash
+python test_earth_addition.py http://127.0.0.1:8740   # 39 checks, real outputs only
+curl https://aurum-forge.onrender.com/api/earth/health
+```
+
+Downloads (all >1KB, py_compile PASS): `/api/download/eco-report.zip`,
+`/api/download/forge_eco-mcp.zip`, `/api/download/chain_eco_monitor-mcp.zip`,
+`/api/download/chain_waste_reduce-mcp.zip`, `/api/download/chain_renewable_optimize-mcp.zip`
+
 ## Live Links — Footer
 
 - **Frontend:** [https://aurum-forge.vercel.app](https://aurum-forge.vercel.app)

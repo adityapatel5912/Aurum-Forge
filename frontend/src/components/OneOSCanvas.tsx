@@ -50,6 +50,8 @@ interface Props {
   canForge?: boolean;
   isForging: boolean;
   result: ForgeResult | null;
+  /** Earth Addition (NextStep Hacks 2026): optional navigate-to-/earth handler */
+  onGoToEarth?: () => void;
 }
 
 export default function OneOSCanvas({
@@ -64,6 +66,7 @@ export default function OneOSCanvas({
   canForge = true,
   isForging,
   result,
+  onGoToEarth,
 }: Props) {
   const [inspectorTab, setInspectorTab] = useState<InspectorTab>("benchmark");
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
@@ -248,6 +251,18 @@ export default function OneOSCanvas({
               <span className="hidden sm:inline-flex rounded bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-400 border border-emerald-500/30">
                 Live Proof Active
               </span>
+
+              {/* Earth Addition (NextStep Hacks 2026 — Earth Forward): 10th switch, additive-only */}
+              {onGoToEarth && (
+                <button
+                  type="button"
+                  onClick={onGoToEarth}
+                  className="inline-flex items-center gap-1 rounded-full border border-emerald-400/60 bg-emerald-500/15 px-2 py-0.5 text-[10px] font-black text-emerald-300 transition-all hover:bg-emerald-500/30 hover:shadow-[0_0_12px_rgba(16,185,129,0.4)]"
+                  title="Switch to Earth Addition — Earth Forward Edition (/earth)"
+                >
+                  🌍 Earth Forward
+                </button>
+              )}
 
               {/* Live Backend Health Badge (Green Online / Red Offline) */}
               <button

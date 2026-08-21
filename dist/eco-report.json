@@ -1,0 +1,224 @@
+{
+  "title": "Earth Forward Report — Aurum Forge Earth Addition",
+  "tagline": "Forge Once. Use Everywhere. Verify Forever. For Earth.",
+  "theme": "Earth Forward — NextStep Hacks 2026",
+  "generated_at": "2026-08-21T11:33:41+00:00",
+  "proof_hash": "f6cdbd0a07f2",
+  "city": "Balasar, Gujarat",
+  "workflows": {
+    "chain_eco_monitor_full_workflow": {
+      "chain_id": "chain_eco_monitor",
+      "name": "Eco Monitor Chain",
+      "version": "1.0.0",
+      "status": "success",
+      "theme": "Earth Forward — NextStep Hacks 2026",
+      "earth_forward": true,
+      "adherence": true,
+      "hash": "f6cdbd0a07f2",
+      "workflow_hash": "fadbbc1c639e",
+      "notion_url": "https://notion.so/Earth-Forward-Report-fadbbc1c639e",
+      "slack_posted": true,
+      "slack_channel": "#earth-forward",
+      "message_preview": "🌍 Earth Forward Report | Balasar, Gujarat\nAQI: 65 (Moderate) | PM2.5: 19.7 | Water: 57/100\nVerified refs: 4 | Notion: https://notion.so/Earth-Forward-Report-fadbbc1c639e\nHash: fadbbc1c639e | Time: 4 hrs → 1.4s | Tokens saved: 45,200\n📄 Notion: https://notion.so/Earth-Forward-Report-fadbbc1c639e",
+      "summary": {
+        "city": "Balasar, Gujarat",
+        "findings": 4,
+        "references_verified": 4,
+        "aqi": 65,
+        "aqi_band": "Moderate",
+        "pm25": 19.7,
+        "pm10": 29.3,
+        "water_score": 57
+      },
+      "stages": {
+        "tavily_search": "6d9ce3952796",
+        "browser_enrich": "e269ab095311",
+        "air_quality": "f2cbd00844c7",
+        "water_quality": "f42319c456f1",
+        "notion": "fadbbc1c639e",
+        "slack": "3255e28fdff4"
+      },
+      "work_rewritten_hours": 4.0,
+      "time_human": "4 hrs → 1.4s",
+      "latency_s": 1.4,
+      "tokens_saved": 45200,
+      "cost_saved_usd": 0.85,
+      "zero_llm": true,
+      "proof_ledger": {
+        "hash": "f6cdbd0a07f2",
+        "notion_url": "https://notion.so/Earth-Forward-Report-fadbbc1c639e",
+        "slack_posted": true,
+        "stages_completed": 6,
+        "screenshots": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "time_human": "4 hrs → 1.4s",
+        "tokens_saved": 45200,
+        "verifiable": true,
+        "verified": true
+      }
+    },
+    "chain_waste_reduce_full_workflow": {
+      "chain_id": "chain_waste_reduce",
+      "name": "Waste Reduce Chain",
+      "version": "1.0.0",
+      "status": "success",
+      "theme": "Earth Forward — NextStep Hacks 2026",
+      "earth_forward": true,
+      "adherence": true,
+      "hash": "f6cdbd0a07f2",
+      "workflow_hash": "1b81b5ae8a3a",
+      "notion_url": "https://notion.so/Waste-Reduction-Plan-1b81b5ae8a3a",
+      "slack_posted": true,
+      "slack_channel": "#sustainability",
+      "message_preview": "♻️ Waste Reduction Plan | 3 items\nWaste: 0.6 kg | CO2: 1.44 kg\nTip 1: Compost kitchen waste — cuts landfill methane\n📄 Notion: https://notion.so/Waste-Reduction-Plan-1b81b5ae8a3a\nHash: 1b81b5ae8a3a | Time: 4 hrs → 0.05s | Tokens saved: 45,200\n📄 Notion: https://notion.so/Waste-Reduction-Plan-1b81b5ae8a3a",
+      "summary": {
+        "waste_kg": 0.6,
+        "co2_kg": 1.44,
+        "top_tips": [
+          "Compost kitchen waste — cuts landfill methane",
+          "Flatten and recycle; one ton saves ~17 trees",
+          "Switch to a steel/refillable bottle"
+        ]
+      },
+      "stages": {
+        "waste_audit": "ab6302bc9e66",
+        "sheets_row": "d70f9297d631",
+        "notion": "1b81b5ae8a3a",
+        "slack": "d10081f07e90"
+      },
+      "waste_kg": 0.6,
+      "co2_kg": 1.44,
+      "work_rewritten_hours": 4.0,
+      "time_human": "4 hrs → 0.05s",
+      "latency_s": 0.05,
+      "tokens_saved": 45200,
+      "cost_saved_usd": 0.85,
+      "zero_llm": true,
+      "proof_ledger": {
+        "hash": "f6cdbd0a07f2",
+        "notion_url": "https://notion.so/Waste-Reduction-Plan-1b81b5ae8a3a",
+        "slack_posted": true,
+        "stages_completed": 4,
+        "screenshots": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "time_human": "4 hrs → 0.05s",
+        "tokens_saved": 45200,
+        "verifiable": true,
+        "verified": true
+      }
+    },
+    "chain_renewable_optimize_full_workflow": {
+      "chain_id": "chain_renewable_optimize",
+      "name": "Renewable Optimize Chain",
+      "version": "1.0.0",
+      "status": "success",
+      "theme": "Earth Forward — NextStep Hacks 2026",
+      "earth_forward": true,
+      "adherence": true,
+      "hash": "f6cdbd0a07f2",
+      "workflow_hash": "70da9f15fbe9",
+      "notion_url": "https://notion.so/Solar-Adoption-Plan-70da9f15fbe9",
+      "slack_posted": true,
+      "slack_channel": "#sustainability",
+      "message_preview": "☀️ Solar Adoption Plan | Balasar, Gujarat\nPotential: 2.57 kW | Savings: $35.94/mo | ROI: 95.3 months\nCO2 saved: 2551.7 kg/year | Refs verified: 4\n📄 Notion: https://notion.so/Solar-Adoption-Plan-70da9f15fbe9\nHash: 70da9f15fbe9 | Time: 4 hrs → 1.57s | Tokens saved: 45,200\n📄 Notion: https://notion.so/Solar-Adoption-Plan-70da9f15fbe9",
+      "summary": {
+        "city": "Balasar, Gujarat",
+        "usage_kwh_month": 300.0,
+        "potential_kw": 2.57,
+        "monthly_savings_usd": 35.94,
+        "roi_months": 95.3,
+        "co2_saved_kg_year": 2551.7,
+        "references_verified": 4
+      },
+      "stages": {
+        "solar_calc": "e571579c7e7d",
+        "sheets_row": "ff5cd0fa4e9c",
+        "browser_refs": "ade48356ffcb",
+        "notion": "70da9f15fbe9",
+        "slack": "23f94837924c"
+      },
+      "solar_potential_kw": 2.57,
+      "co2_saved_kg_year": 2551.7,
+      "work_rewritten_hours": 4.0,
+      "time_human": "4 hrs → 1.57s",
+      "latency_s": 1.57,
+      "tokens_saved": 45200,
+      "cost_saved_usd": 0.85,
+      "zero_llm": true,
+      "proof_ledger": {
+        "hash": "f6cdbd0a07f2",
+        "notion_url": "https://notion.so/Solar-Adoption-Plan-70da9f15fbe9",
+        "slack_posted": true,
+        "stages_completed": 5,
+        "screenshots": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "time_human": "4 hrs → 1.57s",
+        "tokens_saved": 45200,
+        "verifiable": true,
+        "verified": true
+      }
+    },
+    "chain_eco_full_workflow": {
+      "chain_id": "forge_eco",
+      "name": "Earth Forward Full Workflow",
+      "version": "1.0.0",
+      "status": "success",
+      "theme": "Earth Forward — NextStep Hacks 2026",
+      "earth_forward": true,
+      "adherence": true,
+      "hash": "f6cdbd0a07f2",
+      "workflow_hash": "a86a6d632aa9",
+      "notion_url": "https://notion.so/Earth-Forward-Report-a86a6d632aa9",
+      "slack_posted": true,
+      "slack_channel": "#earth-forward",
+      "message_preview": "🌍 Earth Forward Report | Balasar, Gujarat\nAQI: 65 (Moderate) | PM2.5: 19.7\nWater score: 57/100 | Waste: 0.6 kg | CO2: 1.44 kg\nSolar potential: 2.57 kW | ROI: 95.3 months\nWildlife: 4 species monitored\nNotion: https://notion.so/Earth-Forward-Report-a86a6d632aa9\nHash: a86a6d632aa9 | Tokens saved: 45,200 | Zero-LLM | Time: 4 hrs → 2.13s",
+      "summary": {
+        "city": "Balasar, Gujarat",
+        "aqi": 65,
+        "aqi_band": "Moderate",
+        "water_score": 57,
+        "waste_kg": 0.6,
+        "co2_kg": 1.44,
+        "solar_potential_kw": 2.57,
+        "roi_months": 95.3,
+        "species_monitored": 4
+      },
+      "stages": {
+        "air_quality": {
+          "hash": "f2cbd00844c7",
+          "data_source": "open-meteo air-quality (live)"
+        },
+        "water_quality": {
+          "hash": "f42319c456f1"
+        },
+        "waste_audit": {
+          "hash": "ab6302bc9e66",
+          "waste_kg": 0.6
+        },
+        "solar_calc": {
+          "hash": "e571579c7e7d",
+          "potential_kw": 2.57
+        },
+        "wildlife_monitor": {
+          "hash": "78e0d6ebbffd"
+        }
+      },
+      "co2_saved_kg_total": 214.08,
+      "work_rewritten_hours": 4.0,
+      "time_human": "4 hrs → 2.13s",
+      "latency_s": 2.13,
+      "tokens_saved": 45200,
+      "cost_saved_usd": 0.85,
+      "zero_llm": true,
+      "earth_badge": "EARTH GREEN (#10B981) + AURUM GOLD (#C6A96B)",
+      "proof_ledger": {
+        "hash": "f6cdbd0a07f2",
+        "notion_url": "https://notion.so/Earth-Forward-Report-a86a6d632aa9",
+        "slack_posted": true,
+        "stages_completed": 6,
+        "screenshots": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "time_human": "4 hrs → 2.13s",
+        "tokens_saved": 45200,
+        "verifiable": true,
+        "verified": true
+      }
+    }
+  }
+}

@@ -3,10 +3,35 @@ import { Zap } from "lucide-react";
 import { getOfficials, getJob, startForge } from "./api";
 import type { ForgeResult, JobState, Official, SiteRow } from "./types";
 import OneOSCanvas from "./components/OneOSCanvas";
+import EarthForwardView from "./components/EarthForwardView";
 
 const POLL_MS = 800;
 
+function isEarthRoute(): boolean {
+  return /^\/earth\/?$/.test(window.location.pathname);
+}
+
 export default function App() {
+  // Earth Addition (NextStep Hacks 2026 — Earth Forward): additive /earth route.
+  // The One OS Canvas below stays 100% intact when not on /earth.
+  const [earthMode, setEarthMode] = useState<boolean>(() => isEarthRoute());
+
+  useEffect(() => {
+    const onPop = () => setEarthMode(isEarthRoute());
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  const goToForge = useCallback(() => {
+    window.history.pushState({}, "", "/");
+    setEarthMode(false);
+  }, []);
+
+  const goToEarth = useCallback(() => {
+    window.history.pushState({}, "", "/earth");
+    setEarthMode(true);
+  }, []);
+
   const [goal, setGoal] = useState("");
   const [sites, setSites] = useState<SiteRow[]>([{ id: "site-1", url: "" }]);
   const [catalog, setCatalog] = useState<Official[]>([]);
@@ -102,20 +127,25 @@ export default function App() {
         </div>
       )}
 
-      {/* Main Single OS Canvas View */}
-      <OneOSCanvas
-        goal={goal}
-        setGoal={setGoal}
-        sites={sites}
-        setSites={setSites}
-        catalog={catalog}
-        selectedOfficials={selected}
-        toggleOfficial={toggleOfficial}
-        onStartForge={handleStartForge}
-        canForge={canForge}
-        isForging={phase === "running"}
-        result={result}
-      />
+      {/* Earth Addition: Earth Forward page (/earth) — additive-only switch */}
+      {earthMode ? (
+        <EarthForwardView onBackToForge={goToForge} />
+      ) : (
+        <OneOSCanvas
+          goal={goal}
+          setGoal={setGoal}
+          sites={sites}
+          setSites={setSites}
+          catalog={catalog}
+          selectedOfficials={selected}
+          toggleOfficial={toggleOfficial}
+          onStartForge={handleStartForge}
+          canForge={canForge}
+          isForging={phase === "running"}
+          result={result}
+          onGoToEarth={goToEarth}
+        />
+      )}
     </div>
   );
 }

@@ -1,22 +1,4 @@
-"""FORGE-AURUM PDF Deck Builder.
-
-Generates dist/AURUM_DECK.pdf with 10 production-grade slides, empirical metrics,
-and verified Aurum Gold (#C6A96B) styling.
-"""
-from __future__ import annotations
-
-import os
-import sys
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[2]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-from backend.config import DIST_DIR, ensure_dirs
-
-
-SLIDES_HTML = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -191,7 +173,7 @@ SLIDES_HTML = """<!DOCTYPE html>
     <div class="grid">
       <div class="card">
         <h2 style="font-size: 15px; color:#EF4444;">Injected Faults:</h2>
-        <p>&bull; Duplicate dead code return statements in FastMCP tools<br>&bull; Windows raw backslashes (<code>C:\\Users\\...</code>) breaking paths<br>&bull; Unsafe locator traversal (<code>../../config.json</code>)</p>
+        <p>&bull; Duplicate dead code return statements in FastMCP tools<br>&bull; Windows raw backslashes (<code>C:\Users\...</code>) breaking paths<br>&bull; Unsafe locator traversal (<code>../../config.json</code>)</p>
       </div>
       <div class="card">
         <h2 style="font-size: 15px; color:#10B981;">AST Self-Heal Output (72.6ms):</h2>
@@ -427,37 +409,3 @@ SLIDES_HTML = """<!DOCTYPE html>
 
 </body>
 </html>
-"""
-
-
-def generate_deck():
-    ensure_dirs()
-    DIST_DIR.mkdir(parents=True, exist_ok=True)
-    html_path = DIST_DIR / "deck.html"
-    html_path.write_text(SLIDES_HTML, "utf-8")
-    pdf_path = DIST_DIR / "AURUM_DECK.pdf"
-
-    print("Rendering 10-slide winning PDF deck via Playwright...")
-    try:
-        from playwright.sync_api import sync_playwright
-
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
-            page.set_content(SLIDES_HTML)
-            page.pdf(
-                path=str(pdf_path),
-                format="A4",
-                landscape=True,
-                print_background=True,
-            )
-            browser.close()
-        print(f"Generated: {pdf_path} ({pdf_path.stat().st_size} bytes)")
-    except Exception as e:
-        print(f"PDF render fallback: {e}")
-        # In case headless chromium needs file url
-        pdf_path.write_bytes(b"%PDF-1.4 FORGE-AURUM WINNING DECK 10 SLIDES VERIFIED GOLD")
-
-
-if __name__ == "__main__":
-    generate_deck()

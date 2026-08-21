@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "forge-eco": {
+      "command": "python",
+      "args": ["forge/mcp/forge_eco/server.py"],
+      "env": {},
+      "description": "Earth Forward MCP — AQI, water, waste, solar, wildlife + full eco workflow — NextStep Hacks 2026 Earth Forward",
+      "type": "earth_green",
+      "badge": "#10B981",
+      "gold_badge": "#C6A96B",
+      "auto_update": true,
+      "hot_reload": "0.1s",
+      "version": "1.0.0",
+      "hash": "f6cdbd0a07f2",
+      "aurum_verified": true,
+      "earth_forward": true,
+      "theme": "Earth Forward — NextStep Hacks 2026",
+      "served_by_super_hub": "forge-aurum-hub (1 entry, auto-discovered)"
+    }
+  },
+  "forge_eco": {
+    "total_tools": 6,
+    "tools": [
+      {"name": "eco_air_quality", "badge": "EARTH GREEN", "description": "Live AQI + PM2.5 + PM10 via free Open-Meteo API with deterministic fallback"},
+      {"name": "eco_water_quality", "badge": "EARTH GREEN", "description": "Water scarcity score + conservation tips"},
+      {"name": "eco_waste_audit", "badge": "EARTH GREEN", "description": "Waste kg + CO2 kg + reduction tips from item list"},
+      {"name": "eco_solar_calc", "badge": "EARTH GREEN", "description": "Solar potential kW + savings + ROI months from usage kWh"},
+      {"name": "eco_wildlife_monitor", "badge": "EARTH GREEN", "description": "Endangered species + conservation actions per region"},
+      {"name": "chain_eco_full_workflow", "badge": "EARTH GREEN + AURUM GOLD", "description": "Full Earth Forward workflow: air + water + waste + solar + wildlife -> Notion + Slack + Proof Ledger"}
+    ],
+    "zero_llm": true,
+    "tokens_used": 0,
+    "paths": "Path(__file__).resolve().parents[3] + as_posix() '/' — zero backslashes, zero hardcoded drives"
+  }
+}

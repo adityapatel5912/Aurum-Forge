@@ -1208,6 +1208,11 @@ if __name__ == "__main__":
             traceback.print_exc()
             raise HTTPException(500, f"Voice Pilot failed: {str(e)}")
 
+    # Earth Addition (NextStep Hacks 2026 — Earth Forward): additive-only /api/earth/* routes
+    from backend.aurum.earth import register_earth_routes
+
+    register_earth_routes(app)
+
     # serve the built frontend when present (single-command production mode)
     frontend_dist = ROOT / "frontend" / "dist"
     if frontend_dist.exists():
