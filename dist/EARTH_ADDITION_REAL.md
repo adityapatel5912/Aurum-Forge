@@ -60,7 +60,49 @@ backslashes in super_hub.mcp.json -> False
 IDE entries: ~/.antigravity/mcp.json -> forge-aurum-hub (1 entry, give-once preserved)
 \`\`\`
 
-## 7. Deployed endpoints (added after push — Render auto-deploy)
+## 7. Deployed endpoints — RENDER (auto-deploy from commit 838e6b4) — real curl outputs
+
+Verified live 2026-08-21 ~12:00 UTC:
+
+```bash
+curl -s https://aurum-forge.onrender.com/api/earth/health
 ```
-(pending push — curl outputs appended below after deployment)
+{"ok":true,"status":"ok","service":"aurum-forge-earth","tagline":"Forge Once. Use Everywhere. Verify Forever. For Earth.","theme":"Earth Forward — NextStep Hacks 2026","earth_forward":true,"adherence":true,"uptime_s":5.7,"total_tools":68,"total_servers":43,"earth_servers":["forge_eco","chain_eco_monitor","chain_waste_reduce","chain_renewable_optimize"],"earth_chains":3,"hash":"f6cdbd0a07f2","aurum_verified":true,...}
+
+(Note: the deployed Render checkout serves 68 tools / 43 servers — the repo-tracked
+server set; the local dev machine scans 134 / 83 including local-only dev servers.
+Both are real measured numbers; both exceed the >= 67 requirement.)
+
+```bash
+curl -s https://aurum-forge.onrender.com/api/health          -> 200 (existing system intact)
+curl -s https://aurum-forge.onrender.com/api/earth/chains    -> {"earth_new": 3, "existing": 5, "all_chains": 8} | hash f6cdbd0a07f2
+curl -s -X POST .../api/earth/chains/run {"chain":"eco_monitor","city":"Balasar, Gujarat"}
+  -> success | notion https://notion.so/Earth-Forward-Report-3d80851afa9e
+     | slack posted true #earth-forward | 4 hrs -> 2.01s | AQI 65 Moderate (live Open-Meteo)
+curl -s -X POST .../api/earth/chains/run {"chain":"waste_reduce"}        -> success | #sustainability | 4 hrs -> 0.07s
+curl -s -X POST .../api/earth/chains/run {"chain":"renewable_optimize"}  -> success | #sustainability | 4 hrs -> 1.57s
+curl -s https://aurum-forge.onrender.com/api/earth/stats
+  -> reports 14 | waste 2.4 kg | solar 10.28 kW | CO2 10212.56 kg | tokens 632,800
+curl -s -X POST .../api/earth/vault/scan
+  -> security_score 100 | AURUM SECURITY GOLD (#C6A96B) | can_publish true
 ```
+
+## 8. Deployed frontend — VERCEL
+
+- https://aurum-forge.vercel.app/earth -> 200 (SPA rewrite added to both vercel.json)
+- Production page verified in-browser: header badge "68 tools · hash f6cdbd0a07f2"
+  (live from Render API), live stats tiles (14 reports / 2.4 kg / 10.28 kW / 10212.56 kg CO2),
+  "Run Chain" executed from the production UI -> notion_url link + slack posted true
+  (#earth-forward) + measured time chips + Proof Ledger filled.
+- Homepage https://aurum-forge.vercel.app/ -> 200 (One OS Canvas untouched).
+
+## 9. UptimeRobot (manual dashboard step)
+
+Add 2 monitors (5-min interval) to the existing 4 — then logs will show
+GET /api/earth/health every 5 min, 24/7:
+
+- Monitor 5: https://aurum-forge.onrender.com/api/earth/health
+- Monitor 6: https://aurum-forge.onrender.com/api/earth/chains
+
+Forge Once. Use Everywhere. Verify Forever. For Earth.
+
